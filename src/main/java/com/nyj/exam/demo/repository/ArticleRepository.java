@@ -1,55 +1,30 @@
 package com.nyj.exam.demo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.nyj.exam.demo.vo.Article;
 
-@Component
-public class ArticleRepository {
+@Mapper
+public interface ArticleRepository {  
+	
+	//@Insert("INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title =  #{title},`body` =  #{body}")
+	public Article writeArticle(@Param("title") String title, @Param("body") String body);  
 
-	private int articleLastId;
-	private List<Article> articles;
+	@Select("SELECT * FROM article WHERE id = #{id}")
+	public Article getArticle(@Param("id") int id); 
 	
-	public ArticleRepository() {
-		articleLastId = 0;
-		articles = new ArrayList<Article>();
-	}
+	@Select("SELECT * FROM article")
+	public List<Article> getArticles();  
 	
-	public Article writeArticle(String title, String body) {
-		articleLastId++;
-		Article article = new Article(articleLastId, title, body);
-		articles.add(article);
-		return article;
-	}
-
-	public Article getArticle(int id) {
-		for(Article article : articles) {
-			if( article.getId() == id) {
-				return article; 
-			}
-		}
-		return null;
-	}
-	
-	public List<Article> getArticles() { 
-		return articles;
-	}
-	
-	public void deleteArticle(int id) {
-		Article article = getArticle(id);
-		articles.remove(article);
-	}
+	@Delete("DELETE FROM article WHERE id = #{id}")
+	public void deleteArticle(@Param("id") int id); 
 	 
-	public void modifyArticle(int id, String title, String body) {
-		Article article = getArticle(id);
-		article.setTitle(title);
-		article.setBody(body); 
-	}
+	public void modifyArticle(int id, String title, String body);  
 	
-	
-
 }
