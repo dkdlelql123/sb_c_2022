@@ -19,6 +19,15 @@ public class UsrArticleController {
 		articleLastId = 0;
 		articles = new ArrayList<Article>() ;
 	}
+
+	private Article getArticle(int id) {
+		for(Article article : articles) {
+			if( article.getId() == id) {
+				return article; 
+			}
+		}
+		return null;
+	}
 	
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
@@ -34,5 +43,18 @@ public class UsrArticleController {
 	@ResponseBody
 	public List<Article> showList() {	
 		return articles;
+	}
+	
+	@RequestMapping("/usr/article/delete")
+	@ResponseBody
+	public String deleteArticle(int id) {
+		Article article = getArticle(id);
+		
+		if(article == null) {
+			return id+"번 게시물이 존재하지 않습니다.";
+		}
+		
+		articles.remove(article);
+		return id+"번 게시물이 삭제되었습니다.";
 	}
 }
