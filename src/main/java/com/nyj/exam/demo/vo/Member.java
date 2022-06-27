@@ -16,10 +16,11 @@ public class Member {
 	private String nickname;
 	private String phoneNumber;
 
-//	private datetime regDate;
-//	private datetime updateDate;
+	private String regDate;
+	private String updateDate;
 
 	private int authLevel;
+	
 	private int delStatus;
-	//private datetime delDate
+	private String delDate;
 }

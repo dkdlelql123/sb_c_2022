@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nyj.exam.demo.repository.MemberRepository;
+import com.nyj.exam.demo.vo.Member;
 
 @Service
 public class MemberService {
@@ -18,7 +19,9 @@ public class MemberService {
 	public int getLastInsertId() {
 		return memberRepository.getLastInsertId();
 	}
-	
-	
+
+	public Member findById(int id) {
+		return memberRepository.findById(id);
+	}
 	
 }

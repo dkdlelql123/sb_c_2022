@@ -19,4 +19,16 @@
 	SELECT LAST_INSERT_ID()
 	</select>
 	
+	<select id="findByLoginId" resultType="Member">
+	SELECT *
+	FROM `member`
+	WHERE loginId = #{loginId}
+	</select>
+	
+	<select id="findById" resultType="Member">
+	SELECT *
+	FROM `member`
+	WHERE id = #{id}
+	</select>
+	
 </mapper>
