@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.nyj.exam.demo.vo.Article;
 
@@ -25,6 +26,7 @@ public interface ArticleRepository {
 	@Delete("DELETE FROM article WHERE id = #{id}")
 	public void deleteArticle(@Param("id") int id); 
 	 
-	public void modifyArticle(int id, String title, String body);  
+	@Update("UPDATE article SET title = #{title}, `body`= #{body}, updateDate = NOW() WHERE id =  #{id}")
+	public void modifyArticle(@Param("id") int id, @Param("title") String title, @Param("body") String body);
 	
 }
