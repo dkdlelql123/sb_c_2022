@@ -17,10 +17,16 @@ public class MemberService {
 		if(oldMember != null) {
 			return -1;
 		}
+		
+		oldMember = getMemberNameAndEmail(name, email);
+		if(oldMember != null) {
+			return -2;
+		}
+		
 		memberRepository.join(loginId, loginPw, email, name, nickname, phoneNumber);
 		return 1;
 	}
-
+	
 	public int getLastInsertId() {
 		return memberRepository.getLastInsertId();
 	}
@@ -32,5 +38,10 @@ public class MemberService {
 	public Member getMemberId(int id) {
 		return memberRepository.getMemberById(id);
 	}
+	
+	public Member getMemberNameAndEmail(String name, String email) {
+		return memberRepository.getMemberNameAndEmail(name, email);
+	}
+
 	
 }
