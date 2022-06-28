@@ -13,3 +13,7 @@ spring:
     password: test  
 mybatis:
   type-aliases-package: com.nyj.exam.demo.vo
+custom:
+  logging:
+    dir: log
+    level: debug 
