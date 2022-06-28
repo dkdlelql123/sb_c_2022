@@ -6,13 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyj.exam.demo.service.ArticleService;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Article;
-import com.nyj.exam.demo.vo.Member;
 import com.nyj.exam.demo.vo.ResultData;
 
 @Controller
@@ -52,11 +52,13 @@ public class UsrArticleController {
 		return ResultData.newData(writeArticleRd, article);
 	}
 
-	@RequestMapping("/usr/article/showList")
-	@ResponseBody
-	public ResultData showList() {
+	@RequestMapping("/usr/article/list")
+	public String showList(Model model) {
 		List<Article> articles = articleService.getArticles();
-		return ResultData.form("S-1", "게스트 리스트입니다", articles);
+		
+		model.addAttribute("articles", articles);
+		
+		return "usr/article/list";
 	}
 
 	@RequestMapping("/usr/article/getArticle")
