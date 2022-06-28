@@ -75,15 +75,15 @@ public class UsrMemberController {
 		
 		Member member = memberService.getMemberLoginId(loginId);
 		
-		if(member==null) {
-			return ResultData.form("F-3", "회원정보가 없습니다.");			
+		if(member == null) {
+			return ResultData.form("F-3", "회원정보가 없습니다.");			 
 		}
 		
-		if(loginPw != member.getLoginPw()) {
+		if(member.getLoginPw().equals(loginPw) == false) {
 			return ResultData.form("F-4", "비밀번호가 일치하지 않습니다.");
 		}
 		
-		httpSession.setAttribute("LoginedMemberId", member.getLoginId());
+		httpSession.setAttribute("LoginedMemberId", member.getId());
 		
 		return ResultData.form("S-1", Ut.f("%s님 반갑습니다.", loginId));
 	}

@@ -2,6 +2,8 @@ package com.nyj.exam.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nyj.exam.demo.service.ArticleService;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Article;
+import com.nyj.exam.demo.vo.Member;
 import com.nyj.exam.demo.vo.ResultData;
 
 @Controller
@@ -20,7 +23,18 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
-	public ResultData doAdd(String title, String body) {
+	public ResultData doAdd(String title, String body, HttpSession httpSession) {
+		boolean isLogind = false;
+		int loginMemberId = 0;
+		
+		if(httpSession.getAttribute("LoginedMemberId") != null) {
+			isLogind = true;
+			loginMemberId = (int) httpSession.getAttribute("LoginedMemberId");
+		}
+		
+		if (isLogind == false) {
+			return ResultData.form("F-0", "로그인 이후에 사용가능합니다.");
+		}
 
 		if (Ut.empty(title)) {
 			return ResultData.form("F-2", Ut.f("제목을 입력해주세요"));
@@ -30,7 +44,7 @@ public class UsrArticleController {
 			return ResultData.form("F-3", Ut.f("내용을 입력해주세요"));
 		}
 
-		ResultData writeArticleRd = articleService.writeArticle(title, body);
+		ResultData writeArticleRd = articleService.writeArticle(loginMemberId, title, body);
 		int id = (int) writeArticleRd.getData1();
 
 		Article article = articleService.getArticle(id);
