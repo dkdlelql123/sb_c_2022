@@ -18,10 +18,16 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = "제목",
 `body` = "내용";
+ 
+INSERT INTO article 
+SET regDate = NOW(),
+updateDate = NOW(),
+title = "제목입니당",
+`body` = "내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ";
 
 # 회원테이블 추가
 CREATE TABLE `member` (
-	id INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	regDate DATETIME NOT NULL,
 	updateDate DATETIME NOT NULL,
 	loginId CHAR(20) NOT NULL,
@@ -69,3 +75,14 @@ nickname = '사용자2 별명',
 email = '사용자2@naver.com',
 phoneNumber = '010-1111-1111',
 authLevel = 2;	
+
+# 게시물 테이블에 회원정보 추가
+ALTER TABLE article 
+ADD COLUMN memberId INT UNSIGNED NOT NULL AFTER updateDate;
+
+# 기존 게시물 데이터 회원정보 변경
+UPDATE article
+SET memberID = 2
+WHERE memberid = 0;
+
+SELECT * FROM article;
