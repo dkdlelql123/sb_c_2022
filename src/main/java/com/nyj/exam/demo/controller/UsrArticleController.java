@@ -14,64 +14,74 @@ import com.nyj.exam.demo.vo.ResultData;
 
 @Controller
 public class UsrArticleController {
-	
+
 	@Autowired
 	ArticleService articleService;
-	
-	
+
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
-	public Article doAdd(String title, String body) {
-		int id = articleService.writeArticle(title, body); 
-		
-		Article article = articleService.getArticle(id); 
-		
-		return article;
+	public ResultData doAdd(String title, String body) {
+
+		if (Ut.empty(title)) {
+			return ResultData.form("F-2", Ut.f("제목을 입력해주세요"));
+		}
+
+		if (Ut.empty(body)) {
+			return ResultData.form("F-3", Ut.f("내용을 입력해주세요"));
+		}
+
+		ResultData writeArticleRd = articleService.writeArticle(title, body);
+		int id = (int) writeArticleRd.getData1();
+
+		Article article = articleService.getArticle(id);
+
+		return ResultData.form(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), article);
 	}
 
 	@RequestMapping("/usr/article/showList")
 	@ResponseBody
-	public List<Article> showList() {	
-		return articleService.getArticles();
+	public ResultData showList() {
+		List<Article> articles = articleService.getArticles();
+		return ResultData.form("S-1", "게스트 리스트입니다", articles);
 	}
-	
+
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
 	public ResultData getArticleAction(int id) {
 		Article article = articleService.getArticle(id);
-		
-		if(article == null) {
+
+		if (article == null) {
 			return ResultData.form("F-1", Ut.f("%d번 게시물이 존재하지 않습니다.", id));
 		}
-		
+
 		return ResultData.form("S-1", Ut.f("%d번 게시물입니다.", id), article);
 	}
-	
+
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
 		Article article = articleService.getArticle(id);
-		
-		if(article == null) {
-			return id+"번 게시물이 존재하지 않습니다.";
+
+		if (article == null) {
+			return id + "번 게시물이 존재하지 않습니다.";
 		}
-		
+
 		articleService.deleteArticle(id);
-		
-		return id+"번 게시물이 삭제되었습니다.";
+
+		return id + "번 게시물이 삭제되었습니다.";
 	}
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public String doModify(int id, String title, String body) {
 		Article article = articleService.getArticle(id);
-		
-		if(article == null) {
-			return id+"번 게시물이 존재하지 않습니다.";
+
+		if (article == null) {
+			return id + "번 게시물이 존재하지 않습니다.";
 		}
-		
-		articleService.modifyArticle(id,title,body);
-		return id+"번 게시물이 수정되었습니다.";
+
+		articleService.modifyArticle(id, title, body);
+		return id + "번 게시물이 수정되었습니다.";
 	}
 
 }
