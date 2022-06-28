@@ -87,4 +87,21 @@ public class UsrMemberController {
 		
 		return ResultData.form("S-1", Ut.f("%s님 반갑습니다.", loginId));
 	}
+	
+	@RequestMapping("/usr/member/doLogout")
+	@ResponseBody
+	public ResultData doLogout(HttpSession httpSession) {
+		boolean isLogind = false;
+		
+		if(httpSession.getAttribute("LoginedMemberId") == null) {
+			isLogind = true;
+		}
+		
+		if(isLogind) {
+			return ResultData.form("F-0", "이미 로그아웃 상태입니다");
+		}
+		
+		httpSession.removeAttribute("LoginedMemberId");
+		return ResultData.form("S-1", "로그아웃 성공");
+	}
 }
