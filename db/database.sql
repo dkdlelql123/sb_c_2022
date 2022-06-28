@@ -33,7 +33,7 @@ CREATE TABLE `member` (
 	authLevel SMALLINT(2) NOT NULL,
 	delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0:탈퇴전/1:탈퇴',
 	delDate DATETIME COMMENT '탈퇴날짜'
-)
+);
 
 # 관리자 회원 생성
 INSERT INTO `member`
