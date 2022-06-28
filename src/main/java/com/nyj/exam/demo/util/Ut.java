@@ -17,5 +17,9 @@ public class Ut {
 		
 	}
 
+	public static String f(String format, String... args) {
+		return String.format(format, args);
+	}
+
 		
 }

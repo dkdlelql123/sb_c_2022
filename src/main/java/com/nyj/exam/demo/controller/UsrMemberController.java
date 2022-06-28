@@ -41,10 +41,10 @@ public class UsrMemberController {
 		
 		int join = memberService.join(loginId, loginPw, email, name, nickname, phoneNumber);
 		if(join == -1) {
-			return "이미 존재하는 계정 아이디입니다.";
+			return Ut.f("이미 존재하는 계정(%s) 아이디입니다.",loginId) ;
 		}
 		if(join == -2) {
-			return "이미 존재하는 이름과 이메일 주소입니다.";
+			return Ut.f("이미 존재하는 이름(%s)과 이메일주소(%s)입니다.",name,email);
 		}
 			
 		int id = memberService.getLastInsertId();	
