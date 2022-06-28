@@ -35,7 +35,7 @@ public class UsrArticleController {
 
 		Article article = articleService.getArticle(id);
 
-		return ResultData.form(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), article);
+		return ResultData.newData(writeArticleRd, article);
 	}
 
 	@RequestMapping("/usr/article/showList")

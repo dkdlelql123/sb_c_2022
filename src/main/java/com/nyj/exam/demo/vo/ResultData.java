@@ -37,4 +37,14 @@ public class ResultData {
 		return isSuccess() == false;
 	}
 	
+	public static ResultData newData(ResultData rd, Object obj) {
+		ResultData newRd = new ResultData();
+		
+		newRd.resultCode = rd.getMsg();
+		newRd.msg = rd.getMsg();
+		newRd.data1 = obj;
+		
+		return newRd;
+	}
+	
 }
