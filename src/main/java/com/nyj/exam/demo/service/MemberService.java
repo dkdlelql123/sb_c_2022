@@ -12,16 +12,25 @@ public class MemberService {
 	@Autowired
 	MemberRepository memberRepository;
 	
-	public void join(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
+	public int join(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
+		Member oldMember = getMemberLoginId(loginId);
+		if(oldMember != null) {
+			return -1;
+		}
 		memberRepository.join(loginId, loginPw, email, name, nickname, phoneNumber);
+		return 1;
 	}
 
 	public int getLastInsertId() {
 		return memberRepository.getLastInsertId();
 	}
+	
+	public Member getMemberLoginId(String loginId) {
+		return memberRepository.getMemberByLoginId(loginId);
+	}
 
-	public Member findById(int id) {
-		return memberRepository.findById(id);
+	public Member getMemberId(int id) {
+		return memberRepository.getMemberById(id);
 	}
 	
 }
