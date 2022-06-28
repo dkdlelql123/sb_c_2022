@@ -20,10 +20,8 @@ public class UsrHomeController {
 		return count+"안녕하세요";
 	}
 	
-	@RequestMapping("/usr/home/main1")
-	@ResponseBody
+	@RequestMapping("/")
 	public String showHome1() {
-		count++;
-		return count+"반가워요";
+		return "home";
 	}
 }
