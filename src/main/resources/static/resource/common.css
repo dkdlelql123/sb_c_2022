@@ -23,3 +23,11 @@
 html > body {
 	font-family: 'HallymGothic-Regular', sans-serif;
 }
+
+.table-box-type-1 table {
+	width: 100%;
+}
+.table-box-type-1 table td, .table-box-type-1 table th{
+	border:1px solid #ddd;
+	padding:10px;
+}
