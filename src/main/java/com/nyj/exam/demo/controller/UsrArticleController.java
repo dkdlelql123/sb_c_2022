@@ -47,7 +47,7 @@ public class UsrArticleController {
 		ResultData writeArticleRd = articleService.writeArticle(loginMemberId, title, body);
 		int id = (int) writeArticleRd.getData1();
 
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getArticle(loginMemberId,id);
 
 		return ResultData.newData(writeArticleRd, article);
 	}
@@ -62,9 +62,16 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(Model model, int id) {
-		Article article = articleService.getArticle(id);
+	public String showDetail(HttpSession httpSession, Model model, int id) {
+		boolean isLogind = false;
+		int LoginedMemberId = 0;
 		
+		if(httpSession.getAttribute("LoginedMemberId") != null) {
+			isLogind = true;
+			LoginedMemberId = (int) httpSession.getAttribute("LoginedMemberId");
+		}
+		
+		Article article = articleService.getArticle(LoginedMemberId, id);
 		model.addAttribute("article", article);
 		
 		return "usr/article/detail";
@@ -72,8 +79,16 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
-	public ResultData getArticleAction(int id) {
-		Article article = articleService.getArticle(id);
+	public ResultData getArticleAction(HttpSession httpSession,int id) {
+		boolean isLogind = false;
+		int LoginedMemberId = 0;
+		
+		if(httpSession.getAttribute("LoginedMemberId") != null) {
+			isLogind = true;
+			LoginedMemberId = (int) httpSession.getAttribute("LoginedMemberId");
+		}
+		
+		Article article = articleService.getArticle(LoginedMemberId, id);
 
 		if (article == null) {
 			return ResultData.form("F-1", Ut.f("%d번 게시물이 존재하지 않습니다.", id));
@@ -81,10 +96,10 @@ public class UsrArticleController {
 
 		return ResultData.form("S-1", Ut.f("%d번 게시물입니다.", id), article);
 	}
-
+	
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData doDelete(int id, HttpSession httpSession) {
+	public String doDelete(HttpSession httpSession, int id) {
 		boolean isLogind = false;
 		int memberId = 0;
 		
@@ -94,36 +109,64 @@ public class UsrArticleController {
 		}
 		
 		if (isLogind == false) {
-			return ResultData.form("F-0", "로그인 이후에 사용가능합니다.");
+			return Ut.jsHistoryBack("로그인 이후에 사용가능합니다."); 
 		}
 		
-		Article article = articleService.getArticle(id);
-
+		Article article = articleService.getArticle(memberId, id);
 		if (article == null) {
-			return ResultData.form("F-1", Ut.f("%d번 게시물이 존재하지 않습니다.", id));
+			return Ut.jsHistoryBack("해당 게시물이 없습니다.");
 		}
 		
 		if(article.getMemberId() != memberId) {
-			return ResultData.form("F-2", "권한이 없습니다.");
+			return Ut.jsHistoryBack("권한이 없습니다.");  
 		}
+		articleService.deleteArticle(id);
 
+		return Ut.jsReplace("게시물이 삭제되었습니다..", "/usr/article/list"); 
+	}
 
-		return ResultData.form("S-1", Ut.f("%d번 게시물이 삭제되었습니다.", id));
+	@RequestMapping("/usr/article/modify")
+	public String showModify(HttpSession httpSession, int id, Model model) {
+		boolean isLogind = false;
+		int memberId = 0;
+		
+		if(httpSession.getAttribute("LoginedMemberId") != null) {
+			isLogind = true;
+			memberId = (int) httpSession.getAttribute("LoginedMemberId");
+		}
+		
+		if (isLogind == false) {
+			return  "로그인 이후에 사용가능합니다.";
+		}
+		
+		Article article = articleService.getArticle(memberId, id); 
+		
+		model.addAttribute("article", article);
+		
+		return "/usr/article/modify";
 	}
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body) {
-		Article article = articleService.getArticle(id);
+	public String doModify(HttpSession httpSession, int id, String title, String body) {
+		boolean isLogind = false;
+		int loginMemberId = 0;
+		
+		if(httpSession.getAttribute("loginMemberId") != null) {
+			isLogind = true;
+			loginMemberId = (int) httpSession.getAttribute("loginMemberId");
+		} 
+		
+		Article article = articleService.getArticle(loginMemberId, id);
 
 		if (article == null) {
-			return ResultData.form("F-1", Ut.f("%d번 게시물이 존재하지 않습니다.", id));
+			return Ut.jsHistoryBack("해당 게시물이 없습니다.");
 		}
 
 		articleService.modifyArticle(id, title, body);
-		article = articleService.getArticle(id);
+		article = articleService.getArticle(loginMemberId,id);
 		
-		return ResultData.form("S-1", Ut.f("%d번 게시물이 수정되었습니다.", id), article);
+		return "게시물이 수정되었습니다";
 	}
 
 }

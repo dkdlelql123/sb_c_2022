@@ -30,8 +30,27 @@ public class ArticleService {
 		return articleRepository.getArticles();
 	}
 
-	public Article getArticle(int id) {
-		return articleRepository.getArticle(id);
+	public Article getArticle(int LoginedMemberId, int id) {
+		Article article = articleRepository.getArticle(id);
+		
+		ResultData actorCanModifyRd = actorCanModify(LoginedMemberId, article);
+		if(actorCanModifyRd.isFail()) return null;
+		
+		article.setExtra__actorCanModify(actorCanModifyRd.isSuccess());
+		
+		return article;
+	}
+
+	private ResultData actorCanModify(int loginedMemberId, Article article) {
+		if(article == null) {
+			return ResultData.form("F-1", "게시물이 존재하지 않습니다.");
+		}
+		
+		if(article.getMemberId() != loginedMemberId) {
+			return ResultData.form("F-2", "권한이 없습니다.");
+		}
+		
+		return ResultData.form("S-1", Ut.f("%d번 게시물 수정이 완료되었습니다", article.getId()), article); 
 	}
 
 	public void deleteArticle(int id) {

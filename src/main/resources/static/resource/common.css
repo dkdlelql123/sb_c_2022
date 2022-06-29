@@ -1,33 +1,68 @@
-
 @font-face {
-    font-family: 'HallymGothic-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'HallymGothic-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2')
+		format('woff2');
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'HallymGothic-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
+	font-family: 'HallymGothic-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Medium.woff2')
+		format('woff2');
+	font-weight: 500;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'HallymGothic-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+	font-family: 'HallymGothic-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Bold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
 }
 
-html > body {
+html>body {
 	font-family: 'HallymGothic-Regular', sans-serif;
 }
 
 .table-box-type-1 table {
 	width: 100%;
 }
-.table-box-type-1 table td, .table-box-type-1 table th{
-	border:1px solid #ddd;
-	padding:10px;
+
+.table-box-type-1 table td, .table-box-type-1 table th {
+	border: 1px solid #ddd;
+	padding: 10px;
+	font-weight: normal;
+}
+
+textarea.textarea, input[type=text], input[type=password] {
+	color: #0a0a0a;
+	background: #f5f5f5;
+	border-color: rgba(255, 255, 255, 0);
+	border-radius: 2px;
+}
+
+.btn {
+	border-radius: 8px;
+	display: flex;
+	background: skyblue;
+	color: #fff;
+	padding: 2px 4px;
+	font-size: 0.85rem;
+}
+
+.btn-type-1:hover {
+	background: deepskyblue;
+}
+
+.btn-type-2 {
+	background: yellowgreen;
+}
+
+.btn-type-2:hover {
+	background: mediumseagreen;
 }

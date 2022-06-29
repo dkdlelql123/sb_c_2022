@@ -2,7 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="게시물 상세페이지" />
+<c:set var="pageTitle" value="게시물 수정페이지" />
 <%@ include file="../common/head.jspf"%>
 
 <div class="table-box-type-1">
@@ -16,19 +16,18 @@
     </tr>
     <tr>
       <td>제목</td>
-      <td>${article.title}</td>
+      <td>
+        <input type="text" class="w-full input-sm"  name="title"  value="${article.title}" />
+      </td>
     </tr>
     <tr>
       <td>작성자</td>
       <td class="flex items-center gap-2">
         <span>${article.extra__writerName}</span>
-        <c:if test="${article.extra__actorCanModify}">
-          <a class="btn btn-type-1"
-            href="/usr/article/modify?id=${article.id}">수정</a>
-          <a class="btn btn-type-2"
-            onclick="if( confirm('정말 삭제하시겠습니까?') == false) return false;"
-            href="/usr/article/doDelete?id=${article.id}">삭제</a>
-        </c:if>
+        <a 
+        class="btn btn-type-1"
+        href="/usr/article/doModify?id=${article.id}"
+        >수정완료</a> 
       </td>
     </tr>
     <tr>
@@ -41,7 +40,7 @@
     </tr>
     <tr>
       <td>내용</td>
-      <td>${article.body}</td>
+      <td><textarea name="body" class="w-full textarea" cols="10" rows="10">${article.body}</textarea></td>
     </tr>
   </table>
 </div>
