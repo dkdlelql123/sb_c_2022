@@ -6,27 +6,29 @@ import javax.servlet.http.HttpSession;
 import lombok.Getter;
 
 public class Rq {
-	
 	@Getter
-	public boolean isLogind;
+	public boolean isLogined;
 	@Getter
 	public int loginedMemberId;
+	@Getter
+	public HttpSession session;
 	
 	public Rq(HttpServletRequest req) {
-		HttpSession httpSession = req.getSession();
+		this.session = req.getSession();
+		boolean isLogined = false;
+		int loginedMemberId = 0;
 		
-		if(httpSession.getAttribute("loginedMemberId") != null) {
-			isLogind = true;
-			loginedMemberId= (int) httpSession.getAttribute("LoginedMemberId");
+		if(session.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId= (int) session.getAttribute("loginedMemberId");
 		}
+		
+		this.isLogined = isLogined;
+		this.loginedMemberId = loginedMemberId;
 	}
 
-	public void logout(HttpServletRequest req) { 		
-		HttpSession httpSession = req.getSession();
-		isLogind = false;
-		httpSession.removeAttribute("loginedMemberId");
-		loginedMemberId=0;
+	public void login(Member member) {
+		session.setAttribute("loginedMemberId", member.getId());
 	}
-	
 	
 }

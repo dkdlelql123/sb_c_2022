@@ -28,18 +28,28 @@ public class ArticleService {
 
 	public List<Article> getArticles() { 
 		return articleRepository.getArticles();
+	} 
+
+	public List<Article> getForPrintArticles() {
+		return articleRepository.getForPrintArticles();
+	}
+	
+	public Article getArticle(int id) { 		
+		return articleRepository.getArticle(id); 
 	}
 
-	public Article getArticle(int LoginedMemberId, int id) {
-		Article article = articleRepository.getArticle(id);
+	public Article getForPrintArticle(int LoginedMemberId, int id) {
+		Article article = articleRepository.getForPrintArticle(id);
 		
 		ResultData actorCanModifyRd = actorCanModify(LoginedMemberId, article);
-		if(actorCanModifyRd.isFail()) return null;
+//		if(actorCanModifyRd.isFail()) {
+//			
+//		}
 		
 		article.setExtra__actorCanModify(actorCanModifyRd.isSuccess());
 		
 		return article;
-	}
+	} 
 
 	private ResultData actorCanModify(int loginedMemberId, Article article) {
 		if(article == null) {
