@@ -21,6 +21,7 @@
     <tr>
       <th>제목</th>
       <th>작성자</th>
+      <th>조회수</th>
       <th>작성일</th>
     </tr>
   </thead>
@@ -29,9 +30,11 @@
       <tr>
         <td>
           <a href="/usr/article/detail?id=${article.id}">${article.title}</a>
+          [0]
         </td>
-        <td>${article.extra__writerName}</td>
-        <td>${article.regDate.substring(2,10)}</td>
+        <td class="text-center">${article.extra__writerName}</td>
+        <td class="text-center">10</td>
+        <td class="text-center">${article.regDate.substring(2,10)}</td>
       </tr>
     </c:forEach>
   </tbody>
