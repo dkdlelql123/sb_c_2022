@@ -22,6 +22,12 @@ public class UsrArticleController {
 	@Autowired
 	ArticleService articleService; 
 	
+	@RequestMapping("/usr/article/write")
+	public String showWrite() {
+		return "/usr/article/write";
+	}
+	
+	
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public ResultData doAdd(HttpServletRequest req, String title, String body) {

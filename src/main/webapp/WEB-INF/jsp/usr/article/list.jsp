@@ -5,6 +5,13 @@
 <c:set var="pageTitle" value="게시물 리스트" />
 <%@ include file="../common/head.jspf"%>
 
+<div class="flex itmes-center justify-between mb-4">
+  <div>총 0개</div>
+  <div>
+    <a href="/usr/article/write" class="btn btn-type-1 px-2 py-1">글쓰기</a>
+  </div>
+</div>
+
 <div class="table-box-type-1">
 <table>
   <colgroup>
