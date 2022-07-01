@@ -59,6 +59,7 @@ public class UsrMemberController {
 		
 		return ResultData.form(joinRd.getResultCode(),joinRd.getMsg()) ;
 	}
+
 	@RequestMapping("/usr/member/login")
 	public String showLogin() {
 		System.out.println("로그인 페이지");
@@ -102,9 +103,11 @@ public class UsrMemberController {
 	public String doLogout(HttpServletRequest req) {
 		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if(rq.isLogined == false) {
+		if(!rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그아웃 상태입니다");
 		}
+		
+		rq.logout();
 		
 		return Ut.jsReplace("로그아웃 되었습니다", "/");
 	}

@@ -33,7 +33,7 @@ public class UsrArticleController {
 	public ResultData doAdd(HttpServletRequest req, String title, String body) {
 		Rq rq =(Rq) req.getAttribute("rq");
 		
-		if (rq.isLogined == false) {
+		if (!rq.isLogined()) {
 			return ResultData.form("F-0", "로그인 이후에 사용가능합니다.");
 		}
 
@@ -91,7 +91,7 @@ public class UsrArticleController {
 	public String doDelete(HttpServletRequest req, int id) {
 		Rq rq =(Rq) req.getAttribute("rq");
 		
-		if (rq.isLogined == false) {
+		if (!rq.isLogined()) {
 			return Ut.jsHistoryBack("로그인 이후에 사용가능합니다."); 
 		}
 		
@@ -112,7 +112,7 @@ public class UsrArticleController {
 	public String showModify(HttpServletRequest req, int id, Model model) {
 		Rq rq =(Rq) req.getAttribute("rq");
 		
-		if (rq.isLogined == false) {
+		if (!rq.isLogined()) {
 			return  "로그인 이후에 사용가능합니다.";
 		}
 		
