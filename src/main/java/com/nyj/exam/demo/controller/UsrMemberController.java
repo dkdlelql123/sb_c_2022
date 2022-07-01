@@ -19,6 +19,12 @@ public class UsrMemberController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@RequestMapping("/usr/member/join")
+	public String showJoin() {
+		System.out.println("회원가입 페이지");
+		return "/usr/member/join";
+	}
 		
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
@@ -53,7 +59,12 @@ public class UsrMemberController {
 		
 		return ResultData.form(joinRd.getResultCode(),joinRd.getMsg()) ;
 	}
-
+	@RequestMapping("/usr/member/login")
+	public String showLogin() {
+		System.out.println("로그인 페이지");
+		return "/usr/member/login";
+	}
+	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {

@@ -49,20 +49,20 @@ textarea.textarea, input[type=text], input[type=password] {
 .btn {
 	border-radius: 8px;
 	display: flex;
-	background: skyblue;
+	background: deepskyblue;
 	color: #fff;
 	padding: 2px 4px;
 	font-size: 0.85rem;
 }
 
 .btn-type-1:hover {
-	background: deepskyblue;
+	background: skyblue;
 }
 
 .btn-type-2 {
-	background: yellowgreen;
+	background: mediumseagreen;
 }
 
 .btn-type-2:hover {
-	background: mediumseagreen;
+	background: yellowgreen;
 }
