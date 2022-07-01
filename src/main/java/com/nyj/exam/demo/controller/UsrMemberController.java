@@ -95,7 +95,7 @@ public class UsrMemberController {
 		 
 		rq.login(member);
 		
-		return Ut.jsReplace(Ut.f("%s님 반갑습니다.", "?"), "/"); 
+		return Ut.jsReplace(Ut.f("'%s'님 반갑습니다.", member.getNickname()), "/"); 
 	}
 	
 	@RequestMapping("/usr/member/doLogout")

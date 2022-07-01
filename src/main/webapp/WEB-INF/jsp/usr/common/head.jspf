@@ -9,14 +9,16 @@
 <title>${pageTitle}</title>
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <!-- Include CDN JavaScript -->
 <!-- 노말라이즈, 라이브러리 한 번에 해결 -->
 <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
 
 <!-- 폰트어썸 불러오기 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
 <link rel="stylesheet" href="/resource/common.css" />
 <script src="/resource/common.js" defer="defer"></script>
@@ -33,29 +35,35 @@
       <li>
         <a href="">커뮤니티</a>
       </li>
-
-      <li>
-        <a href="/usr/member/login">로그인</a>
-      </li>
-      <li>
-        <a href="/usr/member/join">회원가입</a>
-      </li>
-
-      <li>
-        <a href="/usr/member/mypage">마이페이지</a>
-      </li>
-      <li>
-        <a href="/usr/member/doLogout">로그아웃</a>
-      </li>
+       
+      <c:choose>
+        <c:when test="${!rq.isLogined()}">
+        <li>
+          <a href="/usr/member/login">로그인</a>
+        </li>
+        <li>
+          <a href="/usr/member/join">회원가입</a>
+        </li>
+        </c:when>
+        <c:when test="${rq.isLogined()}">
+          <li>
+            <a href="/usr/member/mypage">마이페이지</a>
+          </li>
+          <li>
+            <a href="/usr/member/doLogout">로그아웃</a>
+          </li>
+        </c:when>
+      </c:choose> 
     </ul>
   </header>
-  
+
   <div class="border border-gray-200 border-r-0 border-l-0 py-2">
     <div class="m-auto w-3/4 flex items-center gap-2 ">
-     <div class="flex-grow"></div>
-      <a href="/">🏠</a> >
+      <div class="flex-grow"></div>
+      <a href="/">🏠</a>
+      >
       <span>${pageTitle}</span>
     </div>
   </div>
-  
+
   <main class="m-auto w-3/4 py-4">
