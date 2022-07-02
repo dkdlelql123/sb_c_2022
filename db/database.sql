@@ -25,6 +25,14 @@ updateDate = NOW(),
 title = "제목입니당",
 `body` = "내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ";
 
+ 
+INSERT INTO article 
+SET regDate = NOW(),
+updateDate = NOW(),
+title = "안녕하세요~",
+`body` = "내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ";
+
+
 # 회원테이블 추가
 CREATE TABLE `member` (
 	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -85,4 +93,44 @@ UPDATE article
 SET memberID = 2
 WHERE memberid = 0;
 
-SELECT * FROM article;
+# 게시판 만들기
+CREATE TABLE board(
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	`code` CHAR(40) NOT NULL UNIQUE COMMENT 'notice:공지사항, free:자유게시판...',
+	`name` CHAR(20) NOT NULL UNIQUE COMMENT '게시판 이름',
+	delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0:삭제전, 1:삭제',
+	delDate DATETIME COMMENT '삭제 날짜'
+);
+
+# 기본 게시판 생성
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'notice',
+`name` = '공지사항';
+
+# 기본 게시판 생성
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'free',
+`name` = '자유게시판';
+
+
+# 게시물 테이블에 게시판id 추가하기
+ALTER TABLE article ADD COLUMN boardId INT NOT NULL AFTER updateDate;
+
+# 1, 3번은 자유게시판
+UPDATE article
+SET boardId = 2
+WHERE id IN (1,3);
+
+# 2 번은 공지사항
+UPDATE article
+SET boardId = 1
+WHERE id = 2;
+ 
+
+
