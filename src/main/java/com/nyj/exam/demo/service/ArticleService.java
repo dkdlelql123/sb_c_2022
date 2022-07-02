@@ -72,6 +72,10 @@ public class ArticleService {
 		articleRepository.modifyArticle(id,title,body);		
 		
 	}
+
+	public int getArticlesCount(int boardId) {
+		return articleRepository.getArticlesCount(boardId);
+	}
 	
 	
 }

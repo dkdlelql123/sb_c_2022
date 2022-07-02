@@ -47,6 +47,12 @@
 	ORDER BY id DESC
 	</select>
 	
+	<select id="getArticlesCount" resultType="int">
+	SELECT COUNT(*)
+	FROM `article`
+	WHERE boardId = #{boardId} 
+	</select>
+	
 	<delete id="deleteArticle" >
 	DELETE FROM article WHERE id = #{id}
 	</delete>

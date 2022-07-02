@@ -6,7 +6,7 @@
 <%@ include file="../common/head.jspf"%>
 
 <div class="flex itmes-center justify-between mb-4">
-  <div>${board.name} 총 0개</div>
+  <div>${board.name} 총 ${articlesCount}개</div>
   <div>
     <a href="/usr/article/write" class="btn btn-type-1 px-2 py-1">글쓰기</a>
   </div>

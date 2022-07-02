@@ -22,11 +22,14 @@ public interface ArticleRepository {
 	public List<Article> getArticles(@Param("boardId") int boardId);  
 	
 	public List<Article> getForPrintArticles(@Param("boardId") int boardId);  
+
+	public int getArticlesCount(@Param("boardId")int boardId);
 	 
 	public void deleteArticle(@Param("id") int id); 
 	  
 	public void modifyArticle(@Param("id") int id, @Param("title") String title, @Param("body") String body);
  
 	public int getLastInsertId();
+
 	
 }
