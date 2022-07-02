@@ -26,12 +26,16 @@ public class ArticleService {
 		return ResultData.form("S-1", Ut.f("%d번 게시물 생성 되었습니다", id), id); 
 	}
 
-	public List<Article> getArticles() { 
-		return articleRepository.getArticles();
+	public List<Article> getArticles(int memberId, int boardId) { 
+		return articleRepository.getArticles(boardId); 
 	} 
 
-	public List<Article> getForPrintArticles() {
-		return articleRepository.getForPrintArticles();
+	public List<Article> getForPrintArticles(int memberId, int boardId) {
+		List<Article> articles = articleRepository.getForPrintArticles(boardId);
+		for(Article article : articles) {
+			actorCanEdit(memberId, article);
+		}
+		return articles;
 	}
 	
 	public Article getArticle(int id) { 		
@@ -41,10 +45,7 @@ public class ArticleService {
 	public Article getForPrintArticle(int LoginedMemberId, int id) {
 		Article article = articleRepository.getForPrintArticle(id);
 		
-		ResultData actorCanEditRd = actorCanEdit(LoginedMemberId, article);
-//		if(actorCanModifyRd.isFail()) {
-//			
-//		}
+		ResultData actorCanEditRd = actorCanEdit(LoginedMemberId, article); 
 		
 		article.setExtra__actorCanEdit(actorCanEditRd.isSuccess());
 		

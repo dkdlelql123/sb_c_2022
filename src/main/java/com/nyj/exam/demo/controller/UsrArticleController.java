@@ -52,9 +52,16 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, int boardId) {
+	public String showList(HttpServletRequest res, Model model, int boardId) {
+		Rq rq = (Rq) res.getAttribute("rq");
+		
 		Board board = boardService.getBoardById(boardId);
-		List<Article> articles = articleService.getForPrintArticles();
+		
+		if(board==null) {
+			Ut.jsHistoryBack("해당 게시판은 존재하지 않습니다.");
+		}
+		
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
 		
 		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
