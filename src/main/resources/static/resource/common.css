@@ -29,6 +29,10 @@ html>body {
 	font-family: 'HallymGothic-Regular', sans-serif;
 }
 
+body{
+	min-width: 800px;
+}
+
 .table-box-type-1 table {
 	width: 100%;
 }
