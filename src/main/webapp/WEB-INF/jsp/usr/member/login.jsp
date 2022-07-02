@@ -5,13 +5,12 @@
 <c:set var="pageTitle" value="로그인" />
 <%@ include file="../common/head.jspf"%>
 
-<div class="w-1/2 m-auto mt-[100px]">
+<div class="w-1/2 min-w-[500px] m-auto mt-[100px]">
   <h1 class="text-[24px] text-center">✋HELLO✋</h1>
   <form 
     class="table-box-type-1 mt-[20px]" 
     action="/usr/member/doLogin"
-    method="POST"
-    onsubmit=""
+    method="POST" 
     >
     <table>
       <colgroup>
@@ -33,7 +32,8 @@
       </tr>
     </table>
     <div class="my-4 py-2 text-red-500 text-center bg-red-100 rounded">회원정보가
-      올바르지 않습니다.</div>
+      올바르지 않습니다.
+    </div>
     <div class="btn-wrap mt-4 ">
       <input type="submit"
         class="w-full btn btn-type-1 py-2 block text-center text-base"

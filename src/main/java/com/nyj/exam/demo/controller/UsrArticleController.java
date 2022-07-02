@@ -104,6 +104,14 @@ public class UsrArticleController {
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id); 
 		
+		ResultData actorCanEditRd = articleService.actorCanEdit(rq.getLoginedMemberId(), article);
+		
+		System.out.println("actorCanEditRd :                   "+actorCanEditRd.isFail());
+		if(actorCanEditRd.isFail()==true) {
+			
+			return "/usr/article/detail?id="+id;
+		}
+		
 		model.addAttribute("article", article);
 		
 		return "/usr/article/modify";
@@ -117,11 +125,11 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
-			return Ut.jsHistoryBack("해당 게시물이 없습니다.");
+			return Ut.jsHistoryBack("존재하지 않는 게시물입니다.");
 		}
 
 		articleService.modifyArticle(id, title, body); 
-		return "게시물이 수정되었습니다";
+		return Ut.jsReplace("수정이 완료되었습니다", "/usr/article/detail?id="+id);
 	}
 
 }

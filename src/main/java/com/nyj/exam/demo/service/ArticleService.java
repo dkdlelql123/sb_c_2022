@@ -41,17 +41,17 @@ public class ArticleService {
 	public Article getForPrintArticle(int LoginedMemberId, int id) {
 		Article article = articleRepository.getForPrintArticle(id);
 		
-		ResultData actorCanModifyRd = actorCanModify(LoginedMemberId, article);
+		ResultData actorCanEditRd = actorCanEdit(LoginedMemberId, article);
 //		if(actorCanModifyRd.isFail()) {
 //			
 //		}
 		
-		article.setExtra__actorCanModify(actorCanModifyRd.isSuccess());
+		article.setExtra__actorCanEdit(actorCanEditRd.isSuccess());
 		
 		return article;
 	} 
 
-	private ResultData actorCanModify(int loginedMemberId, Article article) {
+	public ResultData actorCanEdit(int loginedMemberId, Article article) {
 		if(article == null) {
 			return ResultData.form("F-1", "게시물이 존재하지 않습니다.");
 		}

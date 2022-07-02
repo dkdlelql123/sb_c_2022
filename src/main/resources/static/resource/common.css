@@ -54,6 +54,9 @@ textarea.textarea, input[type=text], input[type=password] {
 	padding: 2px 4px;
 	font-size: 0.85rem;
 }
+.btn:hover{
+	pointer:cursor;
+}
 
 .btn-type-1:hover {
 	background: skyblue;

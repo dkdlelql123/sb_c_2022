@@ -5,10 +5,16 @@
 <c:set var="pageTitle" value="게시물 상세페이지" />
 <%@ include file="../common/head.jspf"%>
 
-<div class="flex justify-end mb-4 gap-2">
-  <a class="btn btn-type-1 px-2 py-1">수정</a>
-  <a class="btn btn-type-2 px-2 py-1">삭제</a>
-</div>
+<c:if test="${article.extra__actorCanEdit}">
+  <div class="flex justify-end mb-4 gap-2">
+    <a href="/usr/article/modify?id=${article.id}"
+      class="btn btn-type-1 px-2 py-1">수정</a>
+    <a
+      href="/usr/article/doDelete?id=${article.id}"
+      onclick="if( confirm('삭제하시겠습니까?') == false) return false; "
+      class="btn btn-type-2 px-2 py-1"> 삭제</a>
+  </div>
+</c:if>
 
 <div class="table-box-type-1">
   <table>
@@ -29,16 +35,7 @@
     </tr>
     <tr>
       <td>작성자</td>
-      <td class="flex items-center gap-2">
-        <span>${article.extra__writerName}</span>
-        <c:if test="${article.extra__actorCanModify}">
-          <a class="btn btn-type-1"
-            href="/usr/article/modify?id=${article.id}">수정</a>
-          <a class="btn btn-type-2"
-            onclick="if( confirm('정말 삭제하시겠습니까?') == false) return false;"
-            href="/usr/article/doDelete?id=${article.id}">삭제</a>
-        </c:if>
-      </td>
+      <td>${article.extra__writerName}</td>
     </tr>
     <tr>
       <td>작성일</td>
