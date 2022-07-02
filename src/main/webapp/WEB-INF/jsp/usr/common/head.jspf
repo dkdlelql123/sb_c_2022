@@ -30,10 +30,10 @@
     <div class="flex-grow"></div>
     <ul class="flex items-center gap-2">
       <li>
-        <a href="/usr/article/list">공지</a>
+        <a href="/usr/article/list?boardId=1">공지</a>
       </li>
       <li>
-        <a href="">커뮤니티</a>
+        <a href="/usr/article/list?boardId=2">자유</a>
       </li>
        
       <c:choose>

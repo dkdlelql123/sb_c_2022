@@ -2,11 +2,11 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="게시물 리스트" />
+<c:set var="pageTitle" value="${board.name} 리스트" />
 <%@ include file="../common/head.jspf"%>
 
 <div class="flex itmes-center justify-between mb-4">
-  <div>총 0개</div>
+  <div>${board.name} 총 0개</div>
   <div>
     <a href="/usr/article/write" class="btn btn-type-1 px-2 py-1">글쓰기</a>
   </div>

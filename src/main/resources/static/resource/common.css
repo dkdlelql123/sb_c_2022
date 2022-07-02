@@ -59,7 +59,7 @@ textarea.textarea, input[type=text], input[type=password] {
 	font-size: 0.85rem;
 }
 .btn:hover{
-	pointer:cursor;
+	cursor:pointer;
 }
 
 .btn-type-1:hover {
