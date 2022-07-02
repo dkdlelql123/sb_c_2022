@@ -1,6 +1,10 @@
 package com.nyj.exam.demo.util;
- 
+
+import javax.servlet.http.HttpServletResponse;
+
 public class Ut {
+	
+	
 
 	public static boolean empty(Object obj) {
 		if(obj == null) {
@@ -53,6 +57,6 @@ public class Ut {
 				</script>
 				""", msg, uri);
 	}
-
-		
+	
+	
 }
