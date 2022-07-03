@@ -27,14 +27,18 @@ public class UsrArticleController {
 	BoardService boardService; 
 	
 	@RequestMapping("/usr/article/write")
-	public String showWrite() {
+	public String showWrite(Model model) {
+		
+		List<Board> boards = boardService.getBoards();
+		 
+		model.addAttribute("boards", boards);
+		
 		return "/usr/article/write";
-	}
-	
+	} 
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body) {
+	public String doWrite(HttpServletRequest req, int boardId, String title, String body) {
 		Rq rq =(Rq) req.getAttribute("rq");
 
 		if (Ut.empty(title)) {
@@ -45,7 +49,7 @@ public class UsrArticleController {
 			return Ut.jsHistoryBack("내용을 입력해주세요");
 		}
 
-		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
 		int id = (int) writeArticleRd.getData1();
 
 		return Ut.jsReplace("작성을 완료했습니다", "/usr/article/detail?id="+id); 

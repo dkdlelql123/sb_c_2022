@@ -1,5 +1,7 @@
 package com.nyj.exam.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class BoardService {
 	
 	public Board getBoardById(int id) {
 		return boardrepository.getBoardById(id);
+	}
+
+	public List<Board> getBoards() {
+		return boardrepository.getBoards();
 	}
 	
 }

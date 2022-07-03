@@ -5,6 +5,16 @@
 <c:set var="pageTitle" value="게시물 글쓰기" />
 <%@ include file="../common/head.jspf"%>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+	 const url_href = window.location.href; 
+	 const url = new URL(url_href);
+	 const boardId = url.searchParams.get("boardId");  
+	 //console.log(boardId);
+	 $("#boardCategory option[data=cate"+boardId+"]").prop("selected", true);
+});
+</script>
+
 <div>
   <form class="table-box-type-1" action="/usr/article/doWrite"
     method="POST">
@@ -16,21 +26,33 @@
       <tr>
         <td>작성자</td>
         <td>
-          <input type="text" class="w-full input-sm" value="${rq.member.nickname}" readonly />
+          <input type="text" class="w-full input-sm"
+            value="${rq.member.nickname}" readonly />
+        </td>
+      </tr>
+      <tr>
+        <td>카테고리</td>
+        <td>
+          <select name="boardId" id="boardCategory" class="select" >
+            <option>-선택해주세요-</option>
+            <c:forEach var="board" items="${boards}">
+              <option value="${board.id}" data="cate${board.id}">${board.name}</option>
+            </c:forEach>
+          </select>
         </td>
       </tr>
       <tr>
         <td>제목</td>
         <td>
-          <input type="text" class="w-full input-sm" name="title"
+          <input type="text" class="w-full input-sm" name="title" required="required"  
             placeholder="제목을 입력해주세요." />
         </td>
       </tr>
       <tr>
         <td>내용</td>
         <td>
-          <textarea name="body" class="w-full textarea" cols="10"
-            rows="10" placeholder="내용을 입력해주세요."></textarea>
+          <textarea name="body" class="w-full textarea" cols="10" rows="10" required="required"  
+            placeholder="내용을 입력해주세요."></textarea>
         </td>
       </tr>
     </table>

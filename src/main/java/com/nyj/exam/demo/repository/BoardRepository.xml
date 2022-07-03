@@ -8,4 +8,9 @@
 	WHERE id = #{id}
 	</select> 
 
+	<select id="getBoards" resultType="Board">
+	SELECT *
+	FROM `board`
+	</select>
+
 </mapper>

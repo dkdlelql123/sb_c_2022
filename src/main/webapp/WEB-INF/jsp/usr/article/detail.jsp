@@ -28,7 +28,7 @@
     <tr>
       <td>조회수</td>
       <td>10</td>
-    </tr>
+    </tr> 
     <tr>
       <td>제목</td>
       <td>${article.title}</td>
