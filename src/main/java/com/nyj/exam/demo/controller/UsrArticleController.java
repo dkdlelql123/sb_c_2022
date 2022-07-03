@@ -60,7 +60,6 @@ public class UsrArticleController {
 		Rq rq = (Rq) res.getAttribute("rq");
 		int articlesCount = 0;
 		
-		
 		Board board = boardService.getBoardById(boardId);
 		
 		if(board==null) {
@@ -123,16 +122,15 @@ public class UsrArticleController {
 	public String showModify(HttpServletRequest req, int id, Model model) {
 		Rq rq =(Rq) req.getAttribute("rq");
 		
+		List<Board> boards = boardService.getBoards();
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id); 
-		
 		ResultData actorCanEditRd = articleService.actorCanEdit(rq.getLoginedMemberId(), article);
 		
-		System.out.println("actorCanEditRd :                   "+actorCanEditRd.isFail());
 		if(actorCanEditRd.isFail()==true) {
-			
 			return "/usr/article/detail?id="+id;
 		}
-		
+		 
+		model.addAttribute("boards", boards);
 		model.addAttribute("article", article);
 		
 		return "/usr/article/modify";
@@ -140,7 +138,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public String doModify(HttpServletRequest req, int id, String title, String body) { 
+	public String doModify(HttpServletRequest req, int id,int boardId, String title, String body) { 
 		Rq rq =(Rq) req.getAttribute("rq");
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
@@ -149,7 +147,7 @@ public class UsrArticleController {
 			return Ut.jsHistoryBack("존재하지 않는 게시물입니다.");
 		}
 
-		articleService.modifyArticle(id, title, body); 
+		articleService.modifyArticle(id, boardId, title, body); 
 		return Ut.jsReplace("수정이 완료되었습니다", "/usr/article/detail?id="+id);
 	}
 

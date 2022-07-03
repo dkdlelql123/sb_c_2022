@@ -28,7 +28,13 @@
     <tr>
       <td>조회수</td>
       <td>10</td>
-    </tr> 
+    </tr>
+    <tr>
+        <td>카테고리</td>
+        <td>
+          ${article.extra__boardName}
+        </td>
+      </tr>
     <tr>
       <td>제목</td>
       <td>${article.title}</td>

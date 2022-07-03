@@ -25,6 +25,25 @@
       </td>
     </tr>
     <tr>
+        <td>카테고리</td>
+        <td>
+          <select name="boardId" id="boardCategory" class="select" >
+            <option>-선택해주세요-</option>
+            <c:forEach var="board" items="${boards}">
+              <c:choose>
+                <c:when test="${board.id == article.boardId}"> 
+                  <option value="${board.id}" data="cate${board.id}" selected >${board.name}</option>
+                </c:when>
+                <c:otherwise>
+                  <option value="${board.id}" data="cate${board.id}">${board.name}</option>
+                </c:otherwise>
+              </c:choose>
+              
+            </c:forEach>
+          </select>
+        </td>
+      </tr>
+    <tr>
       <td>제목</td>
       <td>
         <input type="text" class="w-full input-sm" name="title"

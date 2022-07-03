@@ -42,7 +42,7 @@ public class ArticleService {
 		return articleRepository.getArticle(id); 
 	}
 
-	public Article getForPrintArticle(int LoginedMemberId, int id) {
+	public Article getForPrintArticle(int LoginedMemberId,int id) {
 		Article article = articleRepository.getForPrintArticle(id);
 		
 		ResultData actorCanEditRd = actorCanEdit(LoginedMemberId, article); 
@@ -68,9 +68,8 @@ public class ArticleService {
 		articleRepository.deleteArticle(id);
 	}
 
-	public void modifyArticle(int id, String title, String body) {
-		articleRepository.modifyArticle(id,title,body);		
-		
+	public void modifyArticle(int id, int boardId, String title, String body) {
+		articleRepository.modifyArticle(id,boardId,title,body);		
 	}
 
 	public int getArticlesCount(int boardId) {
