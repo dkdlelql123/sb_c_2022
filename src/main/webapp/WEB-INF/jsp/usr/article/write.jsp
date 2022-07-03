@@ -33,7 +33,7 @@ $(document).ready(function(){
       <tr>
         <td>카테고리</td>
         <td>
-          <select name="boardId" id="boardCategory" class="select" >
+          <select name="boardId" id="boardCategory" class="select border border-gray-300" >
             <option>-선택해주세요-</option>
             <c:forEach var="board" items="${boards}">
               <option value="${board.id}" data="cate${board.id}">${board.name}</option>
@@ -58,7 +58,7 @@ $(document).ready(function(){
     </table>
 
     <div class="flex justify-end mt-4">
-      <input type="submit" class="btn btn-type-1 px-2 py-1" value="작성하기" />
+      <button class="btn btn-info btn-sm">작성하기</button>
     </div>
   </form>
 </div>

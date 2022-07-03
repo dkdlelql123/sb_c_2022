@@ -10,7 +10,7 @@
 
   <c:if test="${article.extra__actorCanEdit}">
     <div class="flex justify-end mb-4 gap-2">
-      <input type="submit" class="btn btn-type-1 px-2 py-1" value="저장" />
+      <button class="btn btn-info btn-sm" >저장</button>
     </div>
   </c:if>
 
@@ -27,7 +27,7 @@
     <tr>
         <td>카테고리</td>
         <td>
-          <select name="boardId" id="boardCategory" class="select" >
+          <select name="boardId" id="boardCategory" class="select border border-gray-300" >
             <option>-선택해주세요-</option>
             <c:forEach var="board" items="${boards}">
               <c:choose>

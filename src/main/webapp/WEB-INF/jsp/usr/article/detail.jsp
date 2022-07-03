@@ -8,11 +8,11 @@
 <c:if test="${article.extra__actorCanEdit}">
   <div class="flex justify-end mb-4 gap-2">
     <a href="/usr/article/modify?id=${article.id}"
-      class="btn btn-type-1 px-2 py-1">수정</a>
+      class="btn btn-info btn-sm">수정</a>
     <a
       href="/usr/article/doDelete?id=${article.id}"
       onclick="if( confirm('삭제하시겠습니까?') == false) return false; "
-      class="btn btn-type-2 px-2 py-1"> 삭제</a>
+      class="btn btn-error btn-sm"> 삭제</a>
   </div>
 </c:if>
 
@@ -68,8 +68,8 @@
         <p>댓글내용...</p>
         <span class="text-sm text-gray-500">작성자</span>
         <span class="text-sm text-gray-500">작성일</span>
-        <a class="btn btn-type-1 text-xs" href="/usr/reply/modify?id=">수정</a>
-        <a class="btn btn-type-2 text-xs"
+        <a class="btn btn-info btn-xs" href="/usr/reply/modify?id=">수정</a>
+        <a class="btn btn-error btn-xs"
           onclick="if( confirm('정말 삭제하시겠습니까?') == false) return false;"
           href="/usr/reply/doDelete?id=">삭제</a>
       </div>

@@ -34,7 +34,7 @@
 	<select id="getArticles" resultType="Article">
 		SELECT *
 		FROM article
-		<if test='boardId !=null and boardId !="" and boardId !=0 '>
+		<if test='boardId !=null and boardId !="" and boardId !=0'>
 			WHERE boardId = #{boardId}
 		</if>
 		ORDER BY id DESC

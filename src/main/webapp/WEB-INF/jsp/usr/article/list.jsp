@@ -9,7 +9,7 @@
   <div>${board.name}총 ${articlesCount}개</div>
   <div>
     <a href="/usr/article/write?boardId=${board.id}"
-      class="btn btn-type-1 px-2 py-1">글쓰기</a>
+      class="btn btn-sm btn-info">글쓰기</a>
   </div>
 </div>
 

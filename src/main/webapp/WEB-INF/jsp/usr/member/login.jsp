@@ -19,25 +19,22 @@
       <tr>
         <td>아이디</td>
         <td>
-          <input type="text" name="loginId" class="input w-full"
+          <input type="text" name="loginId" class="input w-full" required="required"
             placeholder="아이디" />
         </td>
       </tr>
       <tr>
         <td>비밀번호</td>
         <td>
-          <input type="password" name="loginPw" class="input w-full"
+          <input type="password" name="loginPw" class="input w-full" required="required"
             placeholder="비밀번호" />
         </td>
       </tr>
     </table>
-    <div class="my-4 py-2 text-red-500 text-center bg-red-100 rounded">회원정보가
-      올바르지 않습니다.
+    <div class="my-4 py-2 text-red-500 text-center bg-red-100 rounded">회원정보가 올바르지 않습니다.
     </div>
     <div class="btn-wrap mt-4 ">
-      <input type="submit"
-        class="w-full btn btn-type-1 py-2 block text-center text-base"
-        value="로그인" />
+      <button class="w-full btn btn-success" >로그인</button>
     </div>
   </form> 
 </div>
