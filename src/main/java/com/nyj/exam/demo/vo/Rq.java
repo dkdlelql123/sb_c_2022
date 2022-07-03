@@ -6,11 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 import com.nyj.exam.demo.service.MemberService;
 import com.nyj.exam.demo.util.Ut;
 
 import lombok.Getter;
 
+@Component
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Rq {
 	@Getter
 	private boolean isLogined;
@@ -23,7 +29,7 @@ public class Rq {
 	private HttpServletResponse resp;
 	private HttpSession session;
 	
-	public Rq(HttpServletRequest req,HttpServletResponse resp, MemberService memberService) {	
+	public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {	
 		this.req = req;
 		this.resp = resp;
 		
@@ -42,6 +48,8 @@ public class Rq {
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 		this.member = member;
+		
+		this.req.setAttribute("rq", this);
 	}
 
 	public void login(Member member) {
