@@ -6,6 +6,9 @@
 <%@ include file="../common/head.jspf"%>
 
 <c:if test="${article.extra__actorCanEdit}">
+<div class="flex justify-between">
+  <a href="/usr/article/list?boardId=${article.boardId}">목록으로</a>
+
   <div class="flex justify-end mb-4 gap-2">
     <a href="/usr/article/modify?id=${article.id}"
       class="btn btn-info btn-sm">수정</a>
@@ -14,6 +17,7 @@
       onclick="if( confirm('삭제하시겠습니까?') == false) return false; "
       class="btn btn-error btn-sm"> 삭제</a>
   </div>
+</div>
 </c:if>
 
 <div class="table-box-type-1">

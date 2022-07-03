@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.nyj.exam.demo.repository.ArticleRepository">
-
+<mapper namespace="com.nyj.exam.demo.repository.ArticleRepository">
 	<insert id="writeArticle">
 		INSERT INTO article
 		SET regDate = NOW(),
@@ -12,13 +10,13 @@
 		title = #{title},
 		`body` = #{body}
 	</insert>
-
+	
 	<select id="getArticle" resultType="Article">
 		SELECT *
 		FROM article
 		WHERE id = #{id}
 	</select>
-
+	
 	<select id="getForPrintArticle" resultType="Article">
 		SELECT a.*,
 		m.nickname AS extra__writerName,
@@ -30,38 +28,40 @@
 		ON a.boardId = b.id
 		WHERE a.id = #{id}
 	</select>
-
+	
 	<select id="getArticles" resultType="Article">
 		SELECT *
-		FROM article
-		<if test='boardId !=null and boardId !="" and boardId !=0'>
+		FROM article 
+		<if test='boardId !=null and boardId !="" and boardId !=0 '>
 			WHERE boardId = #{boardId}
 		</if>
 		ORDER BY id DESC
 	</select>
-
+	
 	<select id="getForPrintArticles" resultType="Article">
 		SELECT a.*,
 		m.nickname AS extra__writerName
 		FROM article a
-		LEFT JOIN `member` m
+		LEFT JOIN
+		`member` m
 		ON a.memberId = m.id
 		<if test='boardId !=null and boardId !="" and boardId !=0 '>
 			WHERE boardId = #{boardId}
 		</if>
 		ORDER BY id DESC
 	</select>
-
+	
 	<select id="getArticlesCount" resultType="int">
 		SELECT COUNT(*)
-		FROM `article`
+		FROM
+		`article`
 		WHERE boardId = #{boardId}
 	</select>
 
 	<delete id="deleteArticle">
 		DELETE FROM article WHERE id = #{id}
 	</delete>
-
+	
 	<update id="modifyArticle">
 		UPDATE article
 		<set>
@@ -82,5 +82,5 @@
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
-
+	
 </mapper>

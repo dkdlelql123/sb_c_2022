@@ -31,8 +31,11 @@
         </td>
       </tr>
     </table>
-    <div class="my-4 py-2 text-red-500 text-center bg-red-100 rounded">회원정보가 올바르지 않습니다.
+    
+    <div class="my-4 py-2 text-red-500 text-center bg-red-100 rounded hidden">
+      회원정보가 올바르지 않습니다.
     </div>
+    
     <div class="btn-wrap mt-4 ">
       <button class="w-full btn btn-success" >로그인</button>
     </div>

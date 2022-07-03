@@ -5,7 +5,22 @@
 <c:set var="pageTitle" value="${board.name} 리스트" />
 <%@ include file="../common/head.jspf"%>
 
-<div class="flex itmes-center justify-between mb-4">
+<div class="form-control">
+  <div class="input-group justify-center">
+   <select class="select select-sm select-bordered border-[#6b7280] border-r-0">
+      <option selected>제목</option>
+      <option>내용</option>
+      <option>제목+내용</option>
+    </select>
+    <input type="text" placeholder="Search…" class="input input-sm input-bordered" />
+    <button class="btn btn-sm btn-square">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke="#fff" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+    </button>
+  </div>
+</div> 
+
+<div class="flex itmes-center justify-between my-4">
   <div>${board.name}총 ${articlesCount}개</div>
   <div>
     <a href="/usr/article/write?boardId=${board.id}"
@@ -40,6 +55,18 @@
       </c:forEach>
     </tbody>
   </table>
+</div>
+
+<div class="flex justify-center mt-4">
+  <div class="btn-group">
+    <a class="btn btn-sm text-white">«</a>
+    <a class="btn btn-sm text-white btn-active ">1</a>
+    <a class="btn btn-sm text-white">2</a>
+    <a class="btn btn-sm text-white">3</a>
+    <a class="btn btn-sm text-white">4</a>
+    <a class="btn btn-sm text-white ">5</a>
+    <a class="btn btn-sm text-white">»</a>
+  </div>
 </div>
 
 <%@ include file="../common/tail.jspf"%>
