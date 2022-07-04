@@ -5,10 +5,10 @@
 <c:set var="pageTitle" value="로그인" />
 <%@ include file="../common/head.jspf"%>
 
-<div class="w-1/2 min-w-[500px] m-auto mt-[100px]">
-  <h1 class="text-[24px] text-center">✋HELLO✋</h1>
+<div class="w-2/3 m-auto" style="margin-top:100px;" >
+  <h1 class="text-2xl text-center">✋HELLO✋</h1>
   <form 
-    class="table-box-type-1 mt-[20px]" 
+    class="table-box-type-1 mt-8" 
     action="/usr/member/doLogin"
     method="POST" 
     >
