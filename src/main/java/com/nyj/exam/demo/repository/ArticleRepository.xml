@@ -54,9 +54,11 @@
 	
 	<select id="getArticlesCount" resultType="int">
 		SELECT COUNT(*)
-		FROM
-		`article`
+		FROM `article`
 		WHERE boardId = #{boardId}
+		<if test="keyword != null and keywordType != null">
+			and #{keywordType} = #{keyword}
+		</if>
 	</select>
 
 	<delete id="deleteArticle">

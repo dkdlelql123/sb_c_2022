@@ -23,7 +23,7 @@ public interface ArticleRepository {
 	
 	public List<Article> getForPrintArticles(@Param("boardId") int boardId);  
 
-	public int getArticlesCount(@Param("boardId")int boardId);
+	public int getArticlesCount(@Param("boardId")int boardId, @Param("keywordType") String keywordType, @Param("keyword") String keyword);
 	 
 	public void deleteArticle(@Param("id") int id); 
 	  

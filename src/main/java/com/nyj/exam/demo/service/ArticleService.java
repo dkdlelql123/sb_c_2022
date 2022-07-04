@@ -75,8 +75,8 @@ public class ArticleService {
 		articleRepository.modifyArticle(id,boardId,title,body);		
 	}
 
-	public int getArticlesCount(int boardId) {
-		return articleRepository.getArticlesCount(boardId);
+	public int getArticlesCount(int boardId, String keywordType, String keyword) {
+		return articleRepository.getArticlesCount(boardId, keywordType, keyword);
 	}
 	
 	

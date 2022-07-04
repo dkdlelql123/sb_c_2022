@@ -7,10 +7,10 @@
 
 <div class="form-control">
   <div class="input-group justify-center">
-   <select class="select select-sm select-bordered border-[#6b7280] border-r-0">
-      <option selected>제목</option>
-      <option>내용</option>
-      <option>제목+내용</option>
+   <select class="select select-sm select-bordered border-r-0">
+      <option value="title"selected>제목</option>
+      <option value="body">내용</option>
+      <option value="title,body">제목+내용</option>
     </select>
     <input type="text" placeholder="Search…" class="input input-sm input-bordered" />
     <button class="btn btn-sm btn-square">
@@ -21,7 +21,7 @@
 </div> 
 
 <div class="flex itmes-center justify-between my-4">
-  <div>${board.name}총 ${articlesCount}개</div>
+  <div>${board.name} 총 ${articlesCount}개</div>
   <div>
     <a href="/usr/article/write?boardId=${board.id}"
       class="btn btn-sm btn-info">글쓰기</a>
