@@ -60,11 +60,11 @@
 <div class="flex justify-center mt-4">
   <div class="btn-group">
     <a class="btn btn-sm text-white">«</a>
-    <a class="btn btn-sm text-white btn-active ">1</a>
-    <a class="btn btn-sm text-white">2</a>
-    <a class="btn btn-sm text-white">3</a>
-    <a class="btn btn-sm text-white">4</a>
-    <a class="btn btn-sm text-white ">5</a>
+    <c:forEach begin="1" end="${pageCount}" var="i">
+      <a
+        href="?page=${i}"
+       class="btn btn-sm text-white ${param.page == i ? 'btn-active' : '' }">${i}</a>
+    </c:forEach>
     <a class="btn btn-sm text-white">»</a>
   </div>
 </div>

@@ -30,20 +30,21 @@
 	</select>
 	
 	<select id="getArticles" resultType="Article">
-		SELECT *
-		FROM article 
-		<if test='boardId !=null and boardId !="" and boardId !=0 '>
-			WHERE boardId = #{boardId}
-		</if>
+		SELECT a.*,
+		m.nickname AS extra__writerName
+		FROM article a
+		LEFT JOIN `member` m
+		ON a.memberId = m.id
+		WHERE boardId = #{boardId}
 		ORDER BY id DESC
+		LIMIT #{limitStart}, #{limitTake}
 	</select>
 	
 	<select id="getForPrintArticles" resultType="Article">
 		SELECT a.*,
 		m.nickname AS extra__writerName
 		FROM article a
-		LEFT JOIN
-		`member` m
+		LEFT JOIN `member` m
 		ON a.memberId = m.id
 		<if test='boardId !=null and boardId !="" and boardId !=0 '>
 			WHERE boardId = #{boardId}
