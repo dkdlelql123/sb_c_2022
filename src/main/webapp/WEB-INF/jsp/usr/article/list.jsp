@@ -65,17 +65,19 @@
 <div class="flex justify-center mt-4">
   <div class="btn-group">
     <c:if test="${page != 1}">
-      <a href="?page=1"  class="btn btn-sm text-white">«</a>
+      <a href="?page=1&boardId=${board.id}"  class="btn btn-sm text-white">«</a>
     </c:if>
     
     <c:forEach begin="${startPage}" end="${endPage}" var="i">
       <a
-        href="?page=${i}"
+        href="?page=${i}&boardId=${board.id}"
        class="btn btn-sm text-white ${page == i ? 'btn-active' : '' }">${i}</a>
     </c:forEach>
     
     <c:if test="${page != pagesCount}">
-    <a href="?page=${pagesCount}" class="btn btn-sm text-white">»</a>
+    <a 
+      href="?page=${pagesCount}&boardId=${board.id}" 
+      class="btn btn-sm text-white">»</a>
     </c:if>
     
   </div>
