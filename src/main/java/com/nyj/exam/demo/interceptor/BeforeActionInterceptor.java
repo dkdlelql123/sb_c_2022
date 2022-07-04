@@ -13,10 +13,14 @@ import com.nyj.exam.demo.vo.Rq;
 @Component
 public class BeforeActionInterceptor implements HandlerInterceptor {
 	
+	private Rq rq;
+	public BeforeActionInterceptor(Rq rq) {
+		this.rq = rq;
+	}
+	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
-		// rq객체 생성을 스프링에게 맡김. 필요 없음
-		
+		rq.initOnBeforeActionInterceptor();
 
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}
