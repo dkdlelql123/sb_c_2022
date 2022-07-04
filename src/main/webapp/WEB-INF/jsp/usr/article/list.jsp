@@ -57,15 +57,27 @@
   </table>
 </div>
 
+<!-- 페이지 관련 -->
+<c:set var="pageRange" value="9" />
+<c:set var="startPage" value="${page - pageRange >= 1 ? page - pageRange : 1}" />
+<c:set var="endPage" value="${ startPage+pageRange <= pagesCount ? startPage+pageRange : pagesCount }" />
+
 <div class="flex justify-center mt-4">
   <div class="btn-group">
-    <a class="btn btn-sm text-white">«</a>
-    <c:forEach begin="1" end="${pageCount}" var="i">
+    <c:if test="${page != 1}">
+      <a href="?page=1"  class="btn btn-sm text-white">«</a>
+    </c:if>
+    
+    <c:forEach begin="${startPage}" end="${endPage}" var="i">
       <a
         href="?page=${i}"
-       class="btn btn-sm text-white ${param.page == i ? 'btn-active' : '' }">${i}</a>
+       class="btn btn-sm text-white ${page == i ? 'btn-active' : '' }">${i}</a>
     </c:forEach>
-    <a class="btn btn-sm text-white">»</a>
+    
+    <c:if test="${page != pagesCount}">
+    <a href="?page=${pagesCount}" class="btn btn-sm text-white">»</a>
+    </c:if>
+    
   </div>
 </div>
 
