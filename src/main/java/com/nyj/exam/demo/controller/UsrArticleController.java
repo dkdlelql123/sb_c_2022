@@ -63,6 +63,7 @@ public class UsrArticleController {
 	public String showList(Model model, 
 			@RequestParam(defaultValue = "1") int boardId,
 			@RequestParam(defaultValue = "1") int page, 
+			@RequestParam(defaultValue = "5") int itemsCountInAPage, 
 			@RequestParam(defaultValue = "title,body") String searchKeywordType,
 			@RequestParam(defaultValue = "") String searchKeyword ) {		
 		Board board = boardService.getBoardById(boardId);
@@ -77,7 +78,6 @@ public class UsrArticleController {
 		 
 		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordType, searchKeyword);
 		
-		int itemsCountInAPage = 3; // 1페이지 한 쪽에 보일 article 개수
 		int pagesCount = (int) Math.ceil((double)articlesCount / itemsCountInAPage) ; 
 		
 		List<Article> articles = articleService.getArticles(boardId, searchKeywordType, searchKeyword, page, itemsCountInAPage);
