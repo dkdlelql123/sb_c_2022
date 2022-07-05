@@ -95,10 +95,20 @@ public class UsrArticleController {
 	public String showDetail(Model model, int id) {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
-		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
-		
 		model.addAttribute("article", article);
 		return "usr/article/detail";
+	}
+	
+	@RequestMapping("/usr/article/increaseHitCount")
+	@ResponseBody
+	public ResultData doIncreaseHitCount(int id) {
+		System.out.println();
+		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+		if(increaseHitCountRd.isFail()) {
+			return increaseHitCountRd;
+		}
+		int hitCount = articleService.getArticleHitCount(id); 
+		return ResultData.newData(increaseHitCountRd, hitCount); 
 	}
 
 	@RequestMapping("/usr/article/getArticle")

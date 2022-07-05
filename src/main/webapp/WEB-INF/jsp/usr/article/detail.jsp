@@ -21,6 +21,29 @@
   </c:if>
 </div>
 
+<input type="hidden" name="articleId" value="${param.id}" />
+
+<script type="text/javascript">
+	let articleId = $("input[name='articleId']").val();
+	articleId =  parseInt(articleId);
+	
+	function ArticleDetail__increaseHitCount() {
+		$.ajax({
+			url:'/usr/article/increaseHitCount?id='+articleId, 
+			success :  function(data){ 
+				console.log("성공");
+				console.log(data);
+	            $(".articleHit").html(data.data1); 
+	        }, error:function(request,status,error){     
+	        	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);       
+	        }
+	       
+		})
+	}
+	
+	ArticleDetail__increaseHitCount() 
+</script>
+
 <div class="table-box-type-1">
   <table>
     <colgroup>
@@ -32,7 +55,7 @@
     </tr>
     <tr>
       <td>조회수</td>
-      <td>${article.hit}</td>
+      <td><div class="articleHit">${article.hit}</div></td>
     </tr>
     <tr>
         <td>카테고리</td>

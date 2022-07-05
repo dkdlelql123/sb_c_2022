@@ -128,5 +128,10 @@
 		WHERE id = #{id};
 	</update>
 	
+	<select id="getArticleHitCount"  resultType="int">
+		SELECT hit
+		FROM  `article`
+		WHERE id = #{id};
+	</select>
 	
 </mapper>
