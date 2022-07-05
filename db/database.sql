@@ -132,5 +132,19 @@ UPDATE article
 SET boardId = 1
 WHERE id = 2;
  
+# 페이징을 위한 게시물 대량 생성
+/*
+insert into article
+(
+    regDate, updateDate, memberId, boardId, title, `body`
+)
+select now(), now(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, concat('제목_', rand()), CONCAT('내용_', RAND())
+from article;
 
+select * FROM `article`;
+*/
+
+# 게시물에 조회수 칼럼 추가
+ALTER TABLE `article`
+ADD COLUMN hit INT(10) NOT NULL DEFAULT 0;
 

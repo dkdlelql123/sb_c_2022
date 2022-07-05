@@ -37,5 +37,7 @@ public interface ArticleRepository {
  
 	public int getLastInsertId();
 
+	public int increaseHitCount(int id);
+
 	
 }

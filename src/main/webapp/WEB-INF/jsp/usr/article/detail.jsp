@@ -5,20 +5,21 @@
 <c:set var="pageTitle" value="게시물 상세페이지" />
 <%@ include file="../common/head.jspf"%>
 
-<c:if test="${article.extra__actorCanEdit}">
-<div class="flex justify-between">
+
+<div class="flex justify-between mb-4 ">
   <a href="/usr/article/list?boardId=${article.boardId}">목록으로</a>
 
-  <div class="flex justify-end mb-4 gap-2">
-    <a href="/usr/article/modify?id=${article.id}"
-      class="btn btn-info btn-sm">수정</a>
-    <a
-      href="/usr/article/doDelete?id=${article.id}"
-      onclick="if( confirm('삭제하시겠습니까?') == false) return false; "
-      class="btn btn-error btn-sm"> 삭제</a>
-  </div>
+  <c:if test="${article.extra__actorCanEdit}">  
+    <div class="flex justify-end gap-2">
+      <a href="/usr/article/modify?id=${article.id}"
+        class="btn btn-info btn-sm">수정</a>
+      <a
+        href="/usr/article/doDelete?id=${article.id}"
+        onclick="if( confirm('삭제하시겠습니까?') == false) return false; "
+        class="btn btn-error btn-sm"> 삭제</a>
+    </div>
+  </c:if>
 </div>
-</c:if>
 
 <div class="table-box-type-1">
   <table>
@@ -31,7 +32,7 @@
     </tr>
     <tr>
       <td>조회수</td>
-      <td>10</td>
+      <td>${article.hit}</td>
     </tr>
     <tr>
         <td>카테고리</td>

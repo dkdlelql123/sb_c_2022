@@ -32,25 +32,30 @@
 <div class="table-box-type-1">
   <table id="boardtable">
     <colgroup>
+      <col width="100">
       <col width="500">
     </colgroup>
     <thead>
       <tr>
+        <th>번호</th>
         <th>제목</th>
-        <th>작성자</th>
         <th>조회수</th>
+        <th>좋아요</th>
+        <th>작성자</th>
         <th>작성일</th>
       </tr>
     </thead>
     <tbody>
       <c:forEach var="article" items="${articles}">
         <tr>
+          <td class="text-center">${article.id}</td>
           <td>
             <a href="/usr/article/detail?id=${article.id}">${article.title}</a>
             [0]
           </td>
-          <td class="text-center">${article.extra__writerName}</td>
+          <td class="text-center">${article.hit}</td>
           <td class="text-center">10</td>
+          <td class="text-center">${article.extra__writerName}</td>
           <td class="text-center">${article.regDate.substring(2,10)}</td>
         </tr>
       </c:forEach>
