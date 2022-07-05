@@ -5,18 +5,16 @@
 <c:set var="pageTitle" value="${board.name} 리스트" />
 <%@ include file="../common/head.jspf"%>
 
-<input type="hidden" id="searchKeywordType" value="${param.searchKeywordType}" />
-
-
 <div class="form-control">
   <form class="input-group justify-center" name="search-form">
-   <select id="select" name="searchKeywordType" class="select select-sm select-bordered border-r-0">
+   <input type="hidden" name="boardId" value="${boardId}" />
+   <select id="select" name="searchKeywordType" data-value="${param.searchKeywordType}" class="select select-sm select-bordered border-r-0 rounded-r-none" style="border-bottom-right-radius: 0px;border-top-right-radius: 0px">
       <option value="title" selected>제목</option>
       <option value="body">내용</option>
       <option value="title,body">제목+내용</option>
     </select>
     <input type="text" name="searchKeyword" value="${param.searchKeyword}" placeholder="Search…" class="input input-sm input-bordered" />
-    <button onclick="getSearchList()" class="btn btn-sm btn-square">
+    <button type="submit" class="btn btn-sm btn-square">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke="#fff" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
     </button>
