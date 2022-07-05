@@ -19,11 +19,17 @@ public interface ArticleRepository {
 	
 	public Article getForPrintArticle(@Param("id") int id);
 	 
-	public List<Article> getArticles(@Param("boardId") int boardId,  int limitStart, int limitTake);  
+	public List<Article> getArticles(
+			@Param("boardId") int boardId, 
+			@Param("searchKeywordType") String searchKeywordType,
+			@Param("searchKeyword") String searchKeyword,
+			@Param("limitStart") int limitStart,
+			@Param("limitTake") int limitTake
+			);  
 	
 	public List<Article> getForPrintArticles(@Param("boardId") int boardId);  
 
-	public int getArticlesCount(@Param("boardId")int boardId, @Param("keywordType") String keywordType, @Param("keyword") String keyword);
+	public int getArticlesCount(@Param("boardId")int boardId, @Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
 	 
 	public void deleteArticle(@Param("id") int id); 
 	  

@@ -62,22 +62,25 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, 
 			@RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "title") String keywordType,
-			@RequestParam(defaultValue = "") String keyword
-			) {		
+			@RequestParam(defaultValue = "1") int page, 
+			@RequestParam(defaultValue = "title,body") String searchKeywordType,
+			@RequestParam(defaultValue = "") String searchKeyword ) {		
 		Board board = boardService.getBoardById(boardId);
 		
 		if(board==null) {
 			Ut.jsHistoryBack("해당 게시판은 존재하지 않습니다.");
 		}
+		
+		System.out.println("boardId " + boardId);
+		System.out.println("searchKeywordType " + searchKeywordType);
+		System.out.println("searchKeyword " + searchKeyword); 
 		 
-		int articlesCount = articleService.getArticlesCount(boardId, keywordType, keyword);
+		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordType, searchKeyword);
 		
 		int itemsCountInAPage = 3; // 1페이지 한 쪽에 보일 article 개수
-		int pagesCount = (int) Math.ceil(articlesCount / itemsCountInAPage) ; 
+		int pagesCount = (int) Math.ceil((double)articlesCount / itemsCountInAPage) ; 
 		
-		List<Article> articles = articleService.getArticles(boardId, page, itemsCountInAPage);
+		List<Article> articles = articleService.getArticles(boardId, searchKeywordType, searchKeyword, page, itemsCountInAPage);
 		
 		model.addAttribute("board", board);
 		model.addAttribute("articlesCount", articlesCount);

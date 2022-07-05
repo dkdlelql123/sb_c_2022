@@ -35,7 +35,24 @@
 		FROM article a
 		LEFT JOIN `member` m
 		ON a.memberId = m.id
-		WHERE boardId = #{boardId}
+		WHERE a.boardId = #{boardId}
+		<if test="searchKeyword != ''">
+			<choose>
+				<when test="searchKeywordType == 'title'" >
+					AND a.title LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchKeywordType == 'body'" >
+					AND a.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					AND (
+						a.title LIKE CONCAT('%', #{searchKeyword}, '%')
+						OR 
+						a.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+					)
+				</otherwise>
+			</choose>
+		</if>
 		ORDER BY id DESC
 		LIMIT #{limitStart}, #{limitTake}
 	</select>
@@ -55,10 +72,29 @@
 	<select id="getArticlesCount" resultType="int">
 		SELECT COUNT(*)
 		FROM `article`
-		WHERE boardId = #{boardId}
-		<if test="keyword != null and keywordType != null">
-			and #{keywordType} = #{keyword}
+		WHERE 1
+		<if test='boardId !=null and boardId !="" and boardId !=0 '>
+			AND boardId = #{boardId}	
 		</if>
+			
+		<if test="searchKeyword != ''">
+			<choose>
+				<when test="searchKeywordType == 'title'" >
+					AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchKeywordType == 'body'" >
+					AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					AND (
+						title LIKE CONCAT('%', #{searchKeyword}, '%')
+						OR 
+						`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+					)
+				</otherwise>
+			</choose>
+		</if>
+	
 	</select>
 
 	<delete id="deleteArticle">

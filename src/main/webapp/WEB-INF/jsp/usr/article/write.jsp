@@ -5,12 +5,15 @@
 <c:set var="pageTitle" value="게시물 글쓰기" />
 <%@ include file="../common/head.jspf"%>
 
+<c:set var="board_id" value="${param.boardId}" />
+<input type="hidden" id="board_id" value="${board_id}" />
+
 <script type="text/javascript">
 $(document).ready(function(){ 
-	 const url_href = window.location.href; 
-	 const url = new URL(url_href);
-	 const boardId = url.searchParams.get("boardId");  
-	 //console.log(boardId);
+	 //const url_href = window.location.href; 
+	 //const url = new URL(url_href);
+	 //const boardId = url.searchParams.get("boardId");  
+	 const boardId = $("#board_id").val();
 	 $("#boardCategory option[data=cate"+boardId+"]").prop("selected", true);
 });
 </script>

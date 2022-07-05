@@ -26,11 +26,11 @@ public class ArticleService {
 		return ResultData.form("S-1", Ut.f("%d번 게시물 생성 되었습니다", id), id); 
 	}
 
-	public List<Article> getArticles(int boardId,int page, int itemsCountInAPage) { 
+	public List<Article> getArticles(int boardId, String searchKeyType, String searchKeyword, int page, int itemsCountInAPage) { 
 		int limitStart = (page - 1) * itemsCountInAPage;
 		int limitTake = itemsCountInAPage;
 		
-		return articleRepository.getArticles(boardId, limitStart, limitTake); 
+		return articleRepository.getArticles(boardId, searchKeyType, searchKeyword, limitStart, limitTake); 
 	} 
 
 	public List<Article> getForPrintArticles(int memberId, int boardId) {
@@ -75,8 +75,8 @@ public class ArticleService {
 		articleRepository.modifyArticle(id,boardId,title,body);		
 	}
 
-	public int getArticlesCount(int boardId, String keywordType, String keyword) {
-		return articleRepository.getArticlesCount(boardId, keywordType, keyword);
+	public int getArticlesCount(int boardId, String searchKeywordType, String searchKeyword) {
+		return articleRepository.getArticlesCount(boardId, searchKeywordType, searchKeyword);
 	}
 	
 	
