@@ -91,5 +91,9 @@ public class ArticleService {
 	public int getArticleHitCount(int id) {
 		return articleRepository.getArticleHitCount(id);
 	}
+
+	public boolean actorCanMakeReactionPoint(int loginedMemberId, int articleId) {
+		return articleRepository.actorCanMakeReactionPoint(loginedMemberId, articleId) == 0; 
+	}
 	
 }

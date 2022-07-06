@@ -9,10 +9,7 @@
 <input type="hidden" id="board_id" value="${board_id}" />
 
 <script type="text/javascript">
-$(document).ready(function(){ 
-	 //const url_href = window.location.href; 
-	 //const url = new URL(url_href);
-	 //const boardId = url.searchParams.get("boardId");  
+$(document).ready(function(){  
 	 const boardId = $("#board_id").val();
 	 $("#boardCategory option[data=cate"+boardId+"]").prop("selected", true);
 });
@@ -36,7 +33,7 @@ $(document).ready(function(){
       <tr>
         <td>카테고리</td>
         <td>
-          <select name="boardId" id="boardCategory" class="select border border-gray-300" >
+          <select name="boardId" id="boardCategory" class="select select-sm select-bordered " >
             <option>-선택해주세요-</option>
             <c:forEach var="board" items="${boards}">
               <option value="${board.id}" data="cate${board.id}">${board.name}</option>

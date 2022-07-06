@@ -7,42 +7,44 @@
 
 <input type="hidden" name="articleId" value="${param.id}" />
 <script type="text/javascript" defer="defer">
-let articleId = $("input[name='articleId']").val();
-articleId =  parseInt(articleId);
+	let articleId = $("input[name='articleId']").val();
+	articleId = parseInt(articleId);
 
-function ArticleDetail__increaseHitCount() { // 게시물 조회수 관련 함수
-	const localStorageKey = "article__"+articleId+"__viewDone"; 
-	
-	if(localStorage.getItem(localStorageKey)){ 
-		return ;
+	function ArticleDetail__increaseHitCount() { // 게시물 조회수 관련 함수
+		const localStorageKey = "article__" + articleId + "__viewDone";
+
+		if (localStorage.getItem(localStorageKey)) {
+			return;
+		}
+
+		localStorage.setItem(localStorageKey, true);
+
+		$.ajax({
+			url : '/usr/article/increaseHitCount?id=' + articleId,
+			success : function(data) {
+				console.log("성공");
+				console.log(data);
+				$(".articleHit").html(data.data1);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		})
 	}
-	
-	localStorage.setItem(localStorageKey, true);
 
-	$.ajax({
-		url:'/usr/article/increaseHitCount?id='+articleId, 
-		success :  function(data){ 
-			console.log("성공");
-			console.log(data);
-            $(".articleHit").html(data.data1); 
-        }, error:function(request,status,error){     
-        	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);       
-        }
-	})
-}
-
-ArticleDetail__increaseHitCount();
+	ArticleDetail__increaseHitCount();
 </script>
+
 
 <div class="flex justify-between mb-4 ">
   <a href="/usr/article/list?boardId=${article.boardId}">목록으로</a>
 
-  <c:if test="${article.extra__actorCanEdit}">  
+  <c:if test="${article.extra__actorCanEdit}">
     <div class="flex justify-end gap-2">
       <a href="/usr/article/modify?id=${article.id}"
         class="btn btn-info btn-sm">수정</a>
-      <a
-        href="/usr/article/doDelete?id=${article.id}"
+      <a href="/usr/article/doDelete?id=${article.id}"
         onclick="if( confirm('삭제하시겠습니까?') == false) return false; "
         class="btn btn-error btn-sm"> 삭제</a>
     </div>
@@ -60,18 +62,26 @@ ArticleDetail__increaseHitCount();
     </tr>
     <tr>
       <td>조회</td>
-      <td><div class="articleHit">${article.hit}</div></td>
+      <td>
+        <div class="articleHit">${article.hit}</div>
+      </td>
     </tr>
     <tr>
       <td>추천</td>
-      <td><div class="goodReactionPoint">${article.extra__goodReactionPoint}</div></td>
+      <td>
+        <div class="flex gap-2 items-center">
+          <div class="goodReactionPoint">${article.extra__goodReactionPoint}</div>
+          <c:if test="${extra__canMakeReactionPoint}">
+            <a href="" class="btn btn-xs btn-info btn-outline">추천👍</a>
+            <a href="" class="btn btn-xs btn-outline btn-secondary">비추천👎</a>
+          </c:if>
+        </div>
+      </td>
     </tr>
     <tr>
-        <td>카테고리</td>
-        <td>
-          ${article.extra__boardName}
-        </td>
-      </tr>
+      <td>카테고리</td>
+      <td>${article.extra__boardName}</td>
+    </tr>
     <tr>
       <td>제목</td>
       <td>${article.title}</td>
@@ -91,7 +101,7 @@ ArticleDetail__increaseHitCount();
     <tr>
       <td>내용</td>
       <td>
-        <div class="p-1 bg-gray-100" style="min-height:120px">${article.body}</div>
+        <div class="p-1 bg-gray-100" style="min-height: 120px">${article.body}</div>
       </td>
     </tr>
   </table>

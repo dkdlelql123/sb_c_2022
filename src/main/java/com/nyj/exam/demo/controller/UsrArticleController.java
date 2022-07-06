@@ -95,7 +95,10 @@ public class UsrArticleController {
 	public String showDetail(Model model, int id) {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
+		boolean actorCanMakeReactionPoint = articleService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), id);
+		model.addAttribute("extra__canMakeReactionPoint", actorCanMakeReactionPoint);
 		model.addAttribute("article", article);
+		
 		return "usr/article/detail";
 	}
 	

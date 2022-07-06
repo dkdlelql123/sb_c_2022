@@ -45,7 +45,7 @@ body{
 
 textarea.textarea, input[type=text], input[type=password] {
 	color: #0a0a0a;
-	background: lightgray;
+	background: #f0f0f0;
 	padding:4px 8px ; 
 	border-radius: 2px;
 } 
