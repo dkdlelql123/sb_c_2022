@@ -28,7 +28,7 @@ public class ArticleService {
 
 	public List<Article> getArticles(int boardId, String searchKeyType, String searchKeyword, int page, int itemsCountInAPage) { 
 		int limitStart = (page - 1) * itemsCountInAPage;
-		int limitTake = itemsCountInAPage;
+		int limitTake = itemsCountInAPage; 
 		
 		return articleRepository.getArticles(boardId, searchKeyType, searchKeyword, limitStart, limitTake); 
 	} 

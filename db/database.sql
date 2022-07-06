@@ -142,9 +142,66 @@ select now(), now(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, concat('제�
 from article;
 
 select * FROM `article`;
+
 */
 
 # 게시물에 조회수 칼럼 추가
 ALTER TABLE `article`
-ADD COLUMN hit INT(10) NOT NULL DEFAULT 0;
+ADD COLUMN hit INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 좋아요, 싫어요 리액션포인트 테이블 생성
+CREATE TABLE reactionPoint (
+	id INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	memberId INT(10) UNSIGNED NOT NULL,
+	relCodeType CHAR(30) NOT NULL COMMENT '관련데이터타입코드',
+	relId INT(10) UNSIGNED NOT NULL COMMENT '관련데이터코드',
+	`point` SMALLINT(2)
+);
+
+# 리액션포인트 테스트 데이터 생성
+INSERT INTO reactionPoint 
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relCodeType = 'article',
+relId = 1,
+`point` = 1;
+
+# 리액션포인트 테스트 데이터 생성
+INSERT INTO reactionPoint 
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relCodeType = 'article',
+relId = 1,
+`point` = 1;
+
+# 리액션포인트 테스트 데이터 생성
+INSERT INTO reactionPoint 
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relCodeType = 'article',
+relId = 2,
+`point` = 1;
+
+# 리액션포인트 테스트 데이터 생성
+INSERT INTO reactionPoint 
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relCodeType = 'article',
+relId = 2,
+`point` = -1;
+
+# 리액션포인트 테스트 데이터 생성
+INSERT INTO reactionPoint 
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relCodeType = 'article',
+relId = 1,
+`point` = -1;
 
