@@ -72,7 +72,7 @@
           <td class="text-center">${article.hit}</td>
           <td class="text-center">${article.extra__goodReactionPoint}</td>
           <td class="text-center">${article.extra__writerName}</td>
-          <td class="text-center">${article.regDate.substring(2,10)}</td>
+          <td class="text-center">${article.forPrintType1RegDate}</td>
         </tr>
       </c:forEach>
     </tbody>

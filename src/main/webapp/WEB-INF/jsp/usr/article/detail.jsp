@@ -82,16 +82,16 @@ ArticleDetail__increaseHitCount();
     </tr>
     <tr>
       <td>작성일</td>
-      <td>${article.regDate}</td>
+      <td>${article.forPrintType2RegDate}</td>
     </tr>
     <tr>
       <td>수정일</td>
-      <td>${article.updateDate}</td>
+      <td>${article.forPrintType2UpdateDate}</td>
     </tr>
     <tr>
       <td>내용</td>
       <td>
-        <div class="p-1 bg-gray-100 h-[200px]">${article.body}</div>
+        <div class="p-1 bg-gray-100" style="min-height:120px">${article.body}</div>
       </td>
     </tr>
   </table>

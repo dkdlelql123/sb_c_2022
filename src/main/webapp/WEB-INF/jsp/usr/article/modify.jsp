@@ -27,7 +27,7 @@
     <tr>
         <td>카테고리</td>
         <td>
-          <select name="boardId" id="boardCategory" class="select border border-gray-300" >
+          <select name="boardId" id="boardCategory" class="select select-sm select-bordered" >
             <option>-선택해주세요-</option>
             <c:forEach var="board" items="${boards}">
               <c:choose>
@@ -56,11 +56,11 @@
     </tr>
     <tr>
       <td>작성일</td>
-      <td>${article.regDate}</td>
+      <td>${article.forPrintType2RegDate}</td>
     </tr>
     <tr>
       <td>수정일</td>
-      <td>${article.updateDate}</td>
+      <td>${article.forPrintType2UpdateDate}</td>
     </tr>
     <tr>
       <td>내용</td>

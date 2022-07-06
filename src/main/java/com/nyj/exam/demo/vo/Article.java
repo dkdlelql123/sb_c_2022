@@ -27,4 +27,19 @@ public class Article {
 	private int extra__goodReactionPoint;
 	private int extra__badReactionPoint;
 	
+	public String getForPrintType1RegDate() {
+		return regDate.substring(2,10);
+	}
+	
+	public String getForPrintType1UpdateDate() {
+		return updateDate.substring(2,10);
+	}
+	
+	public String getForPrintType2RegDate() {
+		return regDate.substring(2,16);
+	}
+	
+	public String getForPrintType2UpdateDate() {
+		return updateDate.substring(2,16);
+	}
 }

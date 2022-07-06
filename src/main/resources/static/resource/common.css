@@ -45,31 +45,13 @@ body{
 
 textarea.textarea, input[type=text], input[type=password] {
 	color: #0a0a0a;
-	background: #f5f5f5; 
+	background: lightgray;
+	padding:4px 8px ; 
 	border-radius: 2px;
+} 
+input:read-only{
+	background-color: rgba(0,0,0,0);
+	padding:0px; 
+	border: 0;
+	box-shadow: none;
 }
-/* 
-.btn {
-	border-radius: 8px;
-	display: flex;
-	background: deepskyblue;
-	color: #fff;
-	padding: 2px 4px;
-	font-size: 0.85rem;
-}
-
-.btn:hover{
-	cursor:pointer;
-}
-
-.btn-type-1:hover {
-	background: skyblue;
-}
-
-.btn-type-2 {
-	background: mediumseagreen;
-}
-
-.btn-type-2:hover {
-	background: yellowgreen;
-}  */
