@@ -104,11 +104,16 @@ public class UsrArticleController {
 	public ResultData doIncreaseHitCount(int id) {
 		System.out.println();
 		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+		
 		if(increaseHitCountRd.isFail()) {
 			return increaseHitCountRd;
 		}
+		
 		int hitCount = articleService.getArticleHitCount(id); 
-		return ResultData.newData(increaseHitCountRd, hitCount); 
+		ResultData rd = ResultData.newData(increaseHitCountRd, hitCount); 
+		rd.setData2("articleId", id);
+		
+		return rd;
 	}
 
 	@RequestMapping("/usr/article/getArticle")
@@ -120,7 +125,7 @@ public class UsrArticleController {
 			return ResultData.form("F-1", Ut.f("%d번 게시물이 존재하지 않습니다.", id));
 		}
 
-		return ResultData.form("S-1", Ut.f("%d번 게시물입니다.", id), article);
+		return ResultData.form("S-1", Ut.f("%d번 게시물입니다.", id), article); 
 	}
 	
 	@RequestMapping("/usr/article/doDelete")

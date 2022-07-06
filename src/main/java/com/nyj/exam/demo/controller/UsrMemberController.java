@@ -64,7 +64,7 @@ public class UsrMemberController {
 		int id = memberService.getLastInsertId();
 //		Member member = memberService.getMemberId(id);
 
-		return ResultData.form(joinRd.getResultCode(), joinRd.getMsg());
+		return ResultData.form(joinRd.getResultCode(), joinRd.getData1msg());
 	}
 
 	@RequestMapping("/usr/member/login")

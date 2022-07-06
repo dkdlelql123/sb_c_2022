@@ -9,10 +9,16 @@ public class ResultData {
 	String resultCode;
 	
 	@Getter
-	String msg;
+	String data1msg;
 	
 	@Getter
 	Object data1;
+	
+	@Getter
+	String data2msg;
+	
+	@Getter
+	Object data2;
 
 	private ResultData() {
 	}
@@ -25,7 +31,7 @@ public class ResultData {
 		ResultData rd = new ResultData();
 		
 		rd.resultCode = resultCode;
-		rd.msg = msg;
+		rd.data1msg = msg;
 		rd.data1 = article;
 		
 		return rd; 
@@ -42,11 +48,16 @@ public class ResultData {
 	public static ResultData newData(ResultData rd, Object obj) {
 		ResultData newRd = new ResultData();
 		
-		newRd.resultCode = rd.getMsg();
-		newRd.msg = rd.getMsg();
+		newRd.resultCode = rd.getResultCode();
+		newRd.data1msg = rd.getData1msg();
 		newRd.data1 = obj;
 		
 		return newRd;
+	}
+
+	public void setData2(String msg, Object obj) {
+		this.data2msg = msg;
+		this.data2 = obj;
 	}
 	
 }

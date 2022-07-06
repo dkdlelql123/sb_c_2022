@@ -85,6 +85,7 @@ public class ArticleService {
 			return ResultData.form("F-1", "조회수 증가 실패", affectedRowCount);			
 		}
 		return ResultData.form("S-1", "조회수 +1", affectedRowCount);
+	
 	} 
 	
 	public int getArticleHitCount(int id) {
