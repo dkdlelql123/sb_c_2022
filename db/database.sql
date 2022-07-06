@@ -205,3 +205,24 @@ relCodeType = 'article',
 relId = 1,
 `point` = -1;
 
+# 게시물에 좋아요, 싫어요 칼럼 추가
+ALTER TABLE article
+ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+ 
+ALTER TABLE article
+ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+ 
+# reactionPoint 테이블의 좋아요, 싫어요 카운트 세서 article테이블에 넣기 
+UPDATE article AS a
+INNER JOIN(
+	SELECT rp.relId,
+	SUM(IF(`point`>0, POINT, 0)) AS good,
+	SUM(IF(`point`<0, POINT * -1, 0)) AS bad
+	FROM reactionPoint AS rp
+	WHERE relCodeType = 'article'
+	GROUP BY rp.relId, rp.relCodeType
+) AS rpsum
+ON a.id = rpsum.relId 
+SET a.goodReactionPoint = rpsum.good,
+a.badReactionPoint = rpsum.bad;
+ 
