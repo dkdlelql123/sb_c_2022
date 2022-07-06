@@ -55,8 +55,8 @@
       <tr>
         <th>번호</th>
         <th>제목</th>
-        <th>조회수</th>
-        <th>좋아요</th>
+        <th>조회</th>
+        <th>추천</th>
         <th>작성자</th>
         <th>작성일</th>
       </tr>
@@ -64,13 +64,13 @@
     <tbody>
       <c:forEach var="article" items="${articles}">
         <tr>
-          <td class="text-center">${article.id}</td>
+          <th class="text-center">${article.id}</th>
           <td>
             <a href="/usr/article/detail?id=${article.id}">${article.title}</a>
             [0]
           </td>
           <td class="text-center">${article.hit}</td>
-          <td class="text-center">10</td>
+          <td class="text-center">${article.extra__goodReactionPoint}</td>
           <td class="text-center">${article.extra__writerName}</td>
           <td class="text-center">${article.regDate.substring(2,10)}</td>
         </tr>

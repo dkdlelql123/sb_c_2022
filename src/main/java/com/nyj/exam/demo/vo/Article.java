@@ -22,5 +22,9 @@ public class Article {
 	
 	private String extra__writerName;
 	private boolean extra__actorCanEdit;
+
+	private int extra__sumReactionPoint;
+	private int extra__goodReactionPoint;
+	private int extra__badReactionPoint;
 	
 }

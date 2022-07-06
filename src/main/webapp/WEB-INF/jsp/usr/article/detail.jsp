@@ -11,7 +11,7 @@ let articleId = $("input[name='articleId']").val();
 articleId =  parseInt(articleId);
 
 function ArticleDetail__increaseHitCount() { // 게시물 조회수 관련 함수
-	const localStorageKey = `article__${articleId}__viewDone`;
+	const localStorageKey = "article__"+articleId+"__viewDone"; 
 	
 	if(localStorage.getItem(localStorageKey)){ 
 		return ;
@@ -30,6 +30,7 @@ function ArticleDetail__increaseHitCount() { // 게시물 조회수 관련 함�
         }
 	})
 }
+
 ArticleDetail__increaseHitCount();
 </script>
 
