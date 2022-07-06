@@ -125,12 +125,4 @@
 		WHERE id = #{id};
 	</select>
 	
-	<select id="actorCanMakeReactionPoint" resultType="int">
-		SELECT IFNULL(SUM(`point`), 0) AS P
-		FROM reactionPoint
-		WHERE memberId = #{loginedMemberId}
-		AND relCodeType = 'article'
-		AND relId = #{articleId};
-	</select>
-	
 </mapper>

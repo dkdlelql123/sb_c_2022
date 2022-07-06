@@ -2,8 +2,6 @@ package com.nyj.exam.demo.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyj.exam.demo.service.ArticleService;
 import com.nyj.exam.demo.service.BoardService;
+import com.nyj.exam.demo.service.ReactionPointService;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Article;
 import com.nyj.exam.demo.vo.Board;
@@ -26,6 +25,9 @@ public class UsrArticleController {
 	ArticleService articleService; 
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	ReactionPointService reactionPointService;
 	
 	private Rq rq;
 	
@@ -95,7 +97,7 @@ public class UsrArticleController {
 	public String showDetail(Model model, int id) {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
-		boolean actorCanMakeReactionPoint = articleService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), id);
+		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), "article", id);
 		model.addAttribute("extra__canMakeReactionPoint", actorCanMakeReactionPoint);
 		model.addAttribute("article", article);
 		

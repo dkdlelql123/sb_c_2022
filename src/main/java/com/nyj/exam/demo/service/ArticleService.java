@@ -32,14 +32,6 @@ public class ArticleService {
 		
 		return articleRepository.getArticles(boardId, searchKeyType, searchKeyword, limitStart, limitTake); 
 	} 
-
-	public List<Article> getForPrintArticles(int memberId, int boardId) {
-		List<Article> articles = articleRepository.getForPrintArticles(boardId);
-		for(Article article : articles) {
-			actorCanEdit(memberId, article);
-		}
-		return articles;
-	}
 	
 	public Article getArticle(int id) { 		
 		return articleRepository.getArticle(id); 
@@ -78,6 +70,10 @@ public class ArticleService {
 	public int getArticlesCount(int boardId, String searchKeywordType, String searchKeyword) {
 		return articleRepository.getArticlesCount(boardId, searchKeywordType, searchKeyword);
 	}
+	
+	public int getArticleHitCount(int id) {
+		return articleRepository.getArticleHitCount(id);
+	}
 
 	public ResultData increaseHitCount(int id) { 
 		int affectedRowCount =  articleRepository.increaseHitCount(id);
@@ -85,15 +81,6 @@ public class ArticleService {
 			return ResultData.form("F-1", "조회수 증가 실패", affectedRowCount);			
 		}
 		return ResultData.form("S-1", "조회수 +1", affectedRowCount);
-	
 	} 
-	
-	public int getArticleHitCount(int id) {
-		return articleRepository.getArticleHitCount(id);
-	}
-
-	public boolean actorCanMakeReactionPoint(int loginedMemberId, int articleId) {
-		return articleRepository.actorCanMakeReactionPoint(loginedMemberId, articleId) == 0; 
-	}
 	
 }
