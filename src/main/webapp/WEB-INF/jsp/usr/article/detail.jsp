@@ -59,8 +59,12 @@ ArticleDetail__increaseHitCount();
       <td>${article.id}</td>
     </tr>
     <tr>
-      <td>조회수</td>
+      <td>조회</td>
       <td><div class="articleHit">${article.hit}</div></td>
+    </tr>
+    <tr>
+      <td>추천</td>
+      <td><div class="goodReactionPoint">${article.extra__goodReactionPoint}</div></td>
     </tr>
     <tr>
         <td>카테고리</td>

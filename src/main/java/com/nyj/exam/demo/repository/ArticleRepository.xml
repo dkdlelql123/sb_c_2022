@@ -19,14 +19,22 @@
 	
 	<select id="getForPrintArticle" resultType="Article">
 		SELECT a.*,
-		m.nickname AS extra__writerName,
-		b.name AS extra__boardName
-		FROM article a
-		LEFT JOIN `member` m
-		ON a.memberId = m.id
-		LEFT JOIN `board` b
-		ON a.boardId = b.id
-		WHERE a.id = #{id}
+		IFNULL(SUM(IF(rp.`point` &gt; 0, rp.`point`, 0)), 0) AS extra__goodReactionPoint
+		FROM (
+			SELECT a.*,
+			m.nickname AS extra__writerName,
+			b.name AS extra__boardName
+			FROM article a
+			LEFT JOIN `member` m
+			ON a.memberId = m.id
+			LEFT JOIN `board` b
+			ON a.boardId = b.id
+			WHERE a.id = #{id}
+		) AS a
+		LEFT JOIN reactionPoint AS rp
+		ON a.id = rp.relId
+		AND rp.relCodeType = 'article'
+		GROUP BY a.id 
 	</select>
 	
 	<select id="getArticles" resultType="Article">
