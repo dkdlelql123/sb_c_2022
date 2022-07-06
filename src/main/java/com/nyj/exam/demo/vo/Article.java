@@ -24,8 +24,8 @@ public class Article {
 	private boolean extra__actorCanEdit;
 
 	private int extra__sumReactionPoint;
-	private int extra__goodReactionPoint;
-	private int extra__badReactionPoint;
+	private int goodReactionPoint;
+	private int badReactionPoint;
 	
 	public String getForPrintType1RegDate() {
 		return regDate.substring(2,10);

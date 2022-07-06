@@ -25,9 +25,7 @@ public interface ArticleRepository {
 			@Param("searchKeyword") String searchKeyword,
 			@Param("limitStart") int limitStart,
 			@Param("limitTake") int limitTake
-			);  
-	
-	public List<Article> getForPrintArticles(@Param("boardId") int boardId);  
+			);    
 
 	public int getArticlesCount(@Param("boardId")int boardId, @Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
 	 

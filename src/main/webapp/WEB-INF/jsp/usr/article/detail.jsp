@@ -70,7 +70,7 @@
       <td>추천</td>
       <td>
         <div class="flex gap-2 items-center">
-          <div class="goodReactionPoint">${article.extra__goodReactionPoint}</div>
+          <div class="goodReactionPoint">${article.goodReactionPoint}</div>
           <c:if test="${extra__canMakeReactionPoint}">
             <a href="" class="btn btn-xs btn-info btn-outline">추천👍</a>
             <a href="" class="btn btn-xs btn-outline btn-secondary">비추천👎</a>
