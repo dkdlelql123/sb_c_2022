@@ -5,6 +5,33 @@
 <c:set var="pageTitle" value="게시물 상세페이지" />
 <%@ include file="../common/head.jspf"%>
 
+<input type="hidden" name="articleId" value="${param.id}" />
+<script type="text/javascript" defer="defer">
+let articleId = $("input[name='articleId']").val();
+articleId =  parseInt(articleId);
+
+function ArticleDetail__increaseHitCount() { // 게시물 조회수 관련 함수
+	const localStorageKey = `article__${articleId}__viewDone`;
+	
+	if(localStorage.getItem(localStorageKey)){ 
+		return ;
+	}
+	
+	localStorage.setItem(localStorageKey, true);
+
+	$.ajax({
+		url:'/usr/article/increaseHitCount?id='+articleId, 
+		success :  function(data){ 
+			console.log("성공");
+			console.log(data);
+            $(".articleHit").html(data.data1); 
+        }, error:function(request,status,error){     
+        	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);       
+        }
+	})
+}
+ArticleDetail__increaseHitCount();
+</script>
 
 <div class="flex justify-between mb-4 ">
   <a href="/usr/article/list?boardId=${article.boardId}">목록으로</a>
@@ -20,29 +47,6 @@
     </div>
   </c:if>
 </div>
-
-<input type="hidden" name="articleId" value="${param.id}" />
-
-<script type="text/javascript">
-	let articleId = $("input[name='articleId']").val();
-	articleId =  parseInt(articleId);
-	
-	function ArticleDetail__increaseHitCount() {
-		$.ajax({
-			url:'/usr/article/increaseHitCount?id='+articleId, 
-			success :  function(data){ 
-				console.log("성공");
-				console.log(data);
-	            $(".articleHit").html(data.data1); 
-	        }, error:function(request,status,error){     
-	        	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);       
-	        }
-	       
-		})
-	}
-	
-	ArticleDetail__increaseHitCount() 
-</script>
 
 <div class="table-box-type-1">
   <table>
