@@ -5,9 +5,29 @@
 	<select id="actorCanMakeReactionPoint" resultType="int">
 		SELECT IFNULL(SUM(`point`), 0) AS P
 		FROM reactionPoint
-		WHERE memberId = #{loginedMemberId}
-		AND relCodeType = #{relCodeType}
+		WHERE memberId = #{memberId}
+		AND relTypeCode = #{relTypeCode}
 		AND relId = #{articleId};
 	</select>
+	
+	<insert id="addIncreaseGoodReactionPoint">
+		INSERT INTO reactionPoint 
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{memberId},
+		relTypeCode = #{relTypeCode},
+		relId = #{relId},
+		`point` = 1;
+	</insert>
+	
+	<insert id="addIncreaseBadReactionPoint">
+		INSERT INTO reactionPoint 
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{memberId},
+		relTypeCode = #{relTypeCode},
+		relId = #{relId},
+		`point` = -1;
+	</insert>
 	
 </mapper>

@@ -7,6 +7,9 @@ import lombok.ToString;
 public class ResultData {
 	@Getter
 	String resultCode;
+
+	@Getter
+	String msg;
 	
 	@Getter
 	String data1msg;
@@ -24,15 +27,20 @@ public class ResultData {
 	}
 	
 	public static ResultData form(String resultCode, String msg) {
-		return form(resultCode, msg, null);
+		return form(resultCode, msg, null, null);
 	}
 	
-	public static ResultData form(String resultCode, String msg,Object article) {
+	public static ResultData form(String resultCode, String msg, Object data1) {
+		return form(resultCode, msg, null, data1);
+	}
+	
+	public static ResultData form(String resultCode, String msg, String data1msg, Object data1) {
 		ResultData rd = new ResultData();
 		
 		rd.resultCode = resultCode;
-		rd.data1msg = msg;
-		rd.data1 = article;
+		rd.msg = msg;
+		rd.data1msg = data1msg;
+		rd.data1 = data1;
 		
 		return rd; 
 	}

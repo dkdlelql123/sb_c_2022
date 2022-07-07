@@ -38,7 +38,8 @@ public interface ArticleRepository {
 	public int increaseHitCount(int id);
 	
 	public int getArticleHitCount(int id);
-
-	public int actorCanMakeReactionPoint(int loginedMemberId, int articleId);
 	
+	public int increaseGoodReactionPoint(int id);
+	
+	public int increaseBadReactionPoint(int id);
 }

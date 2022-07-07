@@ -96,10 +96,12 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+		model.addAttribute("article", article);  
 		
-		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), "article", id);
-		model.addAttribute("extra__canMakeReactionPoint", actorCanMakeReactionPoint);
-		model.addAttribute("article", article);
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), "article", id);
+		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPointRd.isSuccess());
+		
+	
 		
 		return "usr/article/detail";
 	}
@@ -107,7 +109,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/increaseHitCount")
 	@ResponseBody
 	public ResultData doIncreaseHitCount(int id) {
-		System.out.println();
 		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
 		
 		if(increaseHitCountRd.isFail()) {

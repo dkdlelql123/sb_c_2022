@@ -71,10 +71,12 @@
       <td>
         <div class="flex gap-2 items-center">
           <div class="goodReactionPoint">${article.goodReactionPoint}</div>
-          <c:if test="${extra__canMakeReactionPoint}">
-            <a href="" class="btn btn-xs btn-info btn-outline">추천👍</a>
-            <a href="" class="btn btn-xs btn-outline btn-secondary">비추천👎</a>
+          <c:if test="${actorCanMakeReactionPoint}">
+            <a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-info btn-outline">좋아요👍</a>
+            <a  href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-outline btn-secondary">싫어요👎</a>
           </c:if>
+        
+          
         </div>
       </td>
     </tr>

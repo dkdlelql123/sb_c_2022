@@ -37,7 +37,7 @@ public class ArticleService {
 		return articleRepository.getArticle(id); 
 	}
 
-	public Article getForPrintArticle(int LoginedMemberId,int id) {
+	public Article getForPrintArticle(int LoginedMemberId ,int id) {
 		Article article = articleRepository.getForPrintArticle(id);
 		
 		ResultData actorCanEditRd = actorCanEdit(LoginedMemberId, article); 
@@ -81,6 +81,22 @@ public class ArticleService {
 			return ResultData.form("F-1", "조회수 증가 실패", affectedRowCount);			
 		}
 		return ResultData.form("S-1", "조회수 +1", affectedRowCount);
+	}
+
+	public ResultData increaseGoodReactionPoint(int relId) {
+		int affectedCount = articleRepository.increaseGoodReactionPoint(relId);
+		if( affectedCount == 0 ) {
+			return ResultData.form("F-1", "해당 게시물이 존재하지 않습니다.", "affectedCount", affectedCount);			
+		}
+		return ResultData.form("S-1", "좋아요 + 1", "affectedCount", affectedCount);
+	} 
+	
+	public ResultData increaseBadReactionPoint(int relId) {
+		int affectedCount = articleRepository.increaseBadReactionPoint(relId);
+		if( affectedCount == 0 ) {
+			return ResultData.form("F-1", "해당 게시물이 존재하지 않습니다.", "affectedCount", affectedCount);			
+		}
+		return ResultData.form("S-1", "싫어요 + 1", "affectedCount", affectedCount);
 	} 
 	
 }
