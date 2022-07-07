@@ -97,6 +97,25 @@ public class ArticleService {
 			return ResultData.form("F-1", "해당 게시물이 존재하지 않습니다.", "affectedCount", affectedCount);			
 		}
 		return ResultData.form("S-1", "싫어요 + 1", "affectedCount", affectedCount);
+	}
+
+	public ResultData decreaseReactionPoint(int relId, String cancleReaction) {
+		int affectedCount = 0;
+		
+		switch(cancleReaction) {
+		case "good" : 
+			affectedCount = articleRepository.decreaseReactionPoint(relId, "goodReactionPoint");
+			break;
+		case "bad" :
+			affectedCount = articleRepository.decreaseReactionPoint(relId, "badReactionPoint");
+			break;
+		}
+		
+		if( affectedCount == 0 ) {
+			return ResultData.form("F-1", "해당 게시물이 존재하지 않습니다.", "affectedCount", affectedCount);			
+		}
+		return ResultData.form("S-1", "리액션 헤제", "affectedCount", affectedCount);
+		
 	} 
 	
 }

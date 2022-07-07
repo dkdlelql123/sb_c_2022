@@ -7,8 +7,10 @@ public interface ReactionPointRepository {
 
 	public int actorCanMakeReactionPoint(int memberId, String relTypeCode, int articleId);
 
-	public void addIncreaseGoodReactionPoint(int memberId, String relTypeCode, int relId);
+	public void increaseGoodReactionPoint(int memberId, String relTypeCode, int relId);
 
-	public void addIncreaseBadReactionPoint(int memberId, String relTypeCode, int relId);
+	public void increaseBadReactionPoint(int memberId, String relTypeCode, int relId);
+
+	public void decreaseReactionPoint(int memberId, String relTypeCode, int relId);
 	
 }

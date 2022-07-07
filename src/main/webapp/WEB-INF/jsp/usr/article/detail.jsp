@@ -81,7 +81,8 @@
           </c:if>
 
           <c:if test="${actorCanMakeCancleGoodReactionPoint}">
-            <a href="" class="btn btn-xs btn-info">좋아요👍</a>
+            <a href="/usr/reactionPoint/doCancleReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}&cancleReaction=good" 
+              class="btn btn-xs btn-info">좋아요👍</a>
             <a href="#" onclick="alert(this.title); return false;"
               title="좋아요를 취소해주세요"
               class="btn btn-xs btn-secondary btn-outline">싫어요👎</a>
@@ -91,7 +92,8 @@
             <a href="#" onclick="alert(this.title); return false;"
               title="싫어요를 취소해주세요"
               class="btn btn-xs btn-info btn-outline">좋아요👍</a>
-            <a href="" class="btn btn-xs btn-secondary">싫어요👎</a>
+            <a href="/usr/reactionPoint/doCancleReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}&cancleReaction=bad"  
+              class="btn btn-xs btn-secondary">싫어요👎</a>
           </c:if>
         </div>
       </td>

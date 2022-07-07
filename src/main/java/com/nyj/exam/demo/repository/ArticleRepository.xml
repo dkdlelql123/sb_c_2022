@@ -148,4 +148,17 @@
 		WHERE id = #{id};
 	</update>
 	
+	<update id="decreaseReactionPoint" >
+		UPDATE `article`
+		<set>
+			<if test="cancleReaction == 'goodReactionPoint'">
+			goodReactionPoint = goodReactionPoint - 1
+			</if>
+			<if test="cancleReaction == 'badReactionPoint'">			
+			badReactionPoint = badReactionPoint - 1
+			</if>
+		</set>
+		WHERE id = #{relId};
+	</update>
+	
 </mapper>

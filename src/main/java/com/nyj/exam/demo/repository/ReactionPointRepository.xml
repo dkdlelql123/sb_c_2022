@@ -10,7 +10,7 @@
 		AND relId = #{articleId};
 	</select>
 	
-	<insert id="addIncreaseGoodReactionPoint">
+	<insert id="increaseGoodReactionPoint">
 		INSERT INTO reactionPoint 
 		SET regDate = NOW(),
 		updateDate = NOW(),
@@ -20,7 +20,7 @@
 		`point` = 1;
 	</insert>
 	
-	<insert id="addIncreaseBadReactionPoint">
+	<insert id="increaseBadReactionPoint">
 		INSERT INTO reactionPoint 
 		SET regDate = NOW(),
 		updateDate = NOW(),
@@ -29,5 +29,13 @@
 		relId = #{relId},
 		`point` = -1;
 	</insert>
+	
+	
+	<delete id="decreaseReactionPoint">
+		DELETE FROM reactionPoint  
+		WHERE memberId = #{memberId}
+		AND relTypeCode = #{relTypeCode}
+		AND	relId = #{relId};
+	</delete>
 	
 </mapper>

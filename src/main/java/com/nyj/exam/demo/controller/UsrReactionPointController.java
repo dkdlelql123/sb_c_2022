@@ -26,7 +26,7 @@ public class UsrReactionPointController {
 	public String doGoodReaction(int relId, String relTypeCode, String replaceUri) {
 		reactionPointService.addIncreaseGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 		
-		return Ut.jsReplace("❤️", replaceUri);
+		return Ut.jsReplace("", replaceUri);
 	}
 	
 	
@@ -35,6 +35,14 @@ public class UsrReactionPointController {
 	public String doBadReaction(int relId, String relTypeCode, String replaceUri) {
 		reactionPointService.addIncreaseBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 
-		return Ut.jsReplace("싫어요👎", replaceUri);
+		return Ut.jsReplace("", replaceUri);
+	}
+	
+	@RequestMapping("/usr/reactionPoint/doCancleReaction")
+	@ResponseBody
+	public String doCancleReaction(int relId, String relTypeCode, String replaceUri, String cancleReaction) {
+		reactionPointService.addDecreaseReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId, cancleReaction);
+		
+		return Ut.jsReplace("", replaceUri);
 	}
 }

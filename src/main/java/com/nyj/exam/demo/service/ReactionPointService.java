@@ -14,12 +14,12 @@ public class ReactionPointService {
 	@Autowired
 	ArticleService articleService;
 	
-	public ResultData actorCanMakeReactionPoint(int memberId, String relCodeType, int articleId) {
+	public ResultData actorCanMakeReactionPoint(int memberId, String relTypeCode, int articleId) {
 		if(memberId == 0) {
 			return ResultData.form("F-1", "로그인 이후 이용해주세요.");
 		}
 		
-		int actorCanMakeReactionPoint = reactionPointRepository.actorCanMakeReactionPoint(memberId, relCodeType, articleId);
+		int actorCanMakeReactionPoint = reactionPointRepository.actorCanMakeReactionPoint(memberId, relTypeCode, articleId);
 		if(actorCanMakeReactionPoint != 0) {
 			return ResultData.form("F-2", "이미 리액션이 처리되었습니다.", "actorCanMakeReactionPoint", actorCanMakeReactionPoint );
 		}
@@ -27,28 +27,40 @@ public class ReactionPointService {
 		return ResultData.form("S-1", "리액션이 가능합니다.","actorCanMakeReactionPoint", actorCanMakeReactionPoint);
 	}
 
-	public ResultData addIncreaseGoodReactionPoint(int memberId, String relCodeType, int relId) {
-		reactionPointRepository.addIncreaseGoodReactionPoint(memberId, relCodeType, relId);
+	public ResultData addIncreaseGoodReactionPoint(int memberId, String relTypeCode, int relId) {
+		reactionPointRepository.increaseGoodReactionPoint(memberId, relTypeCode, relId);
 		
-		switch (relCodeType) {
+		switch (relTypeCode) {
 		case "article": 
 			articleService.increaseGoodReactionPoint(relId);
 			break; 
 		}
 		
-		return ResultData.form("S-1", "게시물 좋아요 처리되었습니다.");
+		return ResultData.form("S-1", "좋아요 처리되었습니다.");
 	}
 
-	public ResultData addIncreaseBadReactionPoint(int memberId, String relCodeType, int relId) {
-		reactionPointRepository.addIncreaseBadReactionPoint(memberId, relCodeType, relId);	
+	public ResultData addIncreaseBadReactionPoint(int memberId, String relTypeCode, int relId) {
+		reactionPointRepository.increaseBadReactionPoint(memberId, relTypeCode, relId);	
 		
-		switch (relCodeType) {
+		switch (relTypeCode) {
 		case "article": 
 			articleService.increaseBadReactionPoint(relId);
 			break; 
 		}
 		
-		return ResultData.form("S-1", "게시물 싫어요 처리되었습니다.");
+		return ResultData.form("S-1", "싫어요 처리되었습니다.");
+	}
+
+	public ResultData addDecreaseReactionPoint(int memberId, String relTypeCode, int relId, String cancleReaction) {
+		reactionPointRepository.decreaseReactionPoint(memberId, relTypeCode, relId);
+		
+		switch (relTypeCode) {
+		case "article": 
+			articleService.decreaseReactionPoint(relId, cancleReaction);
+			break; 
+		} 
+		
+		return ResultData.form("S-1", "리액션 해제 처리되었습니다.");
 	}
 	
 }
