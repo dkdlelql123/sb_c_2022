@@ -72,11 +72,27 @@
         <div class="flex gap-2 items-center">
           <div class="goodReactionPoint">${article.goodReactionPoint}</div>
           <c:if test="${actorCanMakeReactionPoint}">
-            <a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-info btn-outline">좋아요👍</a>
-            <a  href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-outline btn-secondary">싫어요👎</a>
+            <a
+              href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+              class="btn btn-xs btn-info btn-outline">좋아요👍</a>
+            <a
+              href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+              class="btn btn-xs btn-outline btn-secondary">싫어요👎</a>
           </c:if>
-        
-          
+
+          <c:if test="${actorCanMakeCancleGoodReactionPoint}">
+            <a href="" class="btn btn-xs btn-info">좋아요👍</a>
+            <a href="#" onclick="alert(this.title); return false;"
+              title="좋아요를 취소해주세요"
+              class="btn btn-xs btn-secondary btn-outline">싫어요👎</a>
+          </c:if>
+
+          <c:if test="${actorCanMakeCancleBadReactionPoint}">
+            <a href="#" onclick="alert(this.title); return false;"
+              title="싫어요를 취소해주세요"
+              class="btn btn-xs btn-info btn-outline">좋아요👍</a>
+            <a href="" class="btn btn-xs btn-secondary">싫어요👎</a>
+          </c:if>
         </div>
       </td>
     </tr>

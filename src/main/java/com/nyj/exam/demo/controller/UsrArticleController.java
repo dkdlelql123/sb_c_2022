@@ -101,8 +101,14 @@ public class UsrArticleController {
 		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), "article", id);
 		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPointRd.isSuccess());
 		
-	
-		
+		if(actorCanMakeReactionPointRd.getResultCode().equals("F-2")) {
+			int subReactionPointByMember = (int)actorCanMakeReactionPointRd.getData1();
+			if( subReactionPointByMember > 0 ) {
+				model.addAttribute("actorCanMakeCancleGoodReactionPoint", true);				
+			} else {				
+				model.addAttribute("actorCanMakeCancleBadReactionPoint", true);				
+			}
+		}	
 		return "usr/article/detail";
 	}
 	
