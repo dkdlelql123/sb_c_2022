@@ -225,4 +225,23 @@ INNER JOIN(
 ON a.id = rpsum.relId 
 SET a.goodReactionPoint = rpsum.good,
 a.badReactionPoint = rpsum.bad;
- 
+
+# 댓글 테이블 생성
+CREATE TABLE `reply`(
+	id INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	memberId INT(10) UNSIGNED NOT NULL,
+	relTypeCode CHAR(30) NOT NULL COMMENT '관련데이터타입코드',
+	relId INT(10) UNSIGNED NOT NULL COMMENT '관련데이터',
+	`body` TEXT NOT NULL
+);
+
+# 테스트 댓글 생성
+INSERT INTO `reply`
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relCodeType = 'article',
+relId = 1,
+`body` = '이것이 첫번째 댓글 입니다~';
