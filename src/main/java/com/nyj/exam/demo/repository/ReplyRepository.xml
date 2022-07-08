@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyj.exam.demo.repository.ReplyRepository">
+	<select id="getForPrintReplies" resultType="Reply">
+		SELECT a.*, m.nickname AS extra__writerName
+		FROM `reply` AS a
+		LEFT JOIN `member` AS m
+		ON a.memberId = m.id
+		WHERE a.relId = #{id} 
+		AND a.relTypeCode = #{relTypeCode} ;
+	</select>
+</mapper>

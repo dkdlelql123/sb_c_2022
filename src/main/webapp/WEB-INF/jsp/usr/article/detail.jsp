@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 
 <c:set var="pageTitle" value="게시물 상세페이지" />
 <%@ include file="../common/head.jspf"%>
@@ -81,7 +81,8 @@
           </c:if>
 
           <c:if test="${actorCanMakeCancleGoodReactionPoint}">
-            <a href="/usr/reactionPoint/doCancleReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}&cancleReaction=good" 
+            <a
+              href="/usr/reactionPoint/doCancleReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}&cancleReaction=good"
               class="btn btn-xs btn-info">좋아요👍</a>
             <a href="#" onclick="alert(this.title); return false;"
               title="좋아요를 취소해주세요"
@@ -92,7 +93,8 @@
             <a href="#" onclick="alert(this.title); return false;"
               title="싫어요를 취소해주세요"
               class="btn btn-xs btn-info btn-outline">좋아요👍</a>
-            <a href="/usr/reactionPoint/doCancleReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}&cancleReaction=bad"  
+            <a
+              href="/usr/reactionPoint/doCancleReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}&cancleReaction=bad"
               class="btn btn-xs btn-secondary">싫어요👎</a>
           </c:if>
         </div>
@@ -128,19 +130,26 @@
 </div>
 
 <div class="py-8">
-  <h4 class="py-2 border-b border-gray-400">댓글💬</h4>
+  <h4 class="py-2 border-b border-gray-400">💬 댓글 ${replyCount}개</h4>
   <table>
-    <tr>
-      <div class="flex gap-1 items-center py-2 border-b border-gray-200">
-        <p>댓글내용...</p>
-        <span class="text-sm text-gray-500">작성자</span>
-        <span class="text-sm text-gray-500">작성일</span>
-        <a class="btn btn-info btn-xs" href="/usr/reply/modify?id=">수정</a>
-        <a class="btn btn-error btn-xs"
-          onclick="if( confirm('정말 삭제하시겠습니까?') == false) return false;"
-          href="/usr/reply/doDelete?id=">삭제</a>
+    <c:if test='${replyCount == 0}' >
+      <div class="py-2">
+        댓글이 없습니다.
       </div>
-    </tr>
+    </c:if>
+    <c:forEach var="reply" items='${replies}'>
+      <tr>
+        <div class="flex gap-1 items-center py-2 border-b border-gray-200">
+          <p class="mr-2">${reply.body}</p>
+          <span class="text-xs text-gray-500">${reply.extra__writerName}</span>
+          <span class="text-xs text-gray-500">${reply.forPrintType1RegDate}</span>
+          <a class="btn btn-success btn-outline btn-xs" href="/usr/reply/modify?id=${reply.id}">수정</a>
+          <a class="btn btn-secondary btn-outline btn-xs"
+            onclick="if( confirm('정말 삭제하시겠습니까?') == false) return false;"
+            href="/usr/reply/doDelete?id=${reply.id}">삭제</a>
+        </div>
+      </tr>
+    </c:forEach>
   </table>
 </div>
 

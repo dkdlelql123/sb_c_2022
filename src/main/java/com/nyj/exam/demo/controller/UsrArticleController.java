@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nyj.exam.demo.service.ArticleService;
 import com.nyj.exam.demo.service.BoardService;
 import com.nyj.exam.demo.service.ReactionPointService;
+import com.nyj.exam.demo.service.ReplyService;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Article;
 import com.nyj.exam.demo.vo.Board;
+import com.nyj.exam.demo.vo.Reply;
 import com.nyj.exam.demo.vo.ResultData;
 import com.nyj.exam.demo.vo.Rq;
 
@@ -25,9 +27,10 @@ public class UsrArticleController {
 	ArticleService articleService; 
 	@Autowired
 	BoardService boardService;
-	
 	@Autowired
 	ReactionPointService reactionPointService;
+	@Autowired
+	ReplyService replyService;
 	
 	private Rq rq;
 	
@@ -95,10 +98,12 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
+		String relTypeCode = "article";
+		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		model.addAttribute("article", article);  
 		
-		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), "article", id);
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), relTypeCode, id);
 		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPointRd.isSuccess());
 		
 		if(actorCanMakeReactionPointRd.getResultCode().equals("F-2")) {
@@ -108,7 +113,13 @@ public class UsrArticleController {
 			} else {				
 				model.addAttribute("actorCanMakeCancleBadReactionPoint", true);				
 			}
-		}	
+		}
+		
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), id, relTypeCode);
+		int replyCount = replies.size();
+		model.addAttribute("replies", replies);
+		model.addAttribute("replyCount", replyCount);
+		
 		return "usr/article/detail";
 	}
 	
