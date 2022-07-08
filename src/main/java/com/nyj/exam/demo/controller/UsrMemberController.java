@@ -1,10 +1,8 @@
 package com.nyj.exam.demo.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,7 +40,6 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public String doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
-
 		ResultData joinRd = memberService.join(loginId, loginPw, email, name, nickname, phoneNumber);
 		if (joinRd.isFail()) {
 			return Ut.jsHistoryBack(joinRd.getMsg());
@@ -84,9 +81,8 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 
-		rq.login(member);
-		// Ut.f("'%s'님 반갑습니다.", member.getNickname()
-		return Ut.jsReplace("반갑습니다", "/");
+		rq.login(member);  
+		return Ut.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickname()), "/");
 	}
 
 	@RequestMapping("/usr/member/doLogout")
@@ -103,8 +99,19 @@ public class UsrMemberController {
 	
 	
 	@RequestMapping("/usr/member/mypage")
-	public String showMyPage() {
+	public String showMyPage(Model model) {
+		model.addAttribute("member", rq.getMember());
 		return "/usr/member/mypage";
+	}
+	
+	@RequestMapping("/usr/member/doModify")
+	@ResponseBody
+	public String doModify(String loginPw, String email,String nickname, String phoneNumber) {
+		ResultData doModifyRd = memberService.doModify( rq.getLoginedMemberId(),loginPw, email, nickname, phoneNumber);
+		if (doModifyRd.isFail()) {
+			return Ut.jsHistoryBack(doModifyRd.getMsg());
+		}
+		return Ut.jsReplace("회원정보수정이 완료되었습니다.", "/usr/member/mypage");
 	}
 	
 }

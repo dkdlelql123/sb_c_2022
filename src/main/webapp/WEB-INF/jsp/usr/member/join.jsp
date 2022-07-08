@@ -2,7 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="회원가입" />
+<c:set var="pageTitle" value="회원가입" required />
 <%@ include file="../common/head.jspf"%>
 
 <script type="text/javascript" defer="defer">
@@ -110,7 +110,7 @@
         <td>아이디</td>
         <td>
           <div class="flex items-center gap-1 mb-1">
-            <input type="text" id="loginId"  name="loginId" class="input w-full" placeholder="아이디" value="user" autocomplete="off" />
+            <input type="text" id="loginId"  name="loginId" class="input w-full" placeholder="아이디" autocomplete="off"  required />
           </div>
           <div class="text-xs loginId-message">* 중복체크 필수입니다.</div>
         </td>
@@ -119,40 +119,40 @@
         <td>비밀번호</td>
         <td>
           <input type="password" id="loginPw" name="loginPw" class="input w-full loginPw"  
-            value="1234" />
+            placeholder="비밀번호" required />
       </tr>
       <tr>
         <td>비밀번호 재확인</td>
         <td>
           <input type="password" name="loginPw2" class="input w-full"
-            value="1234" />
+            placeholder="비밀번호" required />
         </td>
       </tr>
       <tr>
         <td>이름</td>
         <td>
-          <input type="text" name="name" class="input w-full" value="유저" />
+          <input type="text" name="name" class="input w-full" placeholder="이름" required />
         </td>
       </tr>
       <tr>
         <td>이메일</td>
         <td>
-          <input type="text" name="email" class="input w-full"
-            value="12@cc.com" />
+          <input type="email" name="email" class="input w-full"
+            placeholder="abc@abc.com" required />
         </td>
       </tr>
       <tr>
         <td>별명</td>
         <td>
           <input type="text" name="nickname" class="input w-full"
-            value="별명" />
+            placeholder="별명" required />
         </td>
       </tr>
       <tr>
         <td>전화번호</td>
         <td>
           <input type="text" name="phoneNumber" class="input w-full"
-            value="01012341234" />
+            placeholder="전화번호" required />
         </td>
       </tr>
     </table>

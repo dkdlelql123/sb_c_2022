@@ -7,6 +7,7 @@ import com.nyj.exam.demo.repository.MemberRepository;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Member;
 import com.nyj.exam.demo.vo.ResultData;
+import com.sun.net.httpserver.Authenticator.Result;
 
 @Service
 public class MemberService {
@@ -48,6 +49,15 @@ public class MemberService {
 	
 	public Member getMemberNameAndEmail(String name, String email) {
 		return memberRepository.getMemberNameAndEmail(name, email);
+	}
+
+	public ResultData doModify(int memberId, String loginPw, String email, String nickname, String phoneNumber) {
+		Member oldMember = getMemberById(memberId);
+		if(oldMember == null) {			
+			return ResultData.form("F-1", "회원정보가 없습니다.");
+		}
+		memberRepository.modify(memberId, loginPw, email, nickname, phoneNumber);
+		return ResultData.form("S-1", "정보수정이 완료되었습니다.");
 	}
 
 	

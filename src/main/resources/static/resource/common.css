@@ -43,7 +43,7 @@ body{
 	font-weight: normal;
 }
 
-textarea.textarea, input[type=text], input[type=password] {
+textarea.textarea, input[type=text], input[type=password],input[type=email] {
 	color: #0a0a0a;
 	background: #f0f0f0;
 	padding:4px 8px ; 

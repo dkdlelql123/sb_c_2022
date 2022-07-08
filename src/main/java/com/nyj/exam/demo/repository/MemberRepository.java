@@ -17,4 +17,6 @@ public interface MemberRepository {
 	public Member getMemberById(@Param("id") int id);
 
 	public Member getMemberNameAndEmail(@Param("name") String name, @Param("email") String email);
+
+	public void modify(int memberId,String loginPw, String email,String nickname, String phoneNumber);
 }

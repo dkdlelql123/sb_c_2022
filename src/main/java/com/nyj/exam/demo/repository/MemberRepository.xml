@@ -38,4 +38,14 @@
 	AND email = #{email}
 	</select>
 	
+	<update id="modify" >
+	UPDATE `member`
+	SET updateDate = NOW(),
+	loginPw = #{loginPw},
+	nickname = #{nickname},
+	email = #{email},
+	phoneNumber = #{phoneNumber}
+	WHERE id = #{memberId};
+	</update>
+	
 </mapper>
