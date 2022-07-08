@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:set var="pageTitle" value="게시물 상세페이지" />
 <%@ include file="../common/head.jspf"%>
@@ -34,6 +34,25 @@
 	}
 
 	ArticleDetail__increaseHitCount();
+	
+	let submitReplyDone = false;
+	function checkReplyForm(form){
+		if(submitReplyDone){
+			alert("처리중입니다.");
+			return;
+		}
+		
+		let body = form.body.value.trim();
+		
+		if(body.length <= 2){
+			alert("댓글은 두글자 이상 입력이 가능합니다.");
+			$("#replyBody").focus();
+			return;
+		}
+		
+		submitReplyDone = true;
+		form.submit(); 
+	}
 </script>
 
 
@@ -132,18 +151,18 @@
 <div class="py-8">
   <h4 class="py-2 border-b border-gray-400">💬 댓글 ${replyCount}개</h4>
   <table>
-    <c:if test='${replyCount == 0}' >
-      <div class="py-2">
-        댓글이 없습니다.
-      </div>
+    <c:if test='${replyCount == 0}'>
+      <div class="py-2">댓글이 없습니다.</div>
     </c:if>
     <c:forEach var="reply" items='${replies}'>
       <tr>
-        <div class="flex gap-1 items-center py-2 border-b border-gray-200">
+        <div
+          class="flex gap-1 items-center py-2 border-b border-gray-200">
           <p class="mr-2">${reply.body}</p>
           <span class="text-xs text-gray-500">${reply.extra__writerName}</span>
           <span class="text-xs text-gray-500">${reply.forPrintType1RegDate}</span>
-          <a class="btn btn-success btn-outline btn-xs" href="/usr/reply/modify?id=${reply.id}">수정</a>
+          <a class="btn btn-success btn-outline btn-xs"
+            href="/usr/reply/modify?id=${reply.id}">수정</a>
           <a class="btn btn-secondary btn-outline btn-xs"
             onclick="if( confirm('정말 삭제하시겠습니까?') == false) return false;"
             href="/usr/reply/doDelete?id=${reply.id}">삭제</a>
@@ -151,6 +170,16 @@
       </tr>
     </c:forEach>
   </table>
+
+  <c:if test="${rq.isLogined()}">
+    <form action="/usr/reply/doWrite?replaceUri=${rq.encodedCurrentUri}" method="post" class="mt-8" onsubmit="checkReplyForm(this); return false;" >
+    <input type="hidden" name="id" value="${article.id}"/>
+      <div class="flex items-end gap-2">
+        <textarea id="replyBody" name="body" cols="30" rows="3" class="flex-grow"></textarea>
+        <button type="submit" class="btn btn-sm btn-outline">입력</button>
+      </div>
+    </form>
+  </c:if>
 </div>
 
 <%@ include file="../common/tail.jspf"%>

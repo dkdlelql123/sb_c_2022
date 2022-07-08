@@ -9,4 +9,14 @@
 		WHERE a.relId = #{id} 
 		AND a.relTypeCode = #{relTypeCode} ;
 	</select>
+	
+	<insert id="doWriteReply" >
+		INSERT INTO `reply`
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{memberId},
+		relTypeCode = #{relTypeCode},
+		relId = #{relId},
+		`body` = #{body}
+	</insert>
 </mapper>

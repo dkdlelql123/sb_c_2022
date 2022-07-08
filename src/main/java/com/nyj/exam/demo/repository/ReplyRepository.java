@@ -10,5 +10,7 @@ import com.nyj.exam.demo.vo.Reply;
 public interface ReplyRepository {
 
 	List<Reply> getForPrintReplies(int id, String relTypeCode);
+
+	void doWriteReply(int memberId, String relTypeCode, int relId, String body);
 	
 }
