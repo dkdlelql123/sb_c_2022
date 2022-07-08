@@ -31,7 +31,15 @@ public class UsrMemberController {
 		System.out.println("회원가입 페이지");
 		return "/usr/member/join";
 	}
-
+	
+	@RequestMapping("usr/member/doCheckLoginId")
+	@ResponseBody
+	public ResultData doCheckLoginId(String loginId) {
+		ResultData rd = memberService.doCheckLoginId(loginId);
+		return rd;
+	}
+	
+	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData doJoin(String loginId, String loginPw, String email, String name, String nickname,
@@ -114,4 +122,11 @@ public class UsrMemberController {
 
 		return Ut.jsReplace("로그아웃 되었습니다", "/");
 	}
+	
+	
+	@RequestMapping("/usr/member/mypage")
+	public String showMyPage() {
+		return "/usr/member/mypage";
+	}
+	
 }
