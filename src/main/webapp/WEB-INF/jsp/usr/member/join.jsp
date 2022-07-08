@@ -30,7 +30,13 @@
 			form.loginId.focus();
 			return;
 		}
-		;
+		
+		if(validLoginId == form.loginId.value){
+			alert("아이디(을)를 다시 입력해주세요.");
+			form.loginId.focus();
+			return;
+		}
+			
 
 		if (!isNull(form.loginPw.value)) {
 			console.log("비밀번호(을)를 입력해주세요.");
@@ -50,11 +56,9 @@
 			form.loginPw.focus();
 			return;
 		}
-
-		alert("성공");
-		// submitJoinFormDone = true;
-		// form.submit();
-		return false;
+ 
+		submitJoinFormDone = true;
+		form.submit();
 	} 
 	
 	$(document).ready(function(){
@@ -62,7 +66,7 @@
 	    var delay = 500;   // 0.5 seconds
 
 	    $('input#loginId').keyup(function() { 
-			const loginId = $(this).val();			
+			const loginId = $(this).val().trim();			
 	        if(timeout) {
 	            clearTimeout(timeout);
 	        }
@@ -79,12 +83,12 @@
 					url:'/usr/member/doCheckLoginId',
 					type: "GET",
 					data: { "loginId" : loginId },
-					success: function(result){
-						console.log(result)
+					success: function(result){ 
 						let resultCode = result.resultCode.substr(0,1);
 						if(resultCode == 'S'){
 							$('.loginId-message').html('<div class="loginId-message text-xs text-green-600">✔️ 사용가능한 아이디입니다</div>');					
 						} else if(resultCode == 'F'){
+							validLoginId = loginId;
 							$('.loginId-message').html('<div class="loginId-message text-xs text-red-600">🚫 이미 사용중인 아이디입니다.</div>');
 						} 
 					}, error: function(error){
@@ -93,12 +97,11 @@
 				})		
 			}
 		}
-	})
-	 
+	}) 
 </script>
 
 <div class="table-box-type-1 m-auto w-full lg:w-1/2">
-  <form onsubmit="checkForm(this); return false;">
+  <form onsubmit="checkForm(this); return false;" action="/usr/member/doJoin" method="post">
     <table>
       <colgroup>
         <col width="200">
@@ -153,8 +156,7 @@
         </td>
       </tr>
     </table>
-    <button type="submit"
-      class="w-full btn btn-info mt-4 py-2 block text-center">회원가입</button>
+    <button type="submit" class="w-full btn btn-info mt-4 py-2 block text-center">회원가입</button>
   </form>
 </div>
 

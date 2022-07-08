@@ -35,44 +35,22 @@ public class UsrMemberController {
 	@RequestMapping("usr/member/doCheckLoginId")
 	@ResponseBody
 	public ResultData doCheckLoginId(String loginId) {
-		ResultData rd = memberService.doCheckLoginId(loginId);
-		return rd;
+		ResultData doCheckLoginIdRd = memberService.doCheckLoginId(loginId);
+		return doCheckLoginIdRd;
 	}
-	
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData doJoin(String loginId, String loginPw, String email, String name, String nickname,
-			String phoneNumber) {
-
-		if (Ut.empty(loginId)) {
-			return ResultData.form("F-3", "아이디(을)를 입력해주세요.");
-		}
-		if (Ut.empty(loginPw)) {
-			return ResultData.form("F-4", "비밀번호(을)를 입력해주세요.");
-		}
-		if (Ut.empty(email)) {
-			return ResultData.form("F-5", "이메일(을)를 입력해주세요.");
-		}
-		if (Ut.empty(name)) {
-			return ResultData.form("F-6", "이름(을)를 입력해주세요.");
-		}
-		if (Ut.empty(nickname)) {
-			return ResultData.form("F-7", "별명(을)를 입력해주세요.");
-		}
-		if (Ut.empty(phoneNumber)) {
-			return ResultData.form("F-8", "핸드폰번호(을)를 입력해주세요.");
-		}
+	public String doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
 
 		ResultData joinRd = memberService.join(loginId, loginPw, email, name, nickname, phoneNumber);
 		if (joinRd.isFail()) {
-			return joinRd;
+			return Ut.jsHistoryBack(joinRd.getMsg());
 		}
 
-		int id = memberService.getLastInsertId();
-//		Member member = memberService.getMemberId(id);
+		int id = memberService.getLastInsertId(); 
 
-		return ResultData.form(joinRd.getResultCode(), joinRd.getData1msg());
+		return Ut.jsReplace(joinRd.getMsg(), "/usr/member/login");
 	}
 
 	@RequestMapping("/usr/member/login")

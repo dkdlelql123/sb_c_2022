@@ -23,10 +23,7 @@ public class MemberService {
 	}
 	
 	public ResultData join(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
-		Member oldMember = getMemberLoginId(loginId);
-		if(oldMember != null) {
-			return ResultData.form("F-1", Ut.f("이미 사용중인 아이디(%s)입니다", loginId));
-		}
+		Member oldMember = getMemberLoginId(loginId); 
 		
 		oldMember = getMemberNameAndEmail(name, email);
 		if(oldMember != null) {
