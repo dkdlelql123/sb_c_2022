@@ -55,6 +55,7 @@
 		submitReplyDone = true;
 		form.submit();
 	}
+
 </script>
 
 
@@ -168,11 +169,14 @@
           <span class="text-xs text-gray-500">${reply.extra__writerName}</span>
           <span class="text-xs text-gray-500">${reply.forPrintType1RegDate}</span>
           <c:if test="${reply.extra__actorCanEdit}">
-            <a class="text-xs underline"
-              href="/usr/reply/modify?id=${reply.id}">수정</a>
+            <label for="my-modal-6" class="text-xs underline cursor-pointer" 
+              id="reply${reply.id}"
+              data-type="modify"
+              data-body="${reply.body}"
+            >수정</label>
             <a class="text-xs underline"
               onclick="if( confirm('정말 삭제하시겠습니까?') == false) return false;"
-              href="/usr/reply/doDelete?id=${reply.id}">삭제</a>
+              href="/usr/reply/doDelete?id=${reply.id}&replaceUri=${rq.getEncodedCurrentUri()}">삭제</a>
           </c:if>
         </div>
       </tr>
@@ -192,6 +196,25 @@
     </form>
   </c:if>
 </div>
- 
+
+<input type="checkbox" id="my-modal-6" class="modal-toggle" />
+<div class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">댓글 수정</h3>
+    <form action="/usr/reply/doModify?replaceUri=${rq.encodedCurrentUri}" method="post" class="mt-8"
+      onsubmit="checkReplyForm(this); return false;">
+      <input type="hidden" name="id" value="" />
+      <textarea name="body" cols="30" rows="3" class="flex-grow"></textarea>
+    </form> 
+    <div class="modal-action">
+        <button type="submit" class="btn btn-sm btn-outline">입력</button>
+      <label for="my-modal-6" class="btn">닫기</label>
+    </div>
+  </div>
+</div>
+
+<div>
+  
+ </div>
  
 <%@ include file="../common/tail.jspf"%>

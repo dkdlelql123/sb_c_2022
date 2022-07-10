@@ -41,4 +41,8 @@ public class ReplyService {
 		return ResultData.form("S-1", "댓글을 남겼습니다.");
 	}
 
+	public void doDelete(int id) {
+		replyRepository.doDelete(id);
+	}
+
 }

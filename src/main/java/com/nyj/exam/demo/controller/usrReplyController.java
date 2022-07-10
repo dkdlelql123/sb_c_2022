@@ -29,4 +29,11 @@ public class usrReplyController {
 	
 		return Ut.jsReplace("", replaceUri);
 	}
+	
+	@RequestMapping("/usr/reply/doDelete")
+	@ResponseBody
+	public String doDelete(String replaceUri, int id) {
+		replyService.doDelete(id);
+		return Ut.jsReplace("", replaceUri);
+	}
 }

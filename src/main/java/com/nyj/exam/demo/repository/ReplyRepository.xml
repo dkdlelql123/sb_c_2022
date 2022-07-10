@@ -19,4 +19,9 @@
 		relId = #{relId},
 		`body` = #{body}
 	</insert>
+	
+	<delete id="doDelete">
+		DELETE FROM `reply`
+		WHERE id = #{id}
+	</delete>
 </mapper>
