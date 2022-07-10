@@ -11,17 +11,34 @@ import com.nyj.exam.demo.vo.ResultData;
 
 @Service
 public class ReplyService {
-	
+
 	@Autowired
 	ReplyRepository replyRepository;
 
 	public List<Reply> getForPrintReplies(int memberId, int id, String relTypeCode) {
-		return replyRepository.getForPrintReplies(id, relTypeCode);
+		List<Reply> replies = replyRepository.getForPrintReplies(id, relTypeCode);
+
+		for (Reply reply : replies) {
+			ResultData rd = actorCanEdit(reply, memberId);
+			reply.setExtra__actorCanEdit(rd.isSuccess());
+		}
+
+		return replies;
+	}
+
+	private ResultData actorCanEdit(Reply reply, int memberId) {
+		if (reply == null) {
+			return ResultData.form("F-1", "해당 댓글이 없습니다");
+		}
+		if (reply.getMemberId() != memberId) {
+			return ResultData.form("F-2", "권한이 없습니다");
+		}
+		return ResultData.form("S-1", "게시물 변경이 가능합니다.", reply);
 	}
 
 	public ResultData doWriteReply(int memberId, String relTypeCode, int relId, String body) {
-		replyRepository.doWriteReply(memberId,relTypeCode,relId,body);
+		replyRepository.doWriteReply(memberId, relTypeCode, relId, body);
 		return ResultData.form("S-1", "댓글을 남겼습니다.");
 	}
-	
+
 }
