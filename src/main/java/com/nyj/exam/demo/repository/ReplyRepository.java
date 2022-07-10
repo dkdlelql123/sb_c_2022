@@ -15,5 +15,7 @@ public interface ReplyRepository {
 	void doWriteReply(int memberId, String relTypeCode, int relId, String body);
 
 	void doDelete(int id);
+
+	void doModify(int id, String body);
 	
 }

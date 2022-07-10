@@ -24,4 +24,11 @@
 		DELETE FROM `reply`
 		WHERE id = #{id}
 	</delete>
+	
+	<update id="doModify">
+		UPDATE `reply`
+		SET updateDate = NOW(),
+		`body` = #{body}
+		WHERE id = #{id}
+	</update>
 </mapper>

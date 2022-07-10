@@ -30,6 +30,13 @@ public class usrReplyController {
 		return Ut.jsReplace("", replaceUri);
 	}
 	
+	@RequestMapping("/usr/reply/doModify")
+	@ResponseBody
+	public String doModify(String replaceUri, int id, String body) {
+		replyService.doModify(id, body);
+		return Ut.jsReplace("", replaceUri);
+	}
+	
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
 	public String doDelete(String replaceUri, int id) {

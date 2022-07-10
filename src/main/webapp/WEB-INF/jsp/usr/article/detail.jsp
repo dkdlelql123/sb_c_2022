@@ -7,7 +7,6 @@
 
 <input type="hidden" name="articleId" value="${param.id}" />
 <script type="text/javascript" defer="defer">
-
 	// 게시물 조회수 처리 함수
 	let articleId = $("input[name='articleId']").val();
 	articleId = parseInt(articleId);
@@ -35,7 +34,7 @@
 		})
 	}
 	ArticleDetail__increaseHitCount();
-	
+
 	// 댓글 작성하기 	
 	let submitReplyDone = false;
 	function checkReplyForm(form) {
@@ -56,6 +55,10 @@
 		form.submit();
 	}
 
+	$(document).on('click', 'label[data-type]', function(e) {
+		$('#reply-modify input').val(e.target.dataset.id);
+		$('#reply-modify textarea').val(e.target.dataset.body);
+	})
 </script>
 
 
@@ -169,11 +172,10 @@
           <span class="text-xs text-gray-500">${reply.extra__writerName}</span>
           <span class="text-xs text-gray-500">${reply.forPrintType1RegDate}</span>
           <c:if test="${reply.extra__actorCanEdit}">
-            <label for="my-modal-6" class="text-xs underline cursor-pointer" 
-              id="reply${reply.id}"
-              data-type="modify"
-              data-body="${reply.body}"
-            >수정</label>
+            <label for="my-modal-6"
+              class="text-xs underline cursor-pointer"
+              data-id="${reply.id}" data-type="modify"
+              data-body="${reply.body}">수정</label>
             <a class="text-xs underline"
               onclick="if( confirm('정말 삭제하시겠습니까?') == false) return false;"
               href="/usr/reply/doDelete?id=${reply.id}&replaceUri=${rq.getEncodedCurrentUri()}">삭제</a>
@@ -198,23 +200,26 @@
 </div>
 
 <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-<div class="modal modal-bottom sm:modal-middle">
+<div id="reply-modify" class="modal sm:modal-bottom modal-middle">
   <div class="modal-box">
-    <h3 class="font-bold text-lg">댓글 수정</h3>
-    <form action="/usr/reply/doModify?replaceUri=${rq.encodedCurrentUri}" method="post" class="mt-8"
+    <div class="flex justify-between items-center">
+      <h3 class="font-bold text-lg">댓글 수정</h3>
+      <label for="my-modal-6" class="cursor-pointer p-2 font-lg text-lg">
+        <i class="fas fa-times"></i>
+      </label>
+    </div>
+    <form
+      action="/usr/reply/doModify?replaceUri=${rq.encodedCurrentUri}"
+      method="post" 
+      class="mt-2"
       onsubmit="checkReplyForm(this); return false;">
       <input type="hidden" name="id" value="" />
-      <textarea name="body" cols="30" rows="3" class="flex-grow"></textarea>
-    </form> 
-    <div class="modal-action">
-        <button type="submit" class="btn btn-sm btn-outline">입력</button>
-      <label for="my-modal-6" class="btn">닫기</label>
-    </div>
+      <textarea name="body" cols="30" rows="5" class="w-full p-2"></textarea>
+      <button type="submit" class="btn btn-sm btn-info float-right">수정</button>
+    </form>
   </div>
 </div>
 
-<div>
-  
- </div>
- 
+<div></div>
+
 <%@ include file="../common/tail.jspf"%>

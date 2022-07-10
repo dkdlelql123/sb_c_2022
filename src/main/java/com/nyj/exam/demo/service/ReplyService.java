@@ -45,4 +45,8 @@ public class ReplyService {
 		replyRepository.doDelete(id);
 	}
 
+	public void doModify(int id, String body) {
+		replyRepository.doModify(id, body);
+	}
+
 }
