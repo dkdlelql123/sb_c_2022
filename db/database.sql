@@ -245,3 +245,11 @@ memberId = 1,
 relCodeType = 'article',
 relId = 1,
 `body` = '이것이 첫번째 댓글 입니다~';
+
+
+# 댓글에 좋아요 수, 싫어요 수 칼럼 추가
+ALTER TABLE reply
+ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+ALTER TABLE reply
+ADD COLUMN bedReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
