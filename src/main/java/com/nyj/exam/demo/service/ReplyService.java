@@ -49,4 +49,8 @@ public class ReplyService {
 		replyRepository.doModify(id, body);
 	}
 
+	public Reply getForPrintReply(int id) {
+		return replyRepository.getForPrintReply(id);
+	}
+
 }

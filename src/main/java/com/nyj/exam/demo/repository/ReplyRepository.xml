@@ -10,6 +10,13 @@
 		AND a.relTypeCode = #{relTypeCode} ;
 	</select>
 	
+	<select id="getForPrintReply" resultType="Reply">
+		SELECT *
+		FROM `reply`
+		WHERE id = #{id} 
+		AND relTypeCode = "article" ;
+	</select>
+	
 	<insert id="doWriteReply" >
 		INSERT INTO `reply`
 		SET regDate = NOW(),

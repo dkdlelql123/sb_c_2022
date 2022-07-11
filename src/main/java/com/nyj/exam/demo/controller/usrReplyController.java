@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyj.exam.demo.service.ReplyService;
 import com.nyj.exam.demo.util.Ut;
+import com.nyj.exam.demo.vo.Reply;
 import com.nyj.exam.demo.vo.ResultData;
 import com.nyj.exam.demo.vo.Rq;
 
@@ -33,7 +34,13 @@ public class usrReplyController {
 	@RequestMapping("/usr/reply/doModify")
 	@ResponseBody
 	public String doModify(String replaceUri, int id, String body) {
+		Reply reply = replyService.getForPrintReply(id);
+		if(reply == null) {
+			return Ut.jsHistoryBack("해당 댓글은 존재하지 않습니다.");
+		}
+		
 		replyService.doModify(id, body);
+		
 		return Ut.jsReplace("", replaceUri);
 	}
 	

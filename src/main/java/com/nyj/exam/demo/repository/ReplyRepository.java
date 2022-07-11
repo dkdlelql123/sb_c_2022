@@ -17,5 +17,7 @@ public interface ReplyRepository {
 	void doDelete(int id);
 
 	void doModify(int id, String body);
+
+	Reply getForPrintReply(int id);
 	
 }

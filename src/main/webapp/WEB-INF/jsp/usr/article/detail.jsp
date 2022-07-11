@@ -180,6 +180,11 @@
               onclick="if( confirm('정말 삭제하시겠습니까?') == false) return false;"
               href="/usr/reply/doDelete?id=${reply.id}&replaceUri=${rq.getEncodedCurrentUri()}">삭제</a>
           </c:if>
+          <c:if test="${reply.regDate != reply.updateDate}">
+            <span class="text-xs text-gray-500">
+              ${reply.forPrintType2UpdateDate} 에 수정됨
+            </span>
+          </c:if>
         </div>
       </tr>
     </c:forEach>
@@ -199,6 +204,7 @@
   </c:if>
 </div>
 
+<!-- 댓글 수정 모달 -->
 <input type="checkbox" id="my-modal-6" class="modal-toggle" />
 <div id="reply-modify" class="modal sm:modal-bottom modal-middle">
   <div class="modal-box">
