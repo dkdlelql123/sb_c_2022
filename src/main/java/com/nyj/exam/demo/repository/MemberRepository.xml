@@ -40,11 +40,19 @@
 	
 	<update id="modify" >
 	UPDATE `member`
-	SET updateDate = NOW(),
-	loginPw = #{loginPw},
-	nickname = #{nickname},
-	email = #{email},
-	phoneNumber = #{phoneNumber}
+	SET updateDate = NOW()
+	<if test="loginPw !=null">
+		, loginPw = #{loginPw}
+	</if>
+	<if test="email !=null">
+		, email = #{email}
+	</if>
+	<if test="nickname !=null">
+		, nickname = #{nickname}
+	</if>
+	<if test="phoneNumber !=null">
+		, phoneNumber = #{phoneNumber}
+	</if>
 	WHERE id = #{memberId};
 	</update>
 	

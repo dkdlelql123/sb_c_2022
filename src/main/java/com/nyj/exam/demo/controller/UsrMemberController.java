@@ -97,21 +97,57 @@ public class UsrMemberController {
 		return Ut.jsReplace("로그아웃 되었습니다", "/");
 	}
 	
-	
 	@RequestMapping("/usr/member/mypage")
 	public String showMyPage(Model model) {
 		model.addAttribute("member", rq.getMember());
 		return "/usr/member/mypage";
 	}
+	 
+	@RequestMapping("/usr/member/checkPassword")
+	public String showCheckPassword() { 
+		return "/usr/member/checkPassword";
+	}
+	
+	@RequestMapping("/usr/member/doCheckPassword")
+	@ResponseBody
+	public String doCheckPassword(String loginPw, String replaceUri) {  
+			
+		System.out.println(loginPw);
+		System.out.println(rq.getMember().getLoginPw());
+		
+		if(rq.getMember().getLoginPw().equals(loginPw) == false) {
+			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다");
+		}
+		
+		if(Ut.empty(replaceUri)) {
+			replaceUri = "";
+		}
+		
+		return Ut.jsReplace("", replaceUri);
+	}
+	
+	@RequestMapping("/usr/member/modify")
+	public String showModify(Model model) {
+		model.addAttribute("member", rq.getMember());
+		return "/usr/member/modify";
+	}
 	
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify(String loginPw, String email,String nickname, String phoneNumber) {
-		ResultData doModifyRd = memberService.doModify( rq.getLoginedMemberId(),loginPw, email, nickname, phoneNumber);
+	public String doModify(String loginPw, String loginPw2, String email,String nickname, String phoneNumber) {
+		if(loginPw.trim().length() <= 0) {
+			loginPw = null;
+		}
+		
+		if(loginPw.equals(loginPw2) == false) {
+			return Ut.jsHistoryBack("새 비밀번호가 일치하지 않습니다.");
+		}
+		
+		ResultData doModifyRd = memberService.doModify( rq.getLoginedMemberId(), loginPw, email, nickname, phoneNumber);
 		if (doModifyRd.isFail()) {
 			return Ut.jsHistoryBack(doModifyRd.getMsg());
 		}
 		return Ut.jsReplace("회원정보수정이 완료되었습니다.", "/usr/member/mypage");
-	}
+	} 
 	
 }

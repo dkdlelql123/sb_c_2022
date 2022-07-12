@@ -37,7 +37,7 @@
     </div>
     
     <div class="btn-wrap mt-4 ">
-      <button class="w-full btn btn-success" >로그인</button>
+      <button type="submit" class="w-full btn btn-success" >로그인</button>
     </div>
   </form> 
 </div>
