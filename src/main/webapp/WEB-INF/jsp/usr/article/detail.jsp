@@ -165,9 +165,31 @@
         <div
           class="flex gap-2 items-center py-2 border-b border-gray-200">
           <p>${reply.body}</p>
-          <c:if test="${reply.extra__sumReactionPoint == 0}">
-            <a href="" class="btn btn-xs btn-success btn-outline">0👍</a>
-            <a href="" class="btn btn-xs btn-secondary btn-outline">0👎</a>
+          <c:if test="${reply.extra__reactionStatus == ''}">
+            <a
+              href="/usr/reactionPoint/doGoodReaction?relId=${reply.id}&relTypeCode=reply&replaceUri=${rq.getEncodedCurrentUri()}"
+              class="btn btn-xs btn-success btn-outline">${reply.goodReactionPoint}👍</a>
+            <a
+              href="/usr/reactionPoint/doBadReaction?relId=${reply.id}&relTypeCode=reply&replaceUri=${rq.getEncodedCurrentUri()}"
+              class="btn btn-xs btn-secondary btn-outline">${reply.badReactionPoint}👎</a>
+          </c:if>
+          <c:if test="${reply.extra__reactionStatus == 'good'}">
+            <a
+              href="/usr/reactionPoint/doCancleReaction?relId=${reply.id}&relTypeCode=reply&replaceUri=${rq.getEncodedCurrentUri()}&cancleReaction=good"
+              class="btn btn-xs btn-success">${reply.goodReactionPoint}👍</a>
+            <a
+              href="#" title="좋아요를 취소해주세요"
+              onClick="alert(this.title); return false;"
+              class="btn btn-xs btn-secondary btn-outline">${reply.badReactionPoint}👎</a>
+          </c:if>
+          <c:if test="${reply.extra__reactionStatus == 'bad'}">
+            <a
+              href="#" title="싫어요를 취소해주세요"
+              onClick="alert(this.title); return false;"
+              class="btn btn-xs btn-success btn-outline">${reply.goodReactionPoint}👍</a>
+            <a
+              href="/usr/reactionPoint/doCancleReaction?relId=${reply.id}&relTypeCode=reply&replaceUri=${rq.getEncodedCurrentUri()}&cancleReaction=bad"
+              class="btn btn-xs btn-secondary ">${reply.badReactionPoint}👎</a>
           </c:if>
           <span class="text-xs text-gray-500">${reply.extra__writerName}</span>
           <span class="text-xs text-gray-500">${reply.forPrintType1RegDate}</span>

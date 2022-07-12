@@ -19,5 +19,10 @@ public interface ReplyRepository {
 	void doModify(int id, String body);
 
 	Reply getForPrintReply(int id);
+
+	int increaseGoodReactionPoint(int id);
 	
+	int increaseBadReactionPoint(int id);
+
+	int decreaseReactionPoint(int relId, String cancleReaction);
 }

@@ -19,6 +19,7 @@ public class Reply {
 	private String extra__writerName;
 	private boolean extra__actorCanEdit;
 
+	private String extra__reactionStatus;
 	private int extra__sumReactionPoint;
 	private int goodReactionPoint;
 	private int badReactionPoint;

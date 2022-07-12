@@ -117,6 +117,20 @@ public class UsrArticleController {
 		
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), id, relTypeCode);
 		int replyCount = replies.size();
+		for(Reply reply : replies) {
+			ResultData reactionRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), "reply", reply.getId());
+			
+			if(reactionRd.isSuccess()) reply.setExtra__reactionStatus("");
+			if(reactionRd.getResultCode().equals("F-2")) {
+				int sumReactionPointByMember = (int)reactionRd.getData1();
+				if( sumReactionPointByMember > 0 ) { 
+					reply.setExtra__reactionStatus("good");
+				} else {		
+					reply.setExtra__reactionStatus("bad");
+				}
+			}
+		}
+		
 		model.addAttribute("replies", replies);
 		model.addAttribute("replyCount", replyCount);
 		

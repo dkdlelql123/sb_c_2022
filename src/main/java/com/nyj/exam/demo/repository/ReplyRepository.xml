@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyj.exam.demo.repository.ReplyRepository">
+
 	<select id="getForPrintReplies" resultType="Reply">
 		SELECT a.*, m.nickname AS extra__writerName
 		FROM `reply` AS a
 		LEFT JOIN `member` AS m
 		ON a.memberId = m.id
-		WHERE a.relId = #{id} 
-		AND a.relTypeCode = #{relTypeCode} ;
+		WHERE  a.relTypeCode = #{relTypeCode} 
+		AND a.relId = #{id};
 	</select>
 	
 	<select id="getForPrintReply" resultType="Reply">
@@ -38,4 +39,29 @@
 		`body` = #{body}
 		WHERE id = #{id}
 	</update>
+	
+	<update id="increaseGoodReactionPoint">
+		UPDATE `reply`
+		SET goodReactionPoint = goodReactionPoint+1 
+		WHERE id = #{id};
+	</update>
+	
+	<update id="increaseBadReactionPoint">
+		UPDATE `reply`
+		SET badReactionPoint = badReactionPoint+1 
+		WHERE id = #{id};
+	</update>
+	
+	<update id="decreaseReactionPoint">
+		UPDATE `reply`
+		<set>
+			<if test="cancleReaction == 'goodReactionPoint'">
+			goodReactionPoint = goodReactionPoint - 1
+			</if>
+			<if test="cancleReaction == 'badReactionPoint'">			
+			badReactionPoint = badReactionPoint - 1
+			</if>
+		</set>
+		WHERE id = #{relId};
+	</update> 
 </mapper>

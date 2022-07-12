@@ -14,19 +14,19 @@ public class ReplyService {
 
 	@Autowired
 	ReplyRepository replyRepository;
-
+	 
 	public List<Reply> getForPrintReplies(int memberId, int id, String relTypeCode) {
 		List<Reply> replies = replyRepository.getForPrintReplies(id, relTypeCode);
 
 		for (Reply reply : replies) {
 			ResultData rd = actorCanEdit(reply, memberId);
-			reply.setExtra__actorCanEdit(rd.isSuccess());
+			reply.setExtra__actorCanEdit(rd.isSuccess());	
 		}
 
 		return replies;
 	}
 
-	private ResultData actorCanEdit(Reply reply, int memberId) {
+	private ResultData actorCanEdit(Reply reply, int memberId) { //수정 삭제 권한체크
 		if (reply == null) {
 			return ResultData.form("F-1", "해당 댓글이 없습니다");
 		}
@@ -50,7 +50,42 @@ public class ReplyService {
 	}
 
 	public Reply getForPrintReply(int id) {
-		return replyRepository.getForPrintReply(id);
+		Reply reply = replyRepository.getForPrintReply(id);
+		
+		return reply;
+	}
+	
+	public ResultData increaseGoodReactionPoint(int relId) {
+		int affectedCount= replyRepository.increaseGoodReactionPoint(relId);
+		if(affectedCount == 0) {
+			return ResultData.form("F-1", "해당 게시물이 존재하지 않습니다.", "affectedCount", affectedCount);			
+		}
+		return ResultData.form("S-1", "좋아요 + 1", "affectedCount", affectedCount);
+	}
+
+	public ResultData increaseBadReactionPoint(int relId) {
+		int affectedCount= replyRepository.increaseBadReactionPoint(relId);
+		if(affectedCount == 0) {
+			return ResultData.form("F-1", "해당 게시물이 존재하지 않습니다.", "affectedCount", affectedCount);			
+		}
+		return ResultData.form("S-1", "싫어요 + 1", "affectedCount", affectedCount);
+	}
+
+	public ResultData decreaseReactionPoint(int relId, String cancleReaction) {
+		int affectedCount = 0;
+		System.out.println("cancleReaction: "+cancleReaction);
+		
+		if(cancleReaction.equals("good")) {
+			affectedCount = replyRepository.decreaseReactionPoint(relId, "goodReactionPoint");
+		} else if(cancleReaction.equals("bad")) {
+			affectedCount = replyRepository.decreaseReactionPoint(relId, "badReactionPoint");
+		}
+	 
+		if( affectedCount == 0 ) {
+			return ResultData.form("F-1", "해당 게시물이 존재하지 않습니다.", "affectedCount", affectedCount);			
+		}
+		return ResultData.form("S-1", "리액션 헤제", "affectedCount", affectedCount);
+		
 	}
 
 }

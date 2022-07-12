@@ -50,4 +50,6 @@ public class usrReplyController {
 		replyService.doDelete(id);
 		return Ut.jsReplace("", replaceUri);
 	}
+	
+	
 }

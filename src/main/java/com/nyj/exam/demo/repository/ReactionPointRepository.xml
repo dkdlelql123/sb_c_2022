@@ -7,7 +7,7 @@
 		FROM reactionPoint
 		WHERE memberId = #{memberId}
 		AND relTypeCode = #{relTypeCode}
-		AND relId = #{articleId};
+		AND relId = #{relId};
 	</select>
 	
 	<insert id="increaseGoodReactionPoint">
@@ -29,8 +29,7 @@
 		relId = #{relId},
 		`point` = -1;
 	</insert>
-	
-	
+	 
 	<delete id="decreaseReactionPoint">
 		DELETE FROM reactionPoint  
 		WHERE memberId = #{memberId}
