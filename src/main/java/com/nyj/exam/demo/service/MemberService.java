@@ -13,7 +13,9 @@ import com.sun.net.httpserver.Authenticator.Result;
 public class MemberService {
 
 	@Autowired
-	MemberRepository memberRepository; 
+	MemberRepository memberRepository;
+	@Autowired
+	AttrService attrService;
 
 	public ResultData doCheckLoginId(String loginId) {
 		Member oldMember = getMemberLoginId(loginId);
@@ -58,6 +60,15 @@ public class MemberService {
 		}
 		memberRepository.modify(memberId, loginPw, email, nickname, phoneNumber);
 		return ResultData.form("S-1", "정보수정이 완료되었습니다.");
+	}
+
+	public String genMemberModifyAuthKey(int memberId) {
+		String memberModifyAuthKey = Ut.getTempPassword(10); 
+		
+		// relTypeCode, relId, typeCode, type2Code, value, exprieDate 
+		int i = attrService.setValue("member", memberId, "extra", "memberModifyAuthKey", memberModifyAuthKey, Ut.getDataStrLater(60*5));
+		
+		return memberModifyAuthKey;
 	}
 
 	

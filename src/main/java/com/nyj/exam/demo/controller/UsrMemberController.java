@@ -119,8 +119,9 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다");
 		}
 		
-		if(Ut.empty(replaceUri)) {
-			replaceUri = "";
+		if(replaceUri.equals("../member/modify")) {
+			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
+			replaceUri += "?memberModifyAuthKey="+memberModifyAuthKey ;
 		}
 		
 		return Ut.jsReplace("", replaceUri);
@@ -147,6 +148,7 @@ public class UsrMemberController {
 		if (doModifyRd.isFail()) {
 			return Ut.jsHistoryBack(doModifyRd.getMsg());
 		}
+		
 		return Ut.jsReplace("회원정보수정이 완료되었습니다.", "/usr/member/mypage");
 	} 
 	

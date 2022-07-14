@@ -39,7 +39,7 @@
       </li>
        
       <c:choose>
-        <c:when test="${!rq.isLogined()}">
+        <c:when test="${rq.isLogined() == false}">
         <li>
           <a href="/usr/member/login">로그인</a>
         </li>
@@ -47,7 +47,7 @@
           <a href="/usr/member/join">회원가입</a>
         </li>
         </c:when>
-        <c:when test="${rq.isLogined()}">
+        <c:when test="${rq.isLogined() == true}">
           <li>
             <a href="/usr/member/mypage">마이페이지</a>
           </li>
