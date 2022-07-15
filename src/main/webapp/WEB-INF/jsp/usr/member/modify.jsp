@@ -66,6 +66,7 @@
   <div class="messege mb-4 text-red-500 text-center bg-red-100 rounded"></div> 
   
   <form onsubmit="checkForm(this); return false;" action="/usr/member/doModify" method="post">
+  <input type="hidden" name="memberModifyAuthKey" value="${param.memberModifyAuthKey}" />
     <table>
       <colgroup>
         <col width="200">

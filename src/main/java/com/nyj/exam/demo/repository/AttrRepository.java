@@ -11,4 +11,6 @@ public interface AttrRepository {
 
 	Attr get(String relTypeCode, int relId, String typeCode, String type2Code);
 
+	String getValue(String relTypeCode, int relId, String typeCode, String type2Code);
+
 }

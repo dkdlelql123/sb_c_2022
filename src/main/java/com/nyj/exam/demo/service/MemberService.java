@@ -55,22 +55,36 @@ public class MemberService {
 
 	public ResultData doModify(int memberId, String loginPw, String email, String nickname, String phoneNumber) {
 		Member oldMember = getMemberById(memberId);
+		
 		if(oldMember == null) {			
 			return ResultData.form("F-1", "회원정보가 없습니다.");
 		}
+		
 		memberRepository.modify(memberId, loginPw, email, nickname, phoneNumber);
+		
 		return ResultData.form("S-1", "정보수정이 완료되었습니다.");
 	}
 
 	public String genMemberModifyAuthKey(int memberId) {
-		String memberModifyAuthKey = Ut.getTempPassword(10); 
-		System.out.println("---- memberModifyAuthKey ----"+memberModifyAuthKey);
+		String memberModifyAuthKey = Ut.getTempPassword(10);  
 		
 		// relTypeCode, relId, typeCode, type2Code, value, exprieDate 
 		attrService.setValue("member", memberId, "extra", "memberModifyAuthKey", memberModifyAuthKey, Ut.getDataStrLater(60*5));
 		
 		
 		return memberModifyAuthKey;
+	} 
+	public ResultData checkMemberModifyAuthKey(int loginedMemberId, String memberModifyAuthKey) {
+		// relTypeCode relId typeCode type2Code
+		String value = attrService.getValue("member", loginedMemberId, "extra", "memberModifyAuthKey");
+		System.out.println("value:  "+value);
+		System.out.println("memberModifyAuthKey:  "+memberModifyAuthKey);
+		
+		if(memberModifyAuthKey.equals(value) == false) {			
+			return ResultData.form("F-1", "인증키가 올바르지 않습니다.");
+		}
+		
+		return ResultData.form("S-1", "인증에 성공했습니다.");
 	}
 
 	

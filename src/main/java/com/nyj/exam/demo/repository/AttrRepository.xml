@@ -38,5 +38,14 @@
 	AND typeCode = #{typeCode}
 	AND type2Code = #{type2Code} 
 	</select>
+	
+	<select id="getValue" resultType="String">
+	SELECT value
+	FROM attr
+	WHERE relId = #{relId}
+	AND relTypeCode = #{relTypeCode}
+	AND typeCode = #{typeCode}
+	AND type2Code = #{type2Code} 
+	</select>
 
 </mapper>

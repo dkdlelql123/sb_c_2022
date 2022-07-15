@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyj.exam.demo.service.AttrService;
 import com.nyj.exam.demo.service.MemberService;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Member;
@@ -16,7 +17,7 @@ import com.nyj.exam.demo.vo.Rq;
 public class UsrMemberController {
 
 	@Autowired
-	MemberService memberService;
+	MemberService memberService; 
 
 	private Rq rq;
 
@@ -128,8 +129,19 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/modify")
-	public String showModify(Model model) {
+	public String showModify(Model model, String memberModifyAuthKey) {
+		if(Ut.empty(memberModifyAuthKey)) {
+			return rq.historyBackJsOnView("유효키가 없습니다. 올바른 방법으로 이용바랍니다.");
+		}
+		
+		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(), memberModifyAuthKey);
+		
+		if(checkMemberModifyAuthKeyRd.isFail()) {
+			return rq.historyBackJsOnView(checkMemberModifyAuthKeyRd.getMsg());
+		}
+		
 		model.addAttribute("member", rq.getMember());
+				
 		return "/usr/member/modify";
 	}
 	
