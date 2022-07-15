@@ -64,9 +64,11 @@ public class MemberService {
 
 	public String genMemberModifyAuthKey(int memberId) {
 		String memberModifyAuthKey = Ut.getTempPassword(10); 
+		System.out.println("---- memberModifyAuthKey ----"+memberModifyAuthKey);
 		
 		// relTypeCode, relId, typeCode, type2Code, value, exprieDate 
-		int i = attrService.setValue("member", memberId, "extra", "memberModifyAuthKey", memberModifyAuthKey, Ut.getDataStrLater(60*5));
+		attrService.setValue("member", memberId, "extra", "memberModifyAuthKey", memberModifyAuthKey, Ut.getDataStrLater(60*5));
+		
 		
 		return memberModifyAuthKey;
 	}

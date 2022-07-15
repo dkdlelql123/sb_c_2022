@@ -84,15 +84,18 @@ public class Ut {
 
 	public static String getDataStrLater(int seconds) { 
 		// 포맷변경 (년월일 시분초)
-		SimpleDateFormat  sdformat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss"); 
+		SimpleDateFormat  sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		System.out.println("---- sdformat ----"+sdformat);
 
 		String dateStr = sdformat.format(System.currentTimeMillis() + seconds * 1000);
-
-		System.out.println("dateStr : "+ dateStr);
-		return dateStr;		
+		System.out.println("---- dateStr ----"+dateStr);  
 		
-	}
 
+//		SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		String strNewDtFormat = newDtFormat.format(dateStr);
+//		System.out.println("---- strNewDtFormat ----"+strNewDtFormat); 
 	
+		return dateStr;		 
+	} 
 	
 }

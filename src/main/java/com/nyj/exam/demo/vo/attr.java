@@ -3,11 +3,11 @@ package com.nyj.exam.demo.vo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+ 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class attr {
+public class Attr {
 	private int id;
 	private String regDate;
 	private String updateDate;
