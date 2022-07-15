@@ -147,14 +147,24 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify(String loginPw, String loginPw2, String email,String nickname, String phoneNumber) {
-		if(loginPw.trim().length() <= 0) {
-			loginPw = null;
+	public String doModify(String loginPw, String loginPw2, String email,String nickname, String phoneNumber, String memberModifyAuthKey) {
+		if(Ut.empty(memberModifyAuthKey)) {
+			return rq.historyBackJsOnView("유효키가 없습니다. 올바른 방법으로 이용바랍니다.");
 		}
 		
-		if(loginPw.equals(loginPw2) == false) {
-			return Ut.jsHistoryBack("새 비밀번호가 일치하지 않습니다.");
+		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(), memberModifyAuthKey);
+		
+		if(checkMemberModifyAuthKeyRd.isFail()) {
+			return rq.historyBackJsOnView(checkMemberModifyAuthKeyRd.getMsg());
 		}
+		
+		if(loginPw.trim().length() <= 0) {
+			loginPw = null;
+		} else {
+			if(loginPw.equals(loginPw2) == false) {
+				return Ut.jsHistoryBack("새 비밀번호가 일치하지 않습니다.");
+			}
+		} 
 		
 		ResultData doModifyRd = memberService.doModify( rq.getLoginedMemberId(), loginPw, email, nickname, phoneNumber);
 		if (doModifyRd.isFail()) {
