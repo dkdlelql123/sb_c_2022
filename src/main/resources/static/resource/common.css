@@ -25,7 +25,9 @@
 	font-style: normal;
 }
 
-html>body {
+html>body,
+.toastui-editor-contents, 
+.toastui-editor-contents, * { 
 	font-family: 'HallymGothic-Regular', sans-serif;
 }
 

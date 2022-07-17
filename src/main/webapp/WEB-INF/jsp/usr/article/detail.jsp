@@ -4,6 +4,7 @@
 
 <c:set var="pageTitle" value="게시물 상세페이지" />
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../../common/toastUIEditerLib.jspf"%>
 
 <input type="hidden" name="articleId" value="${param.id}" />
 <script type="text/javascript" defer="defer">
@@ -148,7 +149,11 @@
     <tr>
       <td>내용</td>
       <td>
-        <div class="p-1 bg-gray-100" style="min-height: 120px">${article.body}</div>
+        <div class="toast-ui-viewer">
+          <script type="text/x-template">
+					${article.body}
+				</script>
+        </div>
       </td>
     </tr>
   </table>

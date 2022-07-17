@@ -57,8 +57,8 @@
 			return;
 		}
  
-		submitJoinFormDone = true;
 		form.submit();
+		submitJoinFormDone = true;
 	} 
 	
 	$(document).ready(function(){
