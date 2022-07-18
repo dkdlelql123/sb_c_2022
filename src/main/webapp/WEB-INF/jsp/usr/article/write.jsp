@@ -12,21 +12,18 @@
 <script>
 	let submitWriterFormDone = false;
 
-	function article__submitForm(form) {
-		console.log("article__submitForm");
-
+	function article__submitForm(form) { 
 		if (submitWriterFormDone) {
 			alert("처리중입니다.");
 			return;
 		}
 		
-		form.boardId.value =form.boardId.value.trim();
+		form.boardId.value =form.boardId.value.trim(); 
 		if(form.boardId.value == null || form.boardId.value <= 0){
 			alert("새로고침후 이용해주세요.");
 			return;
 		} 
-		
-		form.title.value = form.title.value.trim();
+		   
 	    if (form.title.value.length == 0) {
 	      alert('제목을 입력해주세요.');
 	      form.title.focus();
@@ -49,12 +46,10 @@
 		submitWriterFormDone = true;
 	}
 
-	$(function() {
-		console.log("writer");
-
+	$(function() { 
 		const boardId = $("#board_id").val();
-		$("#boardCategory option[data=cate" + boardId + "]").prop("selected",
-				true);
+		$("#boardCategory option[data=cate" + boardId + "]").prop("selected",true);
+		
 	});
 </script>
 
@@ -80,7 +75,7 @@
         <td>
           <select name="boardId" id="boardCategory"
             class="select select-sm select-bordered ">
-            <option>-선택해주세요-</option>
+            <option disabled >-선택해주세요-</option>
             <c:forEach var="board" items="${boards}">
               <option value="${board.id}" data="cate${board.id}">${board.name}</option>
             </c:forEach>
@@ -90,7 +85,7 @@
       <tr>
         <th>제목</th>
         <td>
-          <input type="text" class="w-full input-sm" name="title"  value="${rq.member.nickname}" 
+          <input type="text" class="w-full input-sm" name="title"  
             required="required" placeholder="제목을 입력해주세요." />
         </td>
       </tr>

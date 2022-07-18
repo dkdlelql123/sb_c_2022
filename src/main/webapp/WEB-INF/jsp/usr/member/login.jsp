@@ -12,7 +12,8 @@
     action="/usr/member/doLogin"
     method="POST" 
     >
-    <table>
+    <input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}"/>
+    <table> 
       <colgroup>
         <col width="200">
       </colgroup>
