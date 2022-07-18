@@ -42,15 +42,15 @@
       </li>
        
       <c:choose>
-        <c:when test="${rq.isLogined() == false}">
+        <c:when test="${rq.logined == false}">
         <li>
-          <a href="/usr/member/login">로그인</a>
+          <a href="${rq.getLoginUri()}">로그인</a>
         </li>
         <li>
           <a href="/usr/member/join">회원가입</a>
         </li>
         </c:when>
-        <c:when test="${rq.isLogined() == true}">
+        <c:when test="${rq.logined}">
           <li>
             <a href="/usr/member/mypage">${rq.member.nickname}'s profile</a>
           </li>

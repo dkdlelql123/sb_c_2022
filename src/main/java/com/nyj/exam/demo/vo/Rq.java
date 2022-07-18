@@ -114,5 +114,11 @@ public class Rq {
 		return "common/js";
 	}
 	
-	
+	public String getLoginUri() {
+		return "/usr/member/login?afterLoginUri=" + getAfterLoginUri() ;
+	}
+
+	public String getAfterLoginUri() { 
+		return getEncodedCurrentUri();
+	}
 }
