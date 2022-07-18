@@ -27,8 +27,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/join")
-	public String showJoin() {
-		System.out.println("회원가입 페이지");
+	public String showJoin() { 
 		return "/usr/member/join";
 	}
 	
@@ -53,8 +52,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/login")
-	public String showLogin() {
-		System.out.println("로그인 페이지");
+	public String showLogin() { 
 		return "/usr/member/login";
 	}
 

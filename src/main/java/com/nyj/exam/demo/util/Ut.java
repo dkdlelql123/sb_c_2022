@@ -2,9 +2,12 @@ package com.nyj.exam.demo.util;
 
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class Ut {
 
@@ -88,14 +91,24 @@ public class Ut {
 		System.out.println("---- sdformat ----"+sdformat);
 
 		String dateStr = sdformat.format(System.currentTimeMillis() + seconds * 1000);
-		System.out.println("---- dateStr ----"+dateStr);  
+		System.out.println("---- dateStr ----"+dateStr);   
 		
-
-//		SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		String strNewDtFormat = newDtFormat.format(dateStr);
-//		System.out.println("---- strNewDtFormat ----"+strNewDtFormat); 
-	
 		return dateStr;		 
 	} 
+	
+	public static Map<String, String> getParamMap(HttpServletRequest request) {
+		Map<String, String> param = new HashMap<>();
+
+		Enumeration<String> parameterNames = request.getParameterNames();
+
+		while (parameterNames.hasMoreElements()) {
+			String paramName = parameterNames.nextElement();
+			String paramValue = request.getParameter(paramName);
+
+			param.put(paramName, paramValue);
+		}
+
+		return param;
+	}
 	
 }
