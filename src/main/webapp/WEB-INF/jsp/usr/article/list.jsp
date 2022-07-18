@@ -9,7 +9,7 @@
 <div class="form-control">
   <form class="input-group justify-center" name="search-form">
    <input type="hidden" name="boardId" value="${param.boardId}" />
-   <input type="hidden" name="itemsCountInAPage" value="${itemsCountInAPage}" />
+   <input type="hidden" name="itemsCountInAPage" value="${param.itemsCountInAPage}" />
    <select id="select" name="searchKeywordType" data-value="${param.searchKeywordType}" class="select select-md select-bordered border-r-0 rounded-r-none" style="border-bottom-right-radius: 0px;border-top-right-radius: 0px;font-weight:normal">
       <option value="title" selected>제목</option>
       <option value="body">내용</option>
@@ -26,7 +26,10 @@
 <div class="flex itmes-center justify-between my-4">  
   <div class="form-control">
     <form>
-       <input type="hidden" name="boardId" value="${param.boardId}" />
+       <input type="hidden" name="boardId" value="${param.boardId}" /> 
+       <input type="hidden" name="searchKeywordType" value="${param.searchKeywordType}" />
+       <input type="hidden" name="searchKeyword" value="${param.searchKeyword}" /> 
+       
        <select id="select" name="itemsCountInAPage" data-value="${param.itemsCountInAPage}" 
           onchange="this.form.submit();"
           class="select select-sm select-bordered font-normal" style="font-weight:normal">
@@ -66,7 +69,7 @@
         <tr>
           <th class="text-center">${article.id}</th>
           <td>
-            <a href="/usr/article/detail?id=${article.id}">${article.title}</a>
+            <a href="${rq.getArticleDetailFromList(article)}">${article.title}</a>
             [0]
           </td>
           <td class="text-center">${article.hit}</td>

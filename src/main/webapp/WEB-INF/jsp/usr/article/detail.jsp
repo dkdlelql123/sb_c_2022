@@ -64,7 +64,12 @@
 
 
 <div class="flex justify-between mb-4 ">
-  <a href="/usr/article/list?boardId=${article.boardId}">목록으로</a>
+  <c:if test="${empty param.listUri}">
+    <a href="history.back();" class="btn btn-sm btn-outline" >목록</a>
+  </c:if> 
+  <c:if test="${not empty param.listUri}">
+    <a class="btn btn-sm" href="${param.listUri}">목록</a>
+  </c:if>
 
   <c:if test="${article.extra__actorCanEdit}">
     <div class="flex justify-end gap-2">

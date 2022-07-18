@@ -152,4 +152,7 @@ public class Rq {
 		
 		return getEncodedCurrentUri();
 	}
+	public String getArticleDetailFromList(Article article) {
+		return "/usr/article/detail?id="+article.getId()+"&listUri="+getEncodedCurrentUri();
+	}
 }
