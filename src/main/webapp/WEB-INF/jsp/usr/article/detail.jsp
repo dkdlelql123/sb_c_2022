@@ -217,7 +217,13 @@
     </c:forEach>
   </table>
 
-  <c:if test="${rq.isLogined()}">
+  <c:if test="${!rq.logined}">
+    <div class="navbar bg-green-100 rounded rounded-full px-4 mt-4">
+      <a class="link link-neutral" href="${rq.loginUri}">로그인</a>  이후 댓글을 작성할 수 있습니다.
+    </div>
+  </c:if>
+
+  <c:if test="${rq.logined}">
     <form action="/usr/reply/doWrite?replaceUri=${rq.encodedCurrentUri}"
       method="post" class="mt-8"
       onsubmit="checkReplyForm(this); return false;">

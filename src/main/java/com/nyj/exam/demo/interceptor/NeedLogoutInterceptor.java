@@ -20,7 +20,8 @@ public class NeedLogoutInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 		if(rq.isLogined()) {
-			rq.printHistoryBackJs("로그아웃 이후 이용할 수 있습니다.");
+			String afterLogoutUri = rq.getAfterLogoutUri();  
+			rq.printReplaceJs("로그아웃 이후 이용할 수 있습니다.", "/usr/member/doLogout?afterLogoutUri="+afterLogoutUri);
 			return false;
 		}
 

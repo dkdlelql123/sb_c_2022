@@ -120,7 +120,25 @@ public class Rq {
 	public String getLoginUri() { 
 		return "/usr/member/login?afterLoginUri=" + getAfterLoginUri() ;
 	}
+	
+	public String getLogoutUri() { 
+		return "/usr/member/doLogout?afterLogoutUri=" + getAfterLogoutUri() ;
+	}
 
+	public String getAfterLogoutUri() {
+		String currentUri = req.getRequestURI();
+		
+		switch(currentUri) {
+			case "/usr/article/write":
+			case "/usr/member/mypage":
+			case "/usr/member/modify":
+			case "/usr/member/checkPassword":
+			return Ut.getUriEncoded(Ut.getStrAttr(paramMap, "afterLogoutUri", "/"));
+		}
+		
+		return getEncodedCurrentUri();
+	}
+	
 	public String getAfterLoginUri() {  
 		String currentUri = req.getRequestURI();
 		
