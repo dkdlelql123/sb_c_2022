@@ -32,6 +32,9 @@
     <div class="flex-grow"></div>
     <ul class="flex items-center gap-4">
       <li>
+        <a href="/usr/article/write">작성</a>
+      </li>
+      <li>
         <a href="/usr/article/list?boardId=1">공지</a>
       </li>
       <li>
