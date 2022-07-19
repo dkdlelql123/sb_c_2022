@@ -1,6 +1,6 @@
-server:
-  port: 8012
 spring:
+  profiles:
+    active: local # 기본적으로 local이 선택된다는 뜻
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -16,4 +16,32 @@ mybatis:
 custom:
   logging:
     dir: log
-    level: debug 
+    level: debug
+    
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 8012    
+    
+---
+
+spring:
+  config:
+    activate:
+      on-profile: production
+  servlet:
+    multipart:
+      location: /tmp
+  datasource:
+    username: test
+    password: test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3308/sb_c_2022?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
+custom:
+  logging:
+    dir: /tmp/sb_c_2021_2nd_t-log
+    level: info 
