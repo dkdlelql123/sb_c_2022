@@ -65,7 +65,7 @@
 
 <div class="flex justify-between mb-4 ">
   <c:if test="${empty param.listUri}">
-    <a href="history.back();" class="btn btn-sm btn-outline" >목록</a>
+    <a href="history.back();" class="btn btn-sm btn-outline" >뒤로가기</a>
   </c:if> 
   <c:if test="${not empty param.listUri}">
     <a class="btn btn-sm" href="${param.listUri}">목록</a>
@@ -105,7 +105,7 @@
           <c:if test="${actorCanMakeReactionPoint}">
             <a
               href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
-              class="btn btn-xs btn-info btn-outline">좋아요👍</a>
+              class="btn btn-xs btn-success btn-outline">좋아요👍</a>
             <a
               href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
               class="btn btn-xs btn-outline btn-secondary">싫어요👎</a>
@@ -114,7 +114,7 @@
           <c:if test="${actorCanMakeCancleGoodReactionPoint}">
             <a
               href="/usr/reactionPoint/doCancleReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}&cancleReaction=good"
-              class="btn btn-xs btn-info">좋아요👍</a>
+              class="btn btn-xs btn-success">좋아요👍</a>
             <a href="#" onclick="alert(this.title); return false;"
               title="좋아요를 취소해주세요"
               class="btn btn-xs btn-secondary btn-outline">싫어요👎</a>
@@ -123,7 +123,7 @@
           <c:if test="${actorCanMakeCancleBadReactionPoint}">
             <a href="#" onclick="alert(this.title); return false;"
               title="싫어요를 취소해주세요"
-              class="btn btn-xs btn-info btn-outline">좋아요👍</a>
+              class="btn btn-xs btn-success btn-outline">좋아요👍</a>
             <a
               href="/usr/reactionPoint/doCancleReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}&cancleReaction=bad"
               class="btn btn-xs btn-secondary">싫어요👎</a>
@@ -173,7 +173,7 @@
     <c:forEach var="reply" items='${replies}'>
       <tr>
         <div
-          class="flex gap-2 items-center py-2 border-b border-gray-200">
+          class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-200">
           <p>${reply.body}</p>
           <c:if test="${reply.extra__reactionStatus == ''}">
             <a
