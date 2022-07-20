@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyj.exam.demo.repository.ArticleRepository">
+	<insert id="writeArticle">
+		INSERT INTO article
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		boardId = #{boardId},
+		memberId = #{memberId},
+		title = #{title},
+		`body` = #{body}
+	</insert>
+	
+	<select id="getArticle" resultType="Article">
+		SELECT *
+		FROM article
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getForPrintArticle" resultType="Article">
+		SELECT a.*,
+		m.nickname AS extra__writerName,
+		b.name AS extra__boardName
+		FROM article a
+		LEFT JOIN `member` m
+		ON a.memberId = m.id
+		LEFT JOIN `board` b
+		ON a.boardId = b.id
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getArticles" resultType="Article">
+		SELECT a.*,
+		m.nickname AS extra__writerName
+		FROM article a
+		LEFT JOIN `member` m
+		ON a.memberId = m.id
+		WHERE 1
+		<if test='boardId !=null and boardId !="" and boardId !=0 '>
+			AND boardId = #{boardId}	
+		</if>
+		<if test="searchKeyword != ''">
+			<choose>
+				<when test="searchKeywordType == 'title'" >
+					AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchKeywordType == 'body'" >
+					AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					AND (
+						title LIKE CONCAT('%', #{searchKeyword}, '%')
+						OR 
+						`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+					)
+				</otherwise>
+			</choose>
+		</if>
+		ORDER BY a.id DESC
+		LIMIT #{limitStart}, #{limitTake}
+	</select>
+	
+	<select id="getForPrintArticles" resultType="Article">
+		SELECT a.*,
+		m.nickname AS extra__writerName
+		FROM article a
+		LEFT JOIN `member` m
+		ON a.memberId = m.id
+		<if test='boardId !=null and boardId !="" and boardId !=0 '>
+			WHERE boardId = #{boardId}
+		</if>
+		ORDER BY id DESC
+	</select>
+	
+	<select id="getArticlesCount" resultType="int">
+		SELECT COUNT(*)
+		FROM `article`
+		WHERE 1
+		<if test='boardId !=null and boardId !="" and boardId !=0 '>
+			AND boardId = #{boardId}	
+		</if>
+			
+		<if test="searchKeyword != ''">
+			<choose>
+				<when test="searchKeywordType == 'title'" >
+					AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchKeywordType == 'body'" >
+					AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					AND (
+						title LIKE CONCAT('%', #{searchKeyword}, '%')
+						OR 
+						`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+					)
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+
+	<delete id="deleteArticle">
+		DELETE FROM article WHERE id = #{id}
+	</delete>
+	
+	<update id="modifyArticle">
+		UPDATE article
+		<set>
+			<if test='boardId !=null and boardId !="" and boardId !=0 '>
+				boardId = #{boardId},
+			</if>
+			<if test='title !=null and title !="" '>
+				title = #{title},
+			</if>
+			<if test='body !=null and body !="" '>
+				`body`= #{body},
+			</if>
+			updateDate = NOW()
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<select id="getLastInsertId" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+	
+	<update id="increaseHitCount" >
+		UPDATE `article`
+		SET hit = hit+1
+		WHERE id = #{id};
+	</update>
+	
+	<select id="getArticleHitCount"  resultType="int">
+		SELECT hit
+		FROM  `article`
+		WHERE id = #{id};
+	</select>
+	
+	<update id="increaseGoodReactionPoint" >
+		UPDATE `article`
+		SET goodReactionPoint = goodReactionPoint+1
+		WHERE id = #{id};
+	</update>
+	
+	<update id="increaseBadReactionPoint" >
+		UPDATE `article`
+		SET badReactionPoint = badReactionPoint+1
+		WHERE id = #{id};
+	</update>
+	
+	<update id="decreaseReactionPoint" >
+		UPDATE `article`
+		<set>
+			<if test="cancleReaction == 'goodReactionPoint'">
+			goodReactionPoint = goodReactionPoint - 1
+			</if>
+			<if test="cancleReaction == 'badReactionPoint'">			
+			badReactionPoint = badReactionPoint - 1
+			</if>
+		</set>
+		WHERE id = #{relId};
+	</update>
+	
+</mapper>

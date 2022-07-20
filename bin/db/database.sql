@@ -155,7 +155,7 @@ CREATE TABLE reactionPoint (
 	regDate DATETIME NOT NULL,
 	updateDate DATETIME NOT NULL,
 	memberId INT(10) UNSIGNED NOT NULL,
-	relTypeCode CHAR(30) NOT NULL COMMENT '관련데이터타입코드',
+	relCodeType CHAR(30) NOT NULL COMMENT '관련데이터타입코드',
 	relId INT(10) UNSIGNED NOT NULL COMMENT '관련데이터코드',
 	`point` SMALLINT(2)
 );
@@ -165,7 +165,7 @@ INSERT INTO reactionPoint
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 1,
-relTypeCode = 'article',
+relCodeType = 'article',
 relId = 1,
 `point` = 1;
 
@@ -174,7 +174,7 @@ INSERT INTO reactionPoint
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
-relTypeCode = 'article',
+relCodeType = 'article',
 relId = 1,
 `point` = 1;
 
@@ -183,7 +183,7 @@ INSERT INTO reactionPoint
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
-relTypeCode = 'article',
+relCodeType = 'article',
 relId = 2,
 `point` = 1;
 
@@ -192,7 +192,7 @@ INSERT INTO reactionPoint
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 3,
-relTypeCode = 'article',
+relCodeType = 'article',
 relId = 2,
 `point` = -1;
 
@@ -201,7 +201,7 @@ INSERT INTO reactionPoint
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 3,
-relTypeCode = 'article',
+relCodeType = 'article',
 relId = 1,
 `point` = -1;
 
@@ -219,8 +219,8 @@ INNER JOIN(
 	SUM(IF(`point`>0, POINT, 0)) AS good,
 	SUM(IF(`point`<0, POINT * -1, 0)) AS bad
 	FROM reactionPoint AS rp
-	WHERE relTypeCode = 'article'
-	GROUP BY rp.relId, rp.relTypeCode
+	WHERE relCodeType = 'article'
+	GROUP BY rp.relId, rp.relCodeType
 ) AS rpsum
 ON a.id = rpsum.relId 
 SET a.goodReactionPoint = rpsum.good,

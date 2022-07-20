@@ -1,0 +1,74 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!doctype html>
+<html lang="ko" class="light" data-theme="cupcake">
+<head>
+<meta charset="UTF-8" />
+<title>${pageTitle}</title>
+
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- 노말라이즈, 라이브러리 한 번에 해결 
+<script src="https://unpkg.com/tailwindcss-jit-cdn"></script>-->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+
+<!-- 데이지UI -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.13.4/dist/full.css" rel="stylesheet" type="text/css" /> 
+
+<!-- 폰트어썸 불러오기 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<link rel="stylesheet" href="/resource/common.css" />
+<script src="/resource/common.js" defer="defer"></script>
+
+</head>
+<body>
+
+  <header class="m-auto w-3/4 flex items-center py-4">
+    <a href="/">메인으로</a>
+    <div class="flex-grow"></div>
+    <ul class="flex items-center gap-4">
+      <li>
+        <a href="/usr/article/write">작성</a>
+      </li>
+      <li>
+        <a href="/usr/article/list?boardId=1">공지</a>
+      </li>
+      <li>
+        <a href="/usr/article/list?boardId=2">자유</a>
+      </li>
+       
+      <c:choose>
+        <c:when test="${rq.logined == false}">
+        <li>
+          <a href="${rq.loginUri}">로그인</a>
+        </li>
+        <li>
+          <a href="/usr/member/join">회원가입</a>
+        </li>
+        </c:when>
+        <c:when test="${rq.logined}">
+          <li>
+            <a href="/usr/member/mypage">${rq.member.nickname}'s profile</a>
+          </li>
+          <li>
+            <a href="${rq.logoutUri}">로그아웃</a>
+          </li>
+        </c:when>
+      </c:choose> 
+    </ul>
+  </header>
+
+  <div class="border border-gray-200 border-r-0 border-l-0 py-2">
+    <div class="m-auto w-3/4 flex items-center gap-2 ">
+      <div class="flex-grow"></div>
+      <a href="/">🏠</a>
+      >
+      <span>${pageTitle}</span>
+    </div>
+  </div>
+
+  <main class="m-auto w-3/4 py-12">

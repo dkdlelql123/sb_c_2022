@@ -1,0 +1,59 @@
+@font-face {
+	font-family: 'HallymGothic-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2')
+		format('woff2');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HallymGothic-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Medium.woff2')
+		format('woff2');
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HallymGothic-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Bold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+html>body,
+.toastui-editor-contents, 
+.toastui-editor-contents, * { 
+	font-family: 'HallymGothic-Regular', sans-serif;
+}
+
+body{
+	min-width: 800px;
+}
+
+.table-box-type-1 table {
+	width: 100%;
+}
+
+.table-box-type-1 table td, .table-box-type-1 table th {
+	border: 1px solid #ddd;
+	padding: 10px;
+	font-weight: normal;
+}
+
+textarea.textarea, input[type=text], input[type=password],input[type=email] {
+	color: #0a0a0a;
+	background: #f0f0f0;
+	padding:4px 8px ; 
+	border-radius: 2px;
+} 
+input:read-only{
+	background-color: rgba(0,0,0,0);
+	padding:0px; 
+	border: 0;
+	box-shadow: none;
+}

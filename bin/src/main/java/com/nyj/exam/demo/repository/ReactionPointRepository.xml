@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyj.exam.demo.repository.ReactionPointRepository">
+
+	<select id="actorCanMakeReactionPoint" resultType="int">
+		SELECT IFNULL(SUM(`point`), 0) AS P
+		FROM reactionPoint
+		WHERE memberId = #{memberId}
+		AND relTypeCode = #{relTypeCode}
+		AND relId = #{relId};
+	</select>
+	
+	<insert id="increaseGoodReactionPoint">
+		INSERT INTO reactionPoint 
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{memberId},
+		relTypeCode = #{relTypeCode},
+		relId = #{relId},
+		`point` = 1;
+	</insert>
+	
+	<insert id="increaseBadReactionPoint">
+		INSERT INTO reactionPoint 
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{memberId},
+		relTypeCode = #{relTypeCode},
+		relId = #{relId},
+		`point` = -1;
+	</insert>
+	 
+	<delete id="decreaseReactionPoint">
+		DELETE FROM reactionPoint  
+		WHERE memberId = #{memberId}
+		AND relTypeCode = #{relTypeCode}
+		AND	relId = #{relId};
+	</delete>
+	
+</mapper>

@@ -65,7 +65,7 @@
 
 <div class="flex justify-between mb-4 ">
   <c:if test="${empty param.listUri}">
-    <a href="/usr/article/list?boardId=${article.boardId}" class="btn btn-sm btn-outline" >목록</a>
+    <a href="history.back();" class="btn btn-sm btn-outline" >뒤로가기</a>
   </c:if> 
   <c:if test="${not empty param.listUri}">
     <a class="btn btn-sm" href="${param.listUri}">목록</a>
