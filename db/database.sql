@@ -242,7 +242,7 @@ INSERT INTO `reply`
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 1,
-relCodeType = 'article',
+relTypeCode = 'article',
 relId = 1,
 `body` = '이것이 첫번째 댓글 입니다~';
 
