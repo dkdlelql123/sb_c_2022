@@ -28,76 +28,6 @@
 		ON a.boardId = b.id
 		WHERE a.id = #{id}
 	</select>
-	
-	<select id="getArticles" resultType="Article">
-		SELECT a.*,
-		m.nickname AS extra__writerName
-		FROM article a
-		LEFT JOIN `member` m
-		ON a.memberId = m.id
-		WHERE 1
-		<if test='boardId !=null and boardId !="" and boardId !=0 '>
-			AND boardId = #{boardId}	
-		</if>
-		<if test="searchKeyword != ''">
-			<choose>
-				<when test="searchKeywordType == 'title'" >
-					AND title LIKE CONCAT('%', #{searchKeyword}, '%')
-				</when>
-				<when test="searchKeywordType == 'body'" >
-					AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
-				</when>
-				<otherwise>
-					AND (
-						title LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR 
-						`body` LIKE CONCAT('%', #{searchKeyword}, '%')
-					)
-				</otherwise>
-			</choose>
-		</if>
-		ORDER BY a.id DESC
-		LIMIT #{limitStart}, #{limitTake}
-	</select>
-	
-	<select id="getForPrintArticles" resultType="Article">
-		SELECT a.*,
-		m.nickname AS extra__writerName
-		FROM article a
-		LEFT JOIN `member` m
-		ON a.memberId = m.id
-		<if test='boardId !=null and boardId !="" and boardId !=0 '>
-			WHERE boardId = #{boardId}
-		</if>
-		ORDER BY id DESC
-	</select>
-	
-	<select id="getArticlesCount" resultType="int">
-		SELECT COUNT(*)
-		FROM `article`
-		WHERE 1
-		<if test='boardId !=null and boardId !="" and boardId !=0 '>
-			AND boardId = #{boardId}	
-		</if>
-			
-		<if test="searchKeyword != ''">
-			<choose>
-				<when test="searchKeywordType == 'title'" >
-					AND title LIKE CONCAT('%', #{searchKeyword}, '%')
-				</when>
-				<when test="searchKeywordType == 'body'" >
-					AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
-				</when>
-				<otherwise>
-					AND (
-						title LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR 
-						`body` LIKE CONCAT('%', #{searchKeyword}, '%')
-					)
-				</otherwise>
-			</choose>
-		</if>
-	</select>
 
 	<delete id="deleteArticle">
 		DELETE FROM article WHERE id = #{id}
@@ -151,10 +81,10 @@
 	<update id="decreaseReactionPoint" >
 		UPDATE `article`
 		<set>
-			<if test="cancleReaction == 'goodReactionPoint'">
+			<if test="cancelReaction == 'goodReactionPoint'">
 			goodReactionPoint = goodReactionPoint - 1
 			</if>
-			<if test="cancleReaction == 'badReactionPoint'">			
+			<if test="cancelReaction == 'badReactionPoint'">
 			badReactionPoint = badReactionPoint - 1
 			</if>
 		</set>

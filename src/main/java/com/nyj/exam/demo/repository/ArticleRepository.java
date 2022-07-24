@@ -2,46 +2,103 @@ package com.nyj.exam.demo.repository;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import com.nyj.exam.demo.vo.Article;
+import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface ArticleRepository {   
-	public void writeArticle(@Param("memberId") int memberId, @Param("boardId") int boardId, @Param("title") String title, @Param("body") String body);  
- 
-	public Article getArticle(@Param("id") int id); 
-	
-	public Article getForPrintArticle(@Param("id") int id);
-	 
-	public List<Article> getArticles(
-			@Param("boardId") int boardId, 
+public interface ArticleRepository {
+
+	void writeArticle(@Param("memberId") int memberId, @Param("boardId") int boardId, @Param("title") String title, @Param("body") String body);
+
+	Article getArticle(@Param("id") int id);
+
+	Article getForPrintArticle(@Param("id") int id);
+
+	@Select("""
+			<script>
+			SELECT a.*,
+					m.nickname AS extra__writerName
+					FROM article a
+					LEFT JOIN `member` m
+					ON a.memberId = m.id
+					WHERE 1
+					<if test='boardId !=null and boardId !="" and boardId !=0 '>
+						AND boardId = #{boardId}	
+					</if>
+					<if test="searchKeyword != ''">
+						<choose>
+							<when test="searchKeywordType == 'title'" >
+								AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'body'" >
+								AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<otherwise>
+								AND (
+									title LIKE CONCAT('%', #{searchKeyword}, '%')
+										OR
+									`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+								)
+							</otherwise>
+						</choose>
+					</if>
+					ORDER BY a.id DESC
+					LIMIT #{limitStart}, #{limitTake}
+			</script>
+			""")
+	List<Article> getArticles(
+			@Param("boardId") int boardId,
 			@Param("searchKeywordType") String searchKeywordType,
 			@Param("searchKeyword") String searchKeyword,
 			@Param("limitStart") int limitStart,
 			@Param("limitTake") int limitTake
-			);    
+			);
 
-	public int getArticlesCount(@Param("boardId")int boardId, @Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
-	 
-	public void deleteArticle(@Param("id") int id); 
-	  
-	public void modifyArticle(@Param("id") int id,@Param("boardId") int boardId, @Param("title") String title, @Param("body") String body);
- 
-	public int getLastInsertId();
+	@Select("""
+			<script>
+		SELECT COUNT(*)
+		FROM `article`
+		WHERE 1
+			<if test='boardId !=null and boardId !="" and boardId !=0 '>
+				AND boardId = #{boardId}
+			</if>
+			<if test="searchKeyword != ''">
+				<choose>
+					<when test="searchKeywordType == 'title'" >
+						AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchKeywordType == 'body'" >
+						AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<otherwise>
+						AND ( 
+							title LIKE CONCAT('%', #{searchKeyword}, '%')
+								OR 
+							`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+						)
+					</otherwise>
+				</choose>
+			</if>
+		</script>
+	""")
+	int getArticlesCount(@Param("boardId")int boardId, @Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
 
-	public int increaseHitCount(int id);
-	
-	public int getArticleHitCount(int id);
-	
-	public int increaseGoodReactionPoint(int id);
-	
-	public int increaseBadReactionPoint(int id);
+	void deleteArticle(@Param("id") int id);
 
-	public int decreaseReactionPoint(int relId, String cancleReaction);
+	void modifyArticle(@Param("id") int id,@Param("boardId") int boardId, @Param("title") String title, @Param("body") String body);
+
+	int getLastInsertId();
+
+	int increaseHitCount(int id);
+
+	int getArticleHitCount(int id);
+
+	int increaseGoodReactionPoint(int id);
+
+	int increaseBadReactionPoint(int id);
+
+	int decreaseReactionPoint(int relId, String cancelReaction);
 }

@@ -8,15 +8,15 @@ import com.nyj.exam.demo.vo.Member;
 @Mapper
 public interface MemberRepository {
 
-	public void join(@Param("loginId") String loginId, @Param("loginPw") String loginPw, @Param("email") String email, @Param("name") String name,@Param("nickname") String nickname, @Param("phoneNumber")String phoneNumber);
+	void join(@Param("loginId") String loginId, @Param("loginPw") String loginPw, @Param("email") String email, @Param("name") String name,@Param("nickname") String nickname, @Param("phoneNumber")String phoneNumber);
 
-	public int getLastInsertId();
+	int getLastInsertId();
 
-	public Member getMemberByLoginId(@Param("loginId") String loginId);
+	Member getMemberByLoginId(@Param("loginId") String loginId);
 	
-	public Member getMemberById(@Param("id") int id);
+	Member getMemberById(@Param("id") int id);
 
-	public Member getMemberNameAndEmail(@Param("name") String name, @Param("email") String email);
+	Member getMemberNameAndEmail(@Param("name") String name, @Param("email") String email);
 
-	public void modify(int memberId,String loginPw, String email,String nickname, String phoneNumber);
+	void modify(int memberId,String loginPw, String email,String nickname, String phoneNumber);
 }
