@@ -89,7 +89,6 @@
   padding-top:calc(100% / 1 * 2);
 }
 /* 토스트 UI, 유튜브 플러그인 에서 필요한 CSS 끝 */
- 
 </style>
 
 <script>
@@ -120,11 +119,11 @@ function codepenPlugin() {
       ];
     }
   }
-
+  
   function renderCodepen(uri) {    
     let uriParams = getUriParams(uri);
 
-    let height = 300;
+    let height = 400;
 
     let preview = '';
 
@@ -169,7 +168,7 @@ function replPlugin() {
       ];
     }
   }
-
+  
   function renderRepl(uri) {
     var uriParams = getUriParams(uri);
 
@@ -285,14 +284,14 @@ function ToastEditor__init() {
     const $node = $(node);
     const $initialValueEl = $node.find(' > script');
     const initialValue = $initialValueEl.length == 0 ? '' : $initialValueEl.html().trim();
-    
+
     const theme = localStorage.getItem("theme") ?? "cupcake";
 
     const editor = new toastui.Editor({
       el: node,
       previewStyle: 'vertical',
       initialValue: initialValue,
-      height:'400px',
+      height:'600px',
       theme: theme,
       plugins: [
         [toastui.Editor.plugin.chart, ToastEditor__chartOptions],
@@ -320,7 +319,6 @@ function ToastEditorView__init() {
     const $initialValueEl = $node.find(' > script');
     const initialValue = $initialValueEl.length == 0 ? '' : $initialValueEl.html().trim();
     $node.empty();
-    
 
     const theme = localStorage.getItem("theme") ?? "cupcake";
 
@@ -345,6 +343,7 @@ function ToastEditorView__init() {
     });
 
     $node.data('data-toast-editor', viewer);
+    
   });
 }
 
@@ -353,4 +352,4 @@ $(function() {
   ToastEditorView__init();
 });
 /* 토스트 UI 관련 자바스크립트 끝 */
-</script> 
+</script>

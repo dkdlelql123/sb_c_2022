@@ -261,8 +261,6 @@
       <button type="submit" class="btn btn-sm btn-info float-right">수정</button>
     </form>
   </div>
-</div>
-
-<div></div>
+</div> 
 
 <%@ include file="../common/tail.jspf"%>
