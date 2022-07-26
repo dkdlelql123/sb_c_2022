@@ -25,6 +25,18 @@
 	font-style: normal;
 }
 
+html[data-theme='dark'] .theme{
+	cursor:pointer;
+}
+
+html[data-theme='cupcake'] .theme.cupcake {
+	display:none;
+}
+
+html[data-theme='dark'] .theme.dark {
+	display:none;
+}
+
 html>body,
 .toastui-editor-contents, 
 .toastui-editor-contents, * { 
@@ -44,8 +56,10 @@ body{
 	padding: 10px;
 	font-weight: normal;
 }
-
-textarea.textarea, input[type=text], input[type=password],input[type=email] {
+html[data-theme='cupcake'] input[type=text],
+html[data-theme='cupcake'] input[type=password],
+html[data-theme='cupcake'] input[type=email],
+html[data-theme='cupcake'] textarea.textarea {
 	color: #0a0a0a;
 	background: #f0f0f0;
 	padding:4px 8px ; 

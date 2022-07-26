@@ -223,7 +223,7 @@
   </table>
 
   <c:if test="${!rq.logined}">
-    <div class="navbar bg-green-100 rounded rounded-full px-4 mt-4">
+    <div class="navbar bg-green-100 rounded rounded-full px-4 mt-4" style="min-height: 2rem">
       <a class="link link-neutral" href="${rq.loginUri}">로그인</a>  이후 댓글을 작성할 수 있습니다.
     </div>
   </c:if>
@@ -234,8 +234,7 @@
       onsubmit="checkReplyForm(this); return false;">
       <input type="hidden" name="id" value="${article.id}" />
       <div class="flex items-end gap-2">
-        <textarea id="replyBody" name="body" cols="30" rows="3"
-          class="flex-grow"></textarea>
+        <textarea id="replyBody" name="body" cols="30" rows="3" class="textarea textarea-bordered flex-grow"></textarea>
         <button type="submit" class="btn btn-sm btn-outline">입력</button>
       </div>
     </form>
@@ -258,7 +257,7 @@
       class="mt-2"
       onsubmit="checkReplyForm(this); return false;">
       <input type="hidden" name="id" value="" />
-      <textarea name="body" cols="30" rows="5" class="w-full p-2"></textarea>
+      <textarea name="body" cols="30" rows="5" class="textarea textarea-bordered  w-full p-2"></textarea>
       <button type="submit" class="btn btn-sm btn-info float-right">수정</button>
     </form>
   </div>

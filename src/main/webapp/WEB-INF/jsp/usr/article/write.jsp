@@ -85,7 +85,7 @@
       <tr>
         <th>제목</th>
         <td>
-          <input type="text" class="w-full input-sm" name="title"  
+          <input type="text" class="w-full input input-sm" name="title"  
             required="required" placeholder="제목을 입력해주세요." />
         </td>
       </tr>

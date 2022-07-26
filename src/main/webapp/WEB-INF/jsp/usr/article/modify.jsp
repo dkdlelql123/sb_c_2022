@@ -46,7 +46,7 @@
     <tr>
       <td>제목</td>
       <td>
-        <input type="text" class="w-full input-sm" name="title"
+        <input type="text" class="w-full input input-sm" name="title"
           value="${article.title}" />
       </td>
     </tr>
