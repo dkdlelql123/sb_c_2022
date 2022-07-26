@@ -23,4 +23,11 @@ public class Member {
 	
 	private int delStatus;
 	private String delDate;
+
+	public String getForPrintType1RegDate() {
+		return regDate.substring(0,10);
+	}
+	public String getForPrintType1UpateDate() {
+		return updateDate.substring(0,10);
+	}
 }

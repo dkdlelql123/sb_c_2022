@@ -1,5 +1,7 @@
 package com.nyj.exam.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +87,17 @@ public class MemberService {
 		}
 		
 		return ResultData.form("S-1", "인증에 성공했습니다.");
+	}
+
+	public int getMembersCount() {
+		return memberRepository.getMembersCount();
+	}
+
+	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int page,
+			int itemsCountInAPage) {
+		int limitStart = (page-1) * itemsCountInAPage ;
+		int limitTake = itemsCountInAPage;
+		return memberRepository.getForPrintMembers(searchKeywordType, searchKeyword, limitStart, limitTake);
 	}
 
 	

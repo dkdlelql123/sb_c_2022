@@ -1,7 +1,10 @@
 package com.nyj.exam.demo.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.nyj.exam.demo.vo.Member;
 
@@ -19,4 +22,37 @@ public interface MemberRepository {
 	Member getMemberNameAndEmail(@Param("name") String name, @Param("email") String email);
 
 	void modify(int memberId,String loginPw, String email,String nickname, String phoneNumber);
+
+	@Select("""
+			<script>
+				SELECT COUNT(*)
+				FROM `member`;
+			</script>
+			""")
+	int getMembersCount();
+
+	@Select("""
+			<script>
+				SELECT *
+				FROM `member`
+				WHERE 1
+					<if test="searchKeyword != ''">
+						<choose>
+							<when test="searchKeywordType == 'loginId'" >
+								AND loginId LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'name'" >
+								AND `name` LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when> 
+							<when test="searchKeywordType == 'nickname'" >
+								AND `nickname` LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when> 
+						</choose>
+					</if>
+				ORDER BY id DESC
+				LIMIT #{limitStart}, #{limitTake}
+				;
+			</script>
+			""")
+	List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int limitStart, int limitTake);
 }
