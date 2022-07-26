@@ -20,6 +20,7 @@ import com.nyj.exam.demo.vo.Reply;
 import com.nyj.exam.demo.vo.ResultData;
 import com.nyj.exam.demo.vo.Rq;
 
+
 @Controller
 public class UsrArticleController {
 
@@ -71,6 +72,7 @@ public class UsrArticleController {
 			@RequestParam(defaultValue = "5") int itemsCountInAPage, 
 			@RequestParam(defaultValue = "title,body") String searchKeywordType,
 			@RequestParam(defaultValue = "") String searchKeyword ) {		
+		System.out.println(boardId);
 		Board board = boardService.getBoardById(boardId);
 		
 		if(board==null) {
