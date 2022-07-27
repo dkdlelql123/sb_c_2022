@@ -56,7 +56,7 @@
 <body>
 
   <header class="m-auto w-3/4 flex items-center py-4">
-    <a href="/">메인으로</a>
+    <a href="/">메인</a>
     <div class="flex-grow"></div>
     <ul class="flex items-center gap-4"> 
       <li>
@@ -91,6 +91,9 @@
           <li>
             <a href="${rq.logoutUri}">로그아웃</a>
           </li>
+          <if text="${rq.member.authLevel == '10'}">
+            <li><a href="/adm">관리자홈</a></li>
+          </if>
         </c:when>
       </c:choose> 
     </ul>

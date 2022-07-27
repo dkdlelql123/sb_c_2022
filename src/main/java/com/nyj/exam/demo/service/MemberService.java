@@ -89,15 +89,19 @@ public class MemberService {
 		return ResultData.form("S-1", "인증에 성공했습니다.");
 	}
 
-	public int getMembersCount() {
-		return memberRepository.getMembersCount();
+	public int getALLMembersCount() {
+		return memberRepository.getALLMembersCount();
+	}
+	
+	public int getMembersCount(String searchKeywordType, String searchKeyword, int searchAuthLevel ) { 
+		return memberRepository.getMembersCount(searchKeywordType, searchKeyword, searchAuthLevel);
 	}
 
-	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int page,
+	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int searchAuthLevel, int page,
 			int itemsCountInAPage) {
 		int limitStart = (page-1) * itemsCountInAPage ;
 		int limitTake = itemsCountInAPage;
-		return memberRepository.getForPrintMembers(searchKeywordType, searchKeyword, limitStart, limitTake);
+		return memberRepository.getForPrintMembers(searchKeywordType, searchKeyword,searchAuthLevel, limitStart, limitTake);
 	}
 
 	

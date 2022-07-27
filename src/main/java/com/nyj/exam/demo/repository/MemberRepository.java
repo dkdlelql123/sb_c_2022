@@ -29,7 +29,33 @@ public interface MemberRepository {
 				FROM `member`;
 			</script>
 			""")
-	int getMembersCount();
+	int getALLMembersCount();
+	
+	@Select("""
+			<script>
+				SELECT COUNT(*)
+				FROM `member`
+				WHERE 1
+					<if test="searchKeyword != ''">
+						<choose>
+							<when test="searchKeywordType == 'loginId'" >
+								AND loginId LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'name'" >
+								AND `name` LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when> 
+							<when test="searchKeywordType == 'nickname'" >
+								AND `nickname` LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when> 
+						</choose>
+					</if>
+					<if test="searchAuthLevel != 1">
+						AND authLevel = #{searchAuthLevel}
+					</if>
+			</script>
+			""")
+	int getMembersCount(String searchKeywordType, String searchKeyword, int searchAuthLevel );
+	
 
 	@Select("""
 			<script>
@@ -49,10 +75,14 @@ public interface MemberRepository {
 							</when> 
 						</choose>
 					</if>
+					
+					<if test="searchAuthLevel != 1">
+						AND authLevel = #{searchAuthLevel}
+					</if>
 				ORDER BY id DESC
 				LIMIT #{limitStart}, #{limitTake}
 				;
 			</script>
 			""")
-	List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int limitStart, int limitTake);
+	List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int searchAuthLevel , int limitStart, int limitTake);
 }

@@ -19,19 +19,22 @@ public class AdmMemberController {
 	
 	@RequestMapping("/adm/member/list")
 	public String showMemberList(Model model,
+			@RequestParam(defaultValue = "1") int searchAuthLevel, 
 			@RequestParam(defaultValue = "1") int page, 
 			@RequestParam(defaultValue = "5") int itemsCountInAPage, 
 			@RequestParam(defaultValue = "title,body") String searchKeywordType,
 			@RequestParam(defaultValue = "") String searchKeyword) {
 		
-		int membersCount =  memberService.getMembersCount();
+		model.addAttribute("authLevel", searchAuthLevel);
+		
+		int membersCount =  memberService.getMembersCount(searchKeywordType, searchKeyword, searchAuthLevel);
 		model.addAttribute("membersCount", membersCount);
 		
 		int pagesCount = (int) Math.ceil((double)membersCount / itemsCountInAPage);
 		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("page", page);
 	
-		List<Member> list = memberService.getForPrintMembers(searchKeywordType, searchKeyword, page, itemsCountInAPage);
+		List<Member> list = memberService.getForPrintMembers(searchKeywordType, searchKeyword, searchAuthLevel, page, itemsCountInAPage);
 		model.addAttribute("members", list);
 		
 		return "adm/member/list";
