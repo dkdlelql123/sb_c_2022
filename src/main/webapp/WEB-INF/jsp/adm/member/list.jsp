@@ -20,14 +20,12 @@
 	}
 	init();
 
-	$(
-			function() {
-				$("input[data-name=userType" + authLevel + "]").prop('checked',
-						true);
-				$("input[data-name=userType" + authLevel + "] ~ span")
-						.addClass("btn-warning");
-			})
+	$(function() {
+		$("input[data-name=userType" + authLevel + "]").prop('checked',	true);
+		$("input[data-name=userType" + authLevel + "] ~ span").removeClass("btn-outline");
+	})
 </script>
+
 
 <h1 class="font-title mb-4 text-3xl font-extrabold">회원 총 ${membersCount}명</h1>
 <div class="form-control">
@@ -90,43 +88,24 @@
       <label for="AuthLevel1" onchange="this.form.submit();">
         <input type="radio" class="hidden" id="AuthLevel1"
           data-name="userType1" name="searchAuthLevel" value="1" />
-        <span class="btn btn-sm">전체</span>
+        <span class="btn btn-sm btn-outline">전체</span>
       </label>
 
       <label for="AuthLevel2" onchange="this.form.submit();">
         <input type="radio" class="hidden" id="AuthLevel2"
           data-name="userType2" name="searchAuthLevel" value="2" />
-        <span class="btn btn-sm">일반회원</span>
+        <span class="btn btn-sm btn-outline">일반회원</span>
       </label>
 
       <label for="AuthLevel3" onchange="this.form.submit();">
         <input type="radio" class="hidden" id="AuthLevel3"
           data-name="userType10" name="searchAuthLevel" value="10" />
-        <span class="btn btn-sm ">관리자</span>
+        <span class="btn btn-sm btn-outline">관리자</span>
       </label>
     </form>
   </div>
 </div>
 
-<script >
-$(function(){
-	$(".allCheckMemberIds").change(function(){
-		const $this = $(this);
-		const checkedStatus = $this.prop("checked");
-		
-		$(".checkMemberId").prop("checked",checkedStatus );
-	});
-	
-	$(".checkMemberId").change(function(){
-		const checkMemberIdCount = $(".checkMemberId").length;
-		const checkMemberIdCheckedCount = $(".checkMemberId:checked").length;
-		
-		const allCheck = checkMemberIdCount == checkMemberIdCheckedCount ;
-		
-		$(".allCheckMemberIds").prop("checked", allCheck);
-	})
-})
-</script>
 
 <div class="table-box-type-1">
   <table id="boardtable">
@@ -149,7 +128,7 @@ $(function(){
     <tbody>
       <c:forEach var="member" items="${members}">
         <tr>
-          <th><input type="checkbox" class="checkMemberId" /></th>
+          <th><input type="checkbox" class="checkMemberId" value="${member.id}"/></th>
           <th class="text-center">${member.id}</th>
           <td>
             <a href="#">${member.loginId}</a>
@@ -163,6 +142,55 @@ $(function(){
     </tbody>
   </table>
 </div>
+
+<script>
+$(".allCheckMemberIds").change(function(){
+    const $this = $(this);
+    const checkedStatus = $this.prop("checked");
+    
+    $(".checkMemberId").prop("checked",checkedStatus );
+  });
+  
+  $(".checkMemberId").change(function(){
+    const checkMemberIdCount = $(".checkMemberId").length;
+    const checkMemberIdCheckedCount = $(".checkMemberId:checked").length;
+    
+    const allCheck = checkMemberIdCount == checkMemberIdCheckedCount ;
+    
+    $(".allCheckMemberIds").prop("checked", allCheck);
+  }); 
+</script>
+
+<div>
+  <button class="doDeleteMembersBtn btn btn-xs btn-outline btn-error">선택삭제</button>
+</div>    
+
+<form hidden action="../members/doDelete" name="doDeleteMembers" method="POST">
+  <input type="hidden" name="ids" value=""/>
+  <input type="hidden" name="replaceUri" value="${rq.getCurrentUri()}"/>
+</form>
+
+<script>
+	$(".doDeleteMembersBtn").click(() => {
+		 const checkMemberIdCheckedCount = $(".checkMemberId:checked").length;
+		 
+		 if(checkMemberIdCheckedCount == 0) {
+			 alert("삭제할 회원을 선택해주세요");
+			 return false;
+		 }
+		 
+		 if(!confirm("정말 삭제하시겠습니까?")){
+			return false;
+		 }
+		 
+		const checkedMembers = $(".checkMemberId:checked").map((i, el) => {
+			return el.value
+		}).get();
+		
+		$("input[name=ids]").val(checkedMembers.join());
+		document["doDeleteMembers"].submit();
+	})
+</script>
 
 <!-- 페이지 관련 -->
 <c:set var="pageRange" value="9" />

@@ -1,5 +1,6 @@
 package com.nyj.exam.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import com.nyj.exam.demo.repository.MemberRepository;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Member;
 import com.nyj.exam.demo.vo.ResultData;
-import com.sun.net.httpserver.Authenticator.Result;
 
 @Service
 public class MemberService {
@@ -102,6 +102,23 @@ public class MemberService {
 		int limitStart = (page-1) * itemsCountInAPage ;
 		int limitTake = itemsCountInAPage;
 		return memberRepository.getForPrintMembers(searchKeywordType, searchKeyword,searchAuthLevel, limitStart, limitTake);
+	}
+
+	public ResultData doDeleteMembers(List<Integer> memberIds) {
+		for(int id : memberIds) {
+			Member member = getMemberById(id);
+			if(member==null) {
+				return ResultData.form("F-1", "해당 회원이 없습니다.", "member", id);
+			} else if(member!=null) {
+				doDelete(member);
+			}
+		}
+		
+		return ResultData.form("S-1", "회원 삭제가 성공했습니다.");
+	}
+
+	public void doDelete(Member member) {
+		memberRepository.doDelete(member.getId());
 	}
 
 	

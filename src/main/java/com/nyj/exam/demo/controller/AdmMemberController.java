@@ -1,5 +1,6 @@
 package com.nyj.exam.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,15 +8,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyj.exam.demo.service.MemberService;
+import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Member;
+import com.nyj.exam.demo.vo.ResultData;
+import com.nyj.exam.demo.vo.Rq;
 
 @Controller
 public class AdmMemberController {
 	
 	@Autowired
 	MemberService memberService; 
+	
+	private Rq rq;
+	
+	public AdmMemberController(Rq rq) {
+		this.rq = rq;
+	}
 	
 	@RequestMapping("/adm/member/list")
 	public String showMemberList(Model model,
@@ -38,6 +49,24 @@ public class AdmMemberController {
 		model.addAttribute("members", list);
 		
 		return "adm/member/list";
+	}
+	
+	@RequestMapping("/adm/members/doDelete")
+	@ResponseBody
+	public String doDeleteMembers(@RequestParam(defaultValue = "") String ids, @RequestParam(defaultValue = "/adm/member/list") String replaceUri) {
+		List<Integer> memberIds = new ArrayList<>();
+		
+		for(String str : ids.split(",") ) {
+			memberIds.add(Integer.parseInt(str));
+		}
+		
+		ResultData rd = memberService.doDeleteMembers(memberIds);
+		
+		if(rd.isFail()) {
+			return Ut.jsHistoryBack(rd.getMsg());
+		}
+		
+		return Ut.jsReplace(rd.getMsg(), replaceUri);
 	}
 	
 	@RequestMapping("/adm/member/detail")

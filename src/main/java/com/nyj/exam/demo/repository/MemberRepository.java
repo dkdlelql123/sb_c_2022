@@ -2,6 +2,7 @@ package com.nyj.exam.demo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -85,4 +86,12 @@ public interface MemberRepository {
 			</script>
 			""")
 	List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int searchAuthLevel , int limitStart, int limitTake);
+
+	@Delete("""
+			<script>
+			DELETE FROM `member`
+			WHERE id = #{memberId};
+			</script>
+			""")
+	void doDelete(int memberId);
 }
