@@ -6,31 +6,34 @@
 <%@ include file="../common/head.jspf"%>
 
 <c:set var="authLevel" value="${param.searchAuthLevel}" />
-<input type="hidden" id="authLevel" name="authLevel" value="${authLevel}" />
+<input type="hidden" id="authLevel" name="authLevel"
+  value="${authLevel}" />
 
 <script>
-	// 회원레벨체크
+	// 검색조건 - 회원레벨체크
 	let authLevel = $('input#authLevel').val();
 	if (authLevel <= 0 || !authLevel)
-		authLevel = 1; 
-	
-	function init(){
+		authLevel = 1;
+
+	function init() {
 		$("input[name=searchAutoLevel]").prop('checked', false);
-	} 
+	}
 	init();
-	
-	$(function(){  
-		$("input[data-name=userType" + authLevel + "]").prop('checked', true);
-		$("input[data-name=userType" + authLevel + "] ~ span").addClass("btn-warning");
-	})
+
+	$(
+			function() {
+				$("input[data-name=userType" + authLevel + "]").prop('checked',
+						true);
+				$("input[data-name=userType" + authLevel + "] ~ span")
+						.addClass("btn-warning");
+			})
 </script>
 
-<h1 class="font-title mb-4 text-3xl font-extrabold">회원 총
-  ${membersCount}명</h1>
+<h1 class="font-title mb-4 text-3xl font-extrabold">회원 총 ${membersCount}명</h1>
 <div class="form-control">
   <form class="input-group justify-center" name="search-form">
-  
-      <input type="hidden" name="searchAuthLevel"  value="${param.searchAuthLevel}" />
+    <input type="hidden" name="searchAuthLevel"
+      value="${param.searchAuthLevel}" />
     <input type="hidden" name="itemsCountInAPage"
       value="${param.itemsCountInAPage}" />
     <select id="select" name="searchKeywordType"
@@ -60,8 +63,9 @@
       <input type="hidden" name="searchKeywordType"
         value="${param.searchKeywordType}" />
       <input type="hidden" name="searchKeyword"
-        value="${param.searchKeyword}" /> 
-      <input type="hidden" name="searchAuthLevel"  value="${param.searchAuthLevel}" />
+        value="${param.searchKeyword}" />
+      <input type="hidden" name="searchAuthLevel"
+        value="${param.searchAuthLevel}" />
       <select id="select" name="itemsCountInAPage"
         data-value="${param.itemsCountInAPage}"
         onchange="this.form.submit();"
@@ -81,34 +85,59 @@
       <input type="hidden" name="searchKeyword"
         value="${param.searchKeyword}" />
       <input type="hidden" name="itemsCountInAPage"
-        value="${param.itemsCountInAPage}" />  
+        value="${param.itemsCountInAPage}" />
 
       <label for="AuthLevel1" onchange="this.form.submit();">
-        <input type="radio" class="hidden" id="AuthLevel1" data-name="userType1" name="searchAuthLevel"  value="1" />
+        <input type="radio" class="hidden" id="AuthLevel1"
+          data-name="userType1" name="searchAuthLevel" value="1" />
         <span class="btn btn-sm">전체</span>
       </label>
-      
+
       <label for="AuthLevel2" onchange="this.form.submit();">
-        <input type="radio" class="hidden"  id="AuthLevel2" data-name="userType2" name="searchAuthLevel"  value="2" />
+        <input type="radio" class="hidden" id="AuthLevel2"
+          data-name="userType2" name="searchAuthLevel" value="2" />
         <span class="btn btn-sm">일반회원</span>
       </label>
 
       <label for="AuthLevel3" onchange="this.form.submit();">
-        <input type="radio" class="hidden"  id="AuthLevel3" data-name="userType10" name="searchAuthLevel" value="10" />
+        <input type="radio" class="hidden" id="AuthLevel3"
+          data-name="userType10" name="searchAuthLevel" value="10" />
         <span class="btn btn-sm ">관리자</span>
       </label>
     </form>
   </div>
 </div>
 
+<script >
+$(function(){
+	$(".allCheckMemberIds").change(function(){
+		const $this = $(this);
+		const checkedStatus = $this.prop("checked");
+		
+		$(".checkMemberId").prop("checked",checkedStatus );
+	});
+	
+	$(".checkMemberId").change(function(){
+		const checkMemberIdCount = $(".checkMemberId").length;
+		const checkMemberIdCheckedCount = $(".checkMemberId:checked").length;
+		
+		const allCheck = checkMemberIdCount == checkMemberIdCheckedCount ;
+		
+		$(".allCheckMemberIds").prop("checked", allCheck);
+	})
+})
+</script>
+
 <div class="table-box-type-1">
   <table id="boardtable">
     <colgroup>
+      <col width="50">
       <col width="100">
       <col width="200">
     </colgroup>
     <thead>
       <tr>
+        <th><input type="checkbox" class="allCheckMemberIds" /></th>
         <th>번호</th>
         <th>아이디</th>
         <th>이름</th>
@@ -120,6 +149,7 @@
     <tbody>
       <c:forEach var="member" items="${members}">
         <tr>
+          <th><input type="checkbox" class="checkMemberId" /></th>
           <th class="text-center">${member.id}</th>
           <td>
             <a href="#">${member.loginId}</a>
