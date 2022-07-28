@@ -82,6 +82,11 @@ public class UsrMemberController {
 		}
 
 		rq.login(member);  
+		
+		if(member.isAdmin()) {
+			return Ut.jsReplace("관리자님 반갑습니다.", "/adm");
+		}
+		
 		return Ut.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickname()), afterLoginUri);
 	}
 
@@ -90,7 +95,7 @@ public class UsrMemberController {
 	public String doLogout(@RequestParam(defaultValue = "/") String afterLogoutUri) {
 		 if (!rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그아웃 상태입니다");
-		}
+		} 
 
 		rq.logout();
 

@@ -91,9 +91,11 @@
           <li>
             <a href="${rq.logoutUri}">로그아웃</a>
           </li>
-          <if text="${rq.member.authLevel == '10'}">
-            <li><a href="/adm">관리자홈</a></li>
-          </if>
+          <c:if test="${rq.isAdmin()}">
+            <li>
+              <a href="/adm" class="btn btn-xs btn-info">ADMIN</a>
+            </li>
+          </c:if>
         </c:when>
       </c:choose> 
     </ul>
