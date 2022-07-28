@@ -279,3 +279,7 @@ ALTER TABLE attr ADD UNIQUE INDEX (relTypeCode, relId, typeCode, type2Code);
 
 # 특정 조건을 만족하는 회원 또는 게시물(기타 데이터)를 빠르게 찾기 위해서
 ALTER TABLE attr ADD INDEX (relTypeCode,typeCode,type2Code);
+
+# 회원 loginId 유니크 인덱스 추가
+ALTER TABLE `member` ADD UNIQUE INDEX (`loginId`);
+	
