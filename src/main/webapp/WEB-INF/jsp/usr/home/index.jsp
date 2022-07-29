@@ -32,4 +32,52 @@ div[id^=slide] h1 {text-shadow: 0 0 20px #00000020;}
   </div> 
 </div>
 
+
+<section class="pt-40">
+  <h5 class="text-lg text-center">SUB TITLE</h5>
+  <h2 class="text-6xl text-center font-bold mt-3">BEST TITLE</h2>
+  
+  <div class="flex justify-around items-center mt-24 w-3/4 mx-auto">
+    <div class="card w-1/4 bg-base-100 shadow-xl image-full">
+      <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+      <div class="card-body">
+        <h2 class="card-title">Shoes!</h2>
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <div class="card-actions justify-end">
+          <button class="btn btn-primary">Buy Now</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card w-1/4 bg-base-100 shadow-xl image-full">
+      <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+      <div class="card-body">
+        <h2 class="card-title">Shoes!</h2>
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <div class="card-actions justify-end">
+          <button class="btn btn-primary">Buy Now</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card w-1/4 bg-base-100 shadow-xl image-full">
+      <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+      <div class="card-body">
+        <h2 class="card-title">Shoes!</h2>
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <div class="card-actions justify-end">
+          <button class="btn btn-primary">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="pt-40">
+  <h5 class="text-lg text-center">SUB TITLE</h5>
+  <h2 class="text-6xl text-center font-bold mt-3">NEW TITLE</h2>
+</section>
+
+
 <%@ include file="../common/tail.jspf"%>
