@@ -161,7 +161,7 @@ $(".allCheckMemberIds").change(function(){
   }); 
 </script>
 
-<div>
+<div class="mt-4">
   <button class="doDeleteMembersBtn btn btn-xs btn-outline btn-error">선택삭제</button>
 </div>    
 

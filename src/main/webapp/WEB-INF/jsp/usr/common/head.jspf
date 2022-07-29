@@ -101,13 +101,16 @@
     </ul>
   </header>
 
-  <div class="border border-gray-200 border-r-0 border-l-0 py-2">
-    <div class="m-auto w-3/4 flex items-center gap-2 ">
-      <div class="flex-grow"></div>
-      <a href="/">🏠</a>
-      >
-      <span>${pageTitle}</span>
-    </div>
-  </div>
+   
+<c:choose>
+  <c:when test="${main==true}">
+    <main>
+  </c:when>
+  
+  <c:otherwise>
+    <%@include file="./breadcrumb.jspf" %>
+    <main class="m-auto w-3/4 py-12">  
+  </c:otherwise>  
+</c:choose>
 
-  <main class="m-auto w-3/4 py-12">
+  
