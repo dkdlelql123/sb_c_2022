@@ -56,15 +56,9 @@
 <body>
 
   <header class="m-auto w-3/4 flex items-center py-4">
-    <a href="/">메인</a>
+    <a href="/" class="font-bold text-xl">LOGO</a>
     <div class="flex-grow"></div>
-    <ul class="flex items-center gap-4"> 
-      <li>
-        <a class="hover:underline btn-theme-toggle" href="javascript:Theme__toggle();">
-          <span class="theme cupcake">밝게</span>
-          <span class="theme dark">어둡게</span>
-        </a>
-      </li>
+    <ul class="flex items-center gap-4">  
       <li>
         <a href="/usr/article/write">작성</a>
       </li>
@@ -97,7 +91,13 @@
             </li>
           </c:if>
         </c:when>
-      </c:choose> 
+      </c:choose>
+      <li>
+       <a class="hover:underline btn-theme-toggle" href="javascript:Theme__toggle();">
+          <span class="theme cupcake"><i class="far fa-sun"></i></span>
+          <span class="theme dark"><i class="far fa-moon"></i></span>
+        </a>
+      </li> 
     </ul>
   </header>
 
