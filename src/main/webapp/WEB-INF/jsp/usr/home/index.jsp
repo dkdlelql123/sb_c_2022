@@ -33,50 +33,47 @@ div[id^=slide] h1 {text-shadow: 0 0 20px #00000020;}
 </div>
 
 
-<section class="pt-40">
+<section class="py-40 bg-gray-200">
   <h5 class="text-lg text-center">SUB TITLE</h5>
-  <h2 class="text-6xl text-center font-bold mt-3">BEST TITLE</h2>
+  <h2 class="font-title text-4xl font-extrabold sm:text-5xl lg:text-7xl text-center mt-3">BEST TITLE</h2>
   
-  <div class="flex justify-around items-center mt-24 w-3/4 mx-auto">
-    <div class="card w-1/4 bg-base-100 shadow-xl image-full">
-      <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+  <div class="flex justify-between items-center mt-24 w-3/4 mx-auto gap-8">
+  <c:forEach var="article" items="${bestArticles}">
+    <a class="card card-compact w-1/3 bg-base-100 shadow-xl" href="/usr/article/detail?id=${article.id}">
+      <figure> 
+        <!--  <img src="https://placeimg.com/400/225/arch" alt="Shoes" /> -->
+      </figure>
       <div class="card-body">
-        <h2 class="card-title">Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary">Buy Now</button>
-        </div>
+         <h2 class="card-title flex-col h-24 overflow-hidden overflow-ellipsis break-word" style="align-items:flex-start">
+            <div class="badge badge-secondary">${article.extra__boardName}</div>
+            ${article.title}
+         </h2>       
+         <p class="text-sm mt-4">${article.extra__writerName} | ${article.getForPrintType1RegDate()}</p>
       </div>
-    </div>
-    
-    <div class="card w-1/4 bg-base-100 shadow-xl image-full">
-      <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
-      <div class="card-body">
-        <h2 class="card-title">Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary">Buy Now</button>
-        </div>
-      </div>
-    </div>
-    
-    <div class="card w-1/4 bg-base-100 shadow-xl image-full">
-      <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
-      <div class="card-body">
-        <h2 class="card-title">Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary">Buy Now</button>
-        </div>
-      </div>
-    </div>
+    </a>
+  </c:forEach>
   </div>
 </section>
 
 
 <section class="pt-40">
   <h5 class="text-lg text-center">SUB TITLE</h5>
-  <h2 class="text-6xl text-center font-bold mt-3">NEW TITLE</h2>
+  <h2 class="font-title text-4xl font-extrabold sm:text-5xl lg:text-7xl text-center mt-3">NEW TITLE</h2>
+  
+  <div class="flex justify-between items-center mt-24 w-3/4 mx-auto gap-8">
+  <c:forEach var="article" items="${newArticles}">
+    <a class="card card-compact w-1/3 bg-base-100 shadow-xl" href="/usr/article/detail?id=${article.id}">
+      <figure></figure>
+      <div class="card-body">
+         <h2 class="card-title flex-col h-24" style="align-items:flex-start">
+            <div class="badge badge-primary">${article.extra__boardName}</div>            
+              ${article.title}
+         </h2>       
+         <p class="text-sm mt-4">${article.extra__writerName} | ${article.getForPrintType1RegDate()}</p>
+      </div>
+    </a>
+  </c:forEach>
+  </div>
 </section>
 
 

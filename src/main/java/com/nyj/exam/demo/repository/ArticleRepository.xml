@@ -91,4 +91,30 @@
 		WHERE id = #{relId};
 	</update>
 	
+	<select id="getBestArticles" resultType="Article">
+	SELECT a.*,
+	m.nickname AS extra__writerName,
+	b.name AS extra__boardName
+	FROM article AS a
+	LEFT JOIN `member` AS m
+	ON a.memberId = m.id
+	LEFT JOIN `board` b
+	ON a.boardId = b.id
+	ORDER BY a.goodReactionPoint ASC 
+	LIMIT 0, 3;
+	</select>
+	
+	<select id="getNewArticles" resultType="Article">
+	SELECT a.*,
+	m.nickname AS extra__writerName,
+	b.name AS extra__boardName
+	FROM article AS a
+	LEFT JOIN `member` AS m
+	ON a.memberId = m.id
+	LEFT JOIN `board` b
+	ON a.boardId = b.id
+	ORDER BY a.regDate DESC 
+	LIMIT 0, 3;
+	</select>
+	
 </mapper>

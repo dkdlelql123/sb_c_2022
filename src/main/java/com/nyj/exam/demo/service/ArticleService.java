@@ -116,6 +116,14 @@ public class ArticleService {
 		}
 		return ResultData.form("S-1", "리액션 헤제", "affectedCount", affectedCount);
 		
+	}
+
+	public List<Article> getBestArticles() {
+		return articleRepository.getBestArticles();
+	}
+
+	public List<Article> getNewArticles() {
+		return articleRepository.getNewArticles();
 	} 
 	
 }

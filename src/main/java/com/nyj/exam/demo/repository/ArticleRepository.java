@@ -101,4 +101,8 @@ public interface ArticleRepository {
 	int increaseBadReactionPoint(int id);
 
 	int decreaseReactionPoint(int relId, String cancelReaction);
+
+	List<Article> getBestArticles();
+
+	List<Article> getNewArticles();
 }
