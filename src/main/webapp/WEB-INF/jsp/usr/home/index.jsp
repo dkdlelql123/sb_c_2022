@@ -32,7 +32,6 @@ div[id^=slide] h1 {text-shadow: 0 0 20px #00000020;}
   </div> 
 </div>
 
-
 <section class="py-40 bg-gray-200">
   <h5 class="text-lg text-center">SUB TITLE</h5>
   <h2 class="font-title text-4xl font-extrabold sm:text-5xl lg:text-7xl text-center mt-3">BEST TITLE</h2>
@@ -40,12 +39,9 @@ div[id^=slide] h1 {text-shadow: 0 0 20px #00000020;}
   <div class="flex justify-between items-center mt-24 w-3/4 mx-auto gap-8">
   <c:forEach var="article" items="${bestArticles}">
     <a class="card card-compact w-1/3 bg-base-100 shadow-xl" href="/usr/article/detail?id=${article.id}">
-      <figure> 
-        <!--  <img src="https://placeimg.com/400/225/arch" alt="Shoes" /> -->
-      </figure>
       <div class="card-body">
-         <h2 class="card-title flex-col h-24 overflow-hidden overflow-ellipsis break-word" style="align-items:flex-start">
-            <div class="badge badge-secondary">${article.extra__boardName}</div>
+         <h2 class="card-title flex-col h-24" style="align-items:flex-start">
+            <div class="badge badge-${article.boardId == 1 ? 'primary' : 'secondary'}">${article.extra__boardName}</div>
             ${article.title}
          </h2>       
          <p class="text-sm mt-4">${article.extra__writerName} | ${article.getForPrintType1RegDate()}</p>
@@ -63,10 +59,9 @@ div[id^=slide] h1 {text-shadow: 0 0 20px #00000020;}
   <div class="flex justify-between items-center mt-24 w-3/4 mx-auto gap-8">
   <c:forEach var="article" items="${newArticles}">
     <a class="card card-compact w-1/3 bg-base-100 shadow-xl" href="/usr/article/detail?id=${article.id}">
-      <figure></figure>
       <div class="card-body">
          <h2 class="card-title flex-col h-24" style="align-items:flex-start">
-            <div class="badge badge-primary">${article.extra__boardName}</div>            
+            <div class="badge badge-${article.boardId == 1 ? 'primary' : 'secondary'}">${article.extra__boardName}</div>            
               ${article.title}
          </h2>       
          <p class="text-sm mt-4">${article.extra__writerName} | ${article.getForPrintType1RegDate()}</p>

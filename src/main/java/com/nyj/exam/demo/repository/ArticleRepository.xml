@@ -100,7 +100,7 @@
 	ON a.memberId = m.id
 	LEFT JOIN `board` b
 	ON a.boardId = b.id
-	ORDER BY a.goodReactionPoint ASC 
+	ORDER BY a.goodReactionPoint DESC 
 	LIMIT 0, 3;
 	</select>
 	
