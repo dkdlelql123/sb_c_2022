@@ -131,7 +131,7 @@
           <th><input type="checkbox" class="checkMemberId" value="${member.id}"/></th>
           <th class="text-center">${member.id}</th>
           <td>
-            <a href="#">${member.loginId}</a>
+            <a href="/adm/member/detail?id=${member.id}">${member.loginId}</a>
           </td>
           <td class="text-center">${member.name}</td>
           <td class="text-center">${member.nickname}</td>

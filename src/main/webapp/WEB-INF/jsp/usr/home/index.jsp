@@ -32,7 +32,7 @@ div[id^=slide] h1 {text-shadow: 0 0 20px #00000020;}
   </div> 
 </div>
 
-<section class="py-40 bg-gray-200">
+<section class="py-40 bg-base-200">
   <h5 class="text-lg text-center">SUB TITLE</h5>
   <h2 class="font-title text-4xl font-extrabold sm:text-5xl lg:text-7xl text-center mt-3">BEST TITLE</h2>
   

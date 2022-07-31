@@ -51,6 +51,10 @@ public class MemberService {
 		return memberRepository.getMemberById(id);
 	}
 	
+	public Member getForPrintMemberById(int id) {
+		return memberRepository.getForPrintMemberById(id);
+	}
+	
 	public Member getMemberNameAndEmail(String name, String email) {
 		return memberRepository.getMemberNameAndEmail(name, email);
 	}

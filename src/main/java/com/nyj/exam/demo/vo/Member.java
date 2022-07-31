@@ -23,11 +23,14 @@ public class Member {
 	
 	private int delStatus;
 	private String delDate;
+	
+	private int extra__totalWrittenArticles;
+	private int extra__totalWrittenReplies;
 
 	public String getForPrintType1RegDate() {
 		return regDate.substring(0,10);
 	}
-	public String getForPrintType1UpateDate() {
+	public String getForPrintType1UpdateDate() {
 		return updateDate.substring(0,10);
 	}
 	public boolean isAdmin() {

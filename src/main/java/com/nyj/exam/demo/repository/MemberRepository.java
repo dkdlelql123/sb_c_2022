@@ -19,6 +19,8 @@ public interface MemberRepository {
 	Member getMemberByLoginId(@Param("loginId") String loginId);
 	
 	Member getMemberById(@Param("id") int id);
+	
+	Member getForPrintMemberById(@Param("id") int id);
 
 	Member getMemberNameAndEmail(@Param("name") String name, @Param("email") String email);
 
@@ -89,7 +91,9 @@ public interface MemberRepository {
 
 	@Delete("""
 			<script>
-			DELETE FROM `member`
+			UPDATE `member`
+			SET delDate = NOW(),
+			delStatus = 1
 			WHERE id = #{memberId};
 			</script>
 			""")

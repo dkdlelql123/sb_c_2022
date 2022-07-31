@@ -70,7 +70,16 @@ public class AdmMemberController {
 	}
 	
 	@RequestMapping("/adm/member/detail")
-	public String showMemberDetail() {
+	public String showMemberDetail(int id, Model model) {
+		
+		Member member = memberService.getForPrintMemberById(id);
+		if(member == null) {
+			return "";
+		}
+		
+		model.addAttribute("member", member);
+		
+		
 		return "adm/member/detail";
 	}
 	
