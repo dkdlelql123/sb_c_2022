@@ -283,3 +283,21 @@ ALTER TABLE attr ADD INDEX (relTypeCode,typeCode,type2Code);
 # 회원 loginId 유니크 인덱스 추가
 ALTER TABLE `member` ADD UNIQUE INDEX (`loginId`);
 	
+# 회원 삭제시 회원이 작성한 게시물 삭제
+ALTER TABLE article 
+ADD FOREIGN KEY (memberId)
+REFERENCES `member` (id)
+ON DELETE CASCADE;
+
+# 회원 삭제시 회원이 작성한 댓글 삭제
+ALTER TABLE article 
+ADD FOREIGN KEY (memberId)
+REFERENCES `member` (id)
+ON DELETE CASCADE;
+
+# 회원 회원 삭제시 회원 관련 리액션포인트 삭제
+ALTER TABLE `reactionPoint`
+ADD CONSTRAINT fk
+FOREIGN KEY(memberId)
+REFERENCES `member`(id) 
+ON DELETE CASCADE;

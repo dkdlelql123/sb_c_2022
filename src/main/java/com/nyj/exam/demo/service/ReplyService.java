@@ -88,4 +88,8 @@ public class ReplyService {
 		
 	}
 
+	public void deleteReplyFromMember(int memberId) {
+		replyRepository.deleteReplyFromMember(memberId);
+	}
+
 }

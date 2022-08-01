@@ -116,5 +116,10 @@
 	ORDER BY a.regDate DESC 
 	LIMIT 0, 3;
 	</select>
+
+	<delete id="deleteFromMember">
+		DELETE FROM article 
+		WHERE memberId = #{memberId}
+	</delete>
 	
 </mapper>

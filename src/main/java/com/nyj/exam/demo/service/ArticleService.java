@@ -124,6 +124,10 @@ public class ArticleService {
 
 	public List<Article> getNewArticles() {
 		return articleRepository.getNewArticles();
+	}
+
+	public void deleteFromMember(int memberId) {
+		articleRepository.deleteFromMember(memberId);
 	} 
 	
 }

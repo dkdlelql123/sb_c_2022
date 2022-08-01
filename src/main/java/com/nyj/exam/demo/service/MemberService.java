@@ -16,9 +16,20 @@ public class MemberService {
 
 	@Autowired
 	MemberRepository memberRepository;
+	
 	@Autowired
 	AttrService attrService;
+	
+	@Autowired
+	ArticleService articleService;
+	
+	@Autowired
+	ReplyService replyService;
 
+	@Autowired
+	ReactionPointService reactionPointService;
+
+	
 	public ResultData doCheckLoginId(String loginId) {
 		Member oldMember = getMemberLoginId(loginId);
 		if(oldMember != null) {
@@ -122,7 +133,10 @@ public class MemberService {
 	}
 
 	public void doDelete(Member member) {
-		memberRepository.doDelete(member.getId());
+		memberRepository.delete(member.getId());
+		//articleService.deleteFromMember(member.getId());
+		//replyService.deleteReplyFromMember(member.getId());
+		//reactionPointService.deleteReactionPointFromMember(member.getId());
 	}
 
 	

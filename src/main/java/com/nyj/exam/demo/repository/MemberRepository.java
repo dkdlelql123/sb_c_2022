@@ -89,13 +89,5 @@ public interface MemberRepository {
 			""")
 	List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int searchAuthLevel , int limitStart, int limitTake);
 
-	@Delete("""
-			<script>
-			UPDATE `member`
-			SET delDate = NOW(),
-			delStatus = 1
-			WHERE id = #{memberId};
-			</script>
-			""")
-	void doDelete(int memberId);
+	void delete(int memberId);
 }

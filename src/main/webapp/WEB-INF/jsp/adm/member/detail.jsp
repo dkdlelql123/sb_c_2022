@@ -6,8 +6,17 @@
 <c:set var="pageTitle" value="회원 상세" />
 <%@ include file="../common/head.jspf"%>
 
-<script type="text/javascript" defer="defer">
-	
+<script>   
+
+    function deleteMember(memberId){
+    	if(confirm("회원 탈퇴시키겠습니까?")){     
+        	$("input[name=ids]").val(memberId);
+        	document["doDeleteMembers"].submit();
+    	} else {
+        	alert("회원탈퇴가 취소되었습니다.");
+        	return false;
+    	}
+    }
 
 	function isNull(el) {
 		let str = el.trim();
@@ -62,17 +71,24 @@
 		submitJoinFormDone = true;
 		form.submit();
 	} 
+	
 </script>
+
 
 <div class="table-box-type-1 m-auto w-full">
   <div class="messege mb-4 text-red-500 text-center bg-red-100 rounded"></div> 
   
+  <form hidden action="../members/doDelete" name="doDeleteMembers" method="POST">
+    <input type="hidden" name="ids" value=""/>
+    <input type="hidden" name="replaceUri" value="/adm/member/list"/>
+  </form>
+   
   <form onsubmit="checkForm(this); return false;" action="/adm/member/doModify" method="post">
     <input type="hidden" name="memberModifyAuthKey" value="" />
     <div class="flex justify-end mb-4 gap-2">
       <button class="btn btn-sm btn-info py-2 ">정보수정</button>
       <c:if test= "${member.delStatus == 0 }">
-        <a href="" onclick="if(confirm('회원 탈퇴시키겠습니까?')); return false;" class="btn btn-sm btn-accent py-2">회원탈퇴</a>
+        <div onclick="deleteMember(${member.id});" class="btn btn-sm btn-accent py-2">회원탈퇴</div>
       </c:if>
     </div>
     <table>
@@ -147,7 +163,7 @@
       <tr>
         <td>탈퇴여부</td>
         <td>
-          ${member.delStatus == 0 ? "-" : "탈퇴"}
+          ${member.delStatus == 0 ? "-" : "<div class='text-red-600'>탈퇴</div>"}
         </td>
         <td>탈퇴일</td>
         <td>
@@ -155,7 +171,7 @@
         </td>
       </tr>
     </table>
-  </form>
+  </form> 
   
   <table class="mt-8">
   <colgroup>

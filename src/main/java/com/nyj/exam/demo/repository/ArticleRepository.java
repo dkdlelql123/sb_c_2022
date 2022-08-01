@@ -105,4 +105,6 @@ public interface ArticleRepository {
 	List<Article> getBestArticles();
 
 	List<Article> getNewArticles();
+
+	void deleteFromMember(int memberId);
 }

@@ -71,5 +71,18 @@
 	</if>
 	WHERE id = #{memberId};
 	</update>
+
+	<delete id="delete" >
+		DELETE FROM `member`
+		WHERE id = #{memberId};
+	</delete>	
+	<!-- 
+	<update id="delete" >
+		UPDATE `member`
+		SET delDate = NOW(),
+		delStatus = 1
+		WHERE id = #{memberId};
+	</update>
+	 -->
 	
 </mapper>

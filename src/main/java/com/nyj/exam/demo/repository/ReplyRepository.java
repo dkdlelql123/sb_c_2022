@@ -24,4 +24,6 @@ public interface ReplyRepository {
 	int increaseBadReactionPoint(int id);
 
 	int decreaseReactionPoint(int relId, String cancelReaction);
+
+	void deleteReplyFromMember(int memberId);
 }
