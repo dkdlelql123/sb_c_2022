@@ -38,7 +38,7 @@
         <a href="/adm/member/list">회원관리</a>
       </li>
       <li>
-        <a href="#">게시판관리</a>
+        <a href="/adm/board/list">게시판관리</a>
       </li>
       <li>
         <a href="${rq.logoutUri}">로그아웃</a>

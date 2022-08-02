@@ -13,6 +13,9 @@ public class Board {
 	String updateDate;
 	String code;
 	String name;
+	
 	int delStatus;
 	String delDate;
+	
+	int extra__articleCount; 
 }
