@@ -2,6 +2,7 @@ package com.nyj.exam.demo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -41,7 +42,8 @@ public interface BoardRepository {
 					</otherwise>
 				</choose>
 			</if>
-			GROUP BY a.boardId
+			GROUP BY b.id
+			ORDER BY b.id DESC
 			LIMIT #{limitStart}, #{limitTake}
 			</script>
 				""")
@@ -80,5 +82,29 @@ public interface BoardRepository {
 			</script>
 	""")
 	int getBoardCount(String searchKeywordType, String searchKeyword);
+
+	@Select("""
+			<script>
+			SELECT *
+			FROM board
+			WHERE 1
+			<if test=" type=='name' ">
+				AND name= #{value}
+			</if>	
+			<if test=" type=='code' ">
+				AND code= #{value}
+			</if>	
+			</script>	
+	""")
+	Board CheckForDuplicates(String value, String type);
+	
+	@Insert("""			
+			INSERT INTO board
+			SET regDate = NOW(),
+			updateDate = NOW(),
+			`code` = #{code},
+			`name` = #{name}
+			""")
+	void doWrite(String name, String code);
 
 }

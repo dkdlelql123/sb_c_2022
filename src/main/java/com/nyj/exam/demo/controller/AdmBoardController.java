@@ -3,14 +3,16 @@ package com.nyj.exam.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyj.exam.demo.service.BoardService;
+import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Board;
+import com.nyj.exam.demo.vo.ResultData;
 
 @Controller
 public class AdmBoardController {
@@ -24,7 +26,7 @@ public class AdmBoardController {
 			@RequestParam(defaultValue = "name,code") String searchKeywordType,
 			@RequestParam(defaultValue = "") String searchKeyword,
 			Model model
-			) {
+		) {
 		
 		int boardsCount = boardService.getBoardCount(searchKeywordType, searchKeyword);
 		model.addAttribute("boardsCount", boardsCount);
@@ -40,4 +42,24 @@ public class AdmBoardController {
 		return "/adm/board/list";
 	}
 	
+	@RequestMapping("/adm/board/write")
+	public String showWrite() {
+		return "/adm/board/write";
+	}
+	
+	@RequestMapping("/adm/board/doWrite")
+	@ResponseBody
+	public String doWrite(String name, String code) {
+		
+		boardService.doWrite(name, code);
+		
+		return Ut.jsReplace("게시판이 생성되었습니다.", "/adm/board/list");
+	}
+	
+	@RequestMapping("/adm/board/doCheck")
+	@ResponseBody
+	public ResultData doCheck(String value, String type) {
+		ResultData rd = boardService.CheckForDuplicates(value,type);
+		return rd;
+	}
 }

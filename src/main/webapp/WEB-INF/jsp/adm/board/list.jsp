@@ -50,7 +50,10 @@
       </select>
     </form>
   </div>
- </div>
+  <div>
+    <a href="/adm/board/write" class="btn btn-sm btn-info">생성</a>
+  </div>
+</div>
 
 
 <div class="table-box-type-1">
@@ -67,7 +70,7 @@
         <th>코드</th>
         <th>이름</th>
         <th>게시글수</th>
-        <th>가입일</th>
+        <th>생성일</th>
       </tr>
     </thead>
     <tbody>
@@ -111,9 +114,10 @@ $(".allCheckIds").change(function(){
   }); 
 </script>
 
+<!--
 <div class="mt-4">
   <button class="doDeleteBoardsBtn btn btn-xs btn-outline btn-error">선택삭제</button>
-</div>    
+</div> -->    
 
 <form hidden action="../board/doDelete" name="doDeletes" method="POST">
   <input type="hidden" name="ids" value=""/>
