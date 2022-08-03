@@ -300,4 +300,22 @@ ALTER TABLE `reactionPoint`
 ADD CONSTRAINT fk
 FOREIGN KEY(memberId)
 REFERENCES `member`(id) 
-ON DELETE CASCADE;
+ON DELETE CASCADE; 
+
+# 게시판 id 와 게시글 boardId 데이터 타입 동일하게 만들어주기
+ALTER TABLE article
+MODIFY `boardId` INT UNSIGNED NOT NULL;
+
+# 게시판 삭제시 게시글 삭제
+ALTER TABLE article
+ADD CONSTRAINT FOREIGN KEY (boardId)
+REFERENCES board(id)
+ON DELETE CASCADE; 
+
+# 게시판 댓글 사용여부 칼럼 추가
+ALTER TABLE board
+ADD COLUMN replyStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0:사용, 1:미사용' AFTER `name`; 
+
+# 게시판 리액션포인트 사용여부 칼럼 추가
+ALTER TABLE board
+ADD COLUMN reactionPointStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0:사용, 1:미사용' AFTER `name`; 
