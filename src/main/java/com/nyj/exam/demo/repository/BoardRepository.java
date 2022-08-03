@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.nyj.exam.demo.vo.Board;
 
@@ -50,10 +51,13 @@ public interface BoardRepository {
 	List<Board> getForPrintBoards(String searchKeywordType, String searchKeyword, int limitStart, int limitTake);
 	
 	@Select("""
-			SELECT *
-			FROM board AS B
-			WHERE B.id = #{id}
-			AND B.delStatus = 0
+			SELECT  b.*, 
+			COUNT(a.boardId) as extra__articleCount
+			FROM board AS b
+			LEFT JOIN article a
+			ON b.id = a.boardId
+			WHERE b.id = #{id}
+			AND b.delStatus = 0
 				""")
 	Board getBoardById(@Param("id") int id);
 	
@@ -106,5 +110,15 @@ public interface BoardRepository {
 			`name` = #{name}
 			""")
 	void doWrite(String name, String code);
+
+	@Update("""
+			<script>			
+			UPDATE board
+			SET `name` = #{name},
+			`code` = #{code}
+			WHERE id = #{id};
+			</script>
+			""")
+	void doModify(int id, String name, String code);
 
 }

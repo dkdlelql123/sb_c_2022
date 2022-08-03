@@ -18,4 +18,13 @@ public class Board {
 	String delDate;
 	
 	int extra__articleCount; 
+	
+	public String getForPrintType1RegData() {
+		return regDate.substring(0,19);
+	}
+	
+	public String getForPrintType1UpdateData() {
+		return updateDate.substring(0,19);
+	}
+	
 }

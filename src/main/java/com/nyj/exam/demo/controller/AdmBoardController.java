@@ -38,7 +38,6 @@ public class AdmBoardController {
 		List<Board> boards = boardService.getForPrintBoards(searchKeywordType, searchKeyword, page, itemsCountInAPage);
 		model.addAttribute("boards", boards);
 		
-		
 		return "/adm/board/list";
 	}
 	
@@ -62,4 +61,36 @@ public class AdmBoardController {
 		ResultData rd = boardService.CheckForDuplicates(value,type);
 		return rd;
 	}
+	
+	@RequestMapping("/adm/board/detail")
+	public String showDetail(int id, Model model) {
+		Board board = boardService.getBoardById(id);
+		model.addAttribute("board", board);
+		
+		return "/adm/board/detail";
+	}
+	
+	@RequestMapping("/adm/board/modify")
+	public String showModify(int id, Model model) {
+		Board board = boardService.getBoardById(id);
+		model.addAttribute("board", board);
+		
+		return "/adm/board/modify";
+	}
+	
+	@RequestMapping("/adm/board/doModify")
+	@ResponseBody
+	public String doModify(String name, String code, int id, Model model) {
+		
+		Board board = boardService.getBoardById(id);
+		if(board == null) {
+			return Ut.jsHistoryBack("존재하지 않는 게시판입니다.");
+		}
+		
+		model.addAttribute("board", board);
+		
+		boardService.doModify(id, name, code);
+		return Ut.jsReplace("게시판이 수정되었습니다.", "/adm/board/detail?id="+id);
+	}
+	
 }
