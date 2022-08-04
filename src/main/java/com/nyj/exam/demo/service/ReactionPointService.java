@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nyj.exam.demo.repository.ReactionPointRepository;
+import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.ResultData;
 import com.sun.net.httpserver.Authenticator.Result;
 
@@ -72,6 +73,12 @@ public class ReactionPointService {
 		} 
 		
 		return ResultData.form("S-1", "리액션 해제 처리되었습니다.");
+	} 
+	
+	public void doDelete(int relId, String relTypeCode) { 
+		System.out.println(Ut.f("%d번 %s 삭제", relId, relTypeCode));
+		
+		reactionPointRepository.doDelete(relId, relTypeCode);	
 	}
 	
 }

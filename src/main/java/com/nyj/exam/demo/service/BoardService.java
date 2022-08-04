@@ -51,5 +51,9 @@ public class BoardService {
 	public void doModify(int id, String name, String code) {
 		boardrepository.doModify(id, name, code);	
 	}
+
+	public void doDelete(int id) {
+		boardrepository.doDelete(id);	 
+	}
 	
 }

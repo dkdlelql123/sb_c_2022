@@ -12,5 +12,9 @@ public interface ReactionPointRepository {
 	 void increaseBadReactionPoint(int memberId, String relTypeCode, int relId);
 
 	 void decreaseReactionPoint(int memberId, String relTypeCode, int relId);
+
+	void doCascadingDeleteFromParent(int articleId);
+
+	void doDelete(int relId, String relTypeCode);
 	
 }

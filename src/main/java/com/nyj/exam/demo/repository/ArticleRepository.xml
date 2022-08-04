@@ -122,4 +122,12 @@
 		WHERE memberId = #{memberId}
 	</delete>
 	
+	<select id="getArticlesId" resultType="int">
+	SELECT a.id
+	FROM article AS a 
+	LEFT JOIN `board` b
+	ON a.boardId = b.id 
+	WHERE a.boardId = #{boardId}
+	</select>
+	
 </mapper>

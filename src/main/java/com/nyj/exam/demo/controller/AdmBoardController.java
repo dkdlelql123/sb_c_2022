@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyj.exam.demo.service.ArticleService;
 import com.nyj.exam.demo.service.BoardService;
+import com.nyj.exam.demo.service.ReactionPointService;
+import com.nyj.exam.demo.service.ReplyService;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Board;
 import com.nyj.exam.demo.vo.ResultData;
@@ -19,6 +22,12 @@ public class AdmBoardController {
 	
 	@Autowired
 	BoardService boardService;
+	@Autowired
+	ArticleService articleService; 
+	@Autowired
+	ReplyService replyService; 
+	@Autowired
+	ReactionPointService reactionPointService;
 	
 	@RequestMapping("/adm/board/list")
 	public String showList(@RequestParam(defaultValue = "1") int page, 
@@ -93,4 +102,33 @@ public class AdmBoardController {
 		return Ut.jsReplace("게시판이 수정되었습니다.", "/adm/board/detail?id="+id);
 	}
 	
+	@RequestMapping("/adm/board/doDelete")
+	@ResponseBody
+	public String doDelete(int id) { 
+		Board board = boardService.getBoardById(id);
+		if(board == null) {
+			return Ut.jsHistoryBack("존재하지 않는 게시판입니다.");
+		} 
+		
+		List<Integer> articleIdList = articleService.doCascadingDeleteFromBoard(board); // 댓글, 좋아요 삭제 댓
+
+		for(int articleId : articleIdList) {
+			// article 댓글의 좋아요 삭제
+			List<Integer> replyIdList = replyService.getReplyIds(articleId);
+			for(int replyId : replyIdList ) {
+				reactionPointService.doDelete(replyId, "reply");
+				System.out.println(replyId + "번 댓글");
+			}
+			
+			// article 댓글 삭제
+			replyService.doCascadingDeleteFromParent(articleId, "article");
+			
+			// article 좋아요 삭제
+			reactionPointService.doDelete(articleId, "article");
+		} 
+		
+		boardService.doDelete(id); 
+		
+		return Ut.jsReplace("게시판이 삭제되었습니다.", "/adm/board/list");
+	} 
 }

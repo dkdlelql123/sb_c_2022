@@ -107,4 +107,6 @@ public interface ArticleRepository {
 	List<Article> getNewArticles();
 
 	void deleteFromMember(int memberId);
+
+	List<Integer> getArticlesId(int boardId);
 }

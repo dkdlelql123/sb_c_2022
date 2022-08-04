@@ -65,8 +65,9 @@
 
 <div class="flex justify-between mb-4 ">
   <c:if test="${empty param.listUri}">
-    <a href="/usr/article/list?boardId=${article.boardId}" class="btn btn-sm btn-outline" >목록</a>
-  </c:if> 
+    <a href="/usr/article/list?boardId=${article.boardId}"
+      class="btn btn-sm btn-outline">목록</a>
+  </c:if>
   <c:if test="${not empty param.listUri}">
     <a class="btn btn-sm" href="${param.listUri}">목록</a>
   </c:if>
@@ -187,14 +188,12 @@
             <a
               href="/usr/reactionPoint/doCancleReaction?relId=${reply.id}&relTypeCode=reply&replaceUri=${rq.getEncodedCurrentUri()}&cancleReaction=good"
               class="btn btn-xs btn-success">${reply.goodReactionPoint}👍</a>
-            <a
-              href="#" title="좋아요를 취소해주세요"
+            <a href="#" title="좋아요를 취소해주세요"
               onClick="alert(this.title); return false;"
               class="btn btn-xs btn-secondary btn-outline">${reply.badReactionPoint}👎</a>
           </c:if>
           <c:if test="${reply.extra__reactionStatus == 'bad'}">
-            <a
-              href="#" title="싫어요를 취소해주세요"
+            <a href="#" title="싫어요를 취소해주세요"
               onClick="alert(this.title); return false;"
               class="btn btn-xs btn-success btn-outline">${reply.goodReactionPoint}👍</a>
             <a
@@ -214,8 +213,7 @@
           </c:if>
           <c:if test="${reply.regDate != reply.updateDate}">
             <span class="text-xs text-gray-500">
-              ${reply.forPrintType2UpdateDate} 에 수정됨
-            </span>
+              ${reply.forPrintType2UpdateDate} 에 수정됨 </span>
           </c:if>
         </div>
       </tr>
@@ -223,8 +221,10 @@
   </table>
 
   <c:if test="${!rq.logined}">
-    <div class="navbar bg-green-100 rounded rounded-full px-4 mt-4" style="min-height: 2rem">
-      <a class="link link-neutral" href="${rq.loginUri}">로그인</a>  이후 댓글을 작성할 수 있습니다.
+    <div class="navbar bg-green-100 rounded rounded-full px-4 mt-4"
+      style="min-height: 2rem">
+      <a class="link link-neutral" href="${rq.loginUri}">로그인</a>
+      이후 댓글을 작성할 수 있습니다.
     </div>
   </c:if>
 
@@ -234,7 +234,8 @@
       onsubmit="checkReplyForm(this); return false;">
       <input type="hidden" name="id" value="${article.id}" />
       <div class="flex items-end gap-2">
-        <textarea id="replyBody" name="body" cols="30" rows="3" class="textarea textarea-bordered flex-grow"></textarea>
+        <textarea id="replyBody" name="body" cols="30" rows="3"
+          class="textarea textarea-bordered flex-grow"></textarea>
         <button type="submit" class="btn btn-sm btn-outline">입력</button>
       </div>
     </form>
@@ -253,14 +254,14 @@
     </div>
     <form
       action="/usr/reply/doModify?replaceUri=${rq.encodedCurrentUri}"
-      method="post" 
-      class="mt-2"
+      method="post" class="mt-2"
       onsubmit="checkReplyForm(this); return false;">
       <input type="hidden" name="id" value="" />
-      <textarea name="body" cols="30" rows="5" class="textarea textarea-bordered  w-full p-2"></textarea>
+      <textarea name="body" cols="30" rows="5"
+        class="textarea textarea-bordered  w-full p-2"></textarea>
       <button type="submit" class="btn btn-sm btn-info float-right">수정</button>
     </form>
   </div>
-</div> 
+</div>
 
 <%@ include file="../common/tail.jspf"%>

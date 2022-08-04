@@ -5,7 +5,7 @@
 	<select id="getReplyIds" resultType="int">
 		SELECT id
 		FROM `reply` 
-		AND relId = #{id};
+		WHERE relId = #{id};
 	</select>
 
 	<select id="getForPrintReplies" resultType="Reply">
