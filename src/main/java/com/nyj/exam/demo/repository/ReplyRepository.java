@@ -8,6 +8,8 @@ import com.nyj.exam.demo.vo.Reply;
 
 @Mapper
 public interface ReplyRepository {
+	
+	List<Integer> getReplyIds(int id);
 
 	List<Reply> getForPrintReplies(int id, String relTypeCode);
 
@@ -23,7 +25,7 @@ public interface ReplyRepository {
 	
 	int increaseBadReactionPoint(int id);
 
-	int decreaseReactionPoint(int relId, String cancelReaction);
+	int decreaseReactionPoint(int relId, String cancelReaction);  
 
-	void deleteReplyFromMember(int memberId);
+	void doCascadingDeleteFromParent(int relId, String relTypeCode);
 }

@@ -13,8 +13,12 @@ import com.nyj.exam.demo.vo.ResultData;
 public class ReplyService {
 
 	@Autowired
-	ReplyRepository replyRepository;
+	ReplyRepository replyRepository; 
 	 
+	public List<Integer> getReplyIds(int relId) {
+		return replyRepository.getReplyIds(relId);
+	}
+	
 	public List<Reply> getForPrintReplies(int memberId, int id, String relTypeCode) {
 		List<Reply> replies = replyRepository.getForPrintReplies(id, relTypeCode);
 
@@ -41,18 +45,12 @@ public class ReplyService {
 		return ResultData.form("S-1", "댓글을 남겼습니다.");
 	}
 
-	public void doDelete(int id) {
-		replyRepository.doDelete(id);
-	}
-
 	public void doModify(int id, String body) {
 		replyRepository.doModify(id, body);
 	}
 
 	public Reply getForPrintReply(int id) {
-		Reply reply = replyRepository.getForPrintReply(id);
-		
-		return reply;
+		return replyRepository.getForPrintReply(id);
 	}
 	
 	public ResultData increaseGoodReactionPoint(int relId) {
@@ -84,12 +82,15 @@ public class ReplyService {
 		if( affectedCount == 0 ) {
 			return ResultData.form("F-1", "해당 게시물이 존재하지 않습니다.", "affectedCount", affectedCount);			
 		}
-		return ResultData.form("S-1", "리액션 헤제", "affectedCount", affectedCount);
-		
+		return ResultData.form("S-1", "리액션 헤제", "affectedCount", affectedCount);	
 	}
 
-	public void deleteReplyFromMember(int memberId) {
-		replyRepository.deleteReplyFromMember(memberId);
+	public void doDelete(int id) {
+		replyRepository.doDelete(id);
 	}
+
+	public void doCascadingDeleteFromParent(int relId, String relTypeCode) {
+		replyRepository.doCascadingDeleteFromParent(relId, relTypeCode);
+	}  
 
 }

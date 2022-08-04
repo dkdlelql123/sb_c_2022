@@ -1,10 +1,13 @@
 package com.nyj.exam.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyj.exam.demo.service.ReactionPointService;
 import com.nyj.exam.demo.service.ReplyService;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Reply;
@@ -16,6 +19,9 @@ public class usrReplyController {
 	
 	@Autowired
 	ReplyService replyService;
+	
+	@Autowired
+	ReactionPointService reactionPointService;
 	
 	private Rq rq;
 	
@@ -48,7 +54,9 @@ public class usrReplyController {
 	@ResponseBody
 	public String doDelete(String replaceUri, int id) {
 		replyService.doDelete(id);
-		return Ut.jsReplace("", replaceUri);
+		reactionPointService.doDelete(id, "reply");
+		
+		return Ut.jsReplace("댓글이 삭제되었습니다.", replaceUri);
 	}
 	
 	
