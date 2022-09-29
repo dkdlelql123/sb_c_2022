@@ -53,16 +53,17 @@
 	});
 </script>
 
+
 <div>
   <form onsubmit="article__submitForm(this); return false;"
     class="table-box-type-1" action="/usr/article/doWrite" method="POST">
     <input type="hidden" name="memberId" value="${rq.loginedMemberId}" />
     <input type="hidden" name="body" />
 
-    <table style="width:100%">
-      <colgroup>
-        <col width="200" />
-      </colgroup>
+    <table >
+       <colgroup>
+          <col width="200" />
+        </colgroup>
       <tr style="width:200px">
         <th>작성자</th>
         <td>
@@ -85,19 +86,14 @@
       <tr>
         <th>제목</th>
         <td>
-          <input type="text" class="w-full input-sm" name="title"  
+          <input type="text" class="w-full input input-sm" name="title"  
             required="required" placeholder="제목을 입력해주세요." />
         </td>
-      </tr>
-      <tr>
-        <th>내용</th>
-        <td>
-         <div class="toast-ui-editor">
-                <script type="text/x-template"></script>
-              </div>
-        </td>
-      </tr>
+      </tr> 
     </table>
+    <div class="toast-ui-editor">
+        <script type="text/x-template"></script>
+    </div>  
 
     <div class="flex justify-end mt-4">
       <button type="submit" class="btn btn-info btn-sm">작성하기</button>

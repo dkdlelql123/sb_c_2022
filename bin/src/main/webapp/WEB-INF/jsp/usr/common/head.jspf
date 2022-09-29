@@ -6,7 +6,7 @@
 <html lang="ko" class="light" data-theme="cupcake">
 <head>
 <meta charset="UTF-8" />
-<title>${pageTitle}</title>
+<title>${pageTitle} !!!</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

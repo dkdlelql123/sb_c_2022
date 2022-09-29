@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 import com.nyj.exam.demo.repository.ArticleRepository;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Article;
+import com.nyj.exam.demo.vo.Board;
 import com.nyj.exam.demo.vo.ResultData;
 
 @Service
 public class ArticleService {
 
 	@Autowired
-	private ArticleRepository articleRepository;
+	private ArticleRepository articleRepository; 
 	
 	public ArticleService( ) {
 		
@@ -25,6 +26,10 @@ public class ArticleService {
 		int id = articleRepository.getLastInsertId(); 
 		return ResultData.form("S-1", Ut.f("%d번 게시물 생성 되었습니다", id), id); 
 	}
+	
+	public List<Integer> getArticlesId(int boardId){ 
+		return articleRepository.getArticlesId(boardId); 
+	} 
 
 	public List<Article> getArticles(int boardId, String searchKeyType, String searchKeyword, int page, int itemsCountInAPage) { 
 		int limitStart = (page - 1) * itemsCountInAPage;
@@ -116,6 +121,22 @@ public class ArticleService {
 		}
 		return ResultData.form("S-1", "리액션 헤제", "affectedCount", affectedCount);
 		
+	}
+
+	public List<Article> getBestArticles() {
+		return articleRepository.getBestArticles();
+	}
+
+	public List<Article> getNewArticles() {
+		return articleRepository.getNewArticles();
+	}
+
+	public void deleteFromMember(int memberId) {
+		articleRepository.deleteFromMember(memberId);
+	}
+
+	public List<Integer> doCascadingDeleteFromBoard(Board board) { 
+		return getArticlesId(board.getId());
 	} 
 	
 }

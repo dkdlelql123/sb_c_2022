@@ -5,12 +5,16 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ReactionPointRepository {
 
-	 int actorCanMakeReactionPoint(int memberId, String relTypeCode, int relId);
+	int actorCanMakeReactionPoint(int memberId, String relTypeCode, int relId);
 
-	 void increaseGoodReactionPoint(int memberId, String relTypeCode, int relId);
+	void increaseGoodReactionPoint(int memberId, String relTypeCode, int relId);
 
-	 void increaseBadReactionPoint(int memberId, String relTypeCode, int relId);
+	void increaseBadReactionPoint(int memberId, String relTypeCode, int relId);
 
-	 void decreaseReactionPoint(int memberId, String relTypeCode, int relId);
-	
+	void decreaseReactionPoint(int memberId, String relTypeCode, int relId);
+
+	void doCascadingDeleteFromParent(int articleId);
+
+	void doDelete(int relId, String relTypeCode);
+
 }

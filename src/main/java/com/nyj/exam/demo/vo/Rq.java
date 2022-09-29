@@ -61,8 +61,7 @@ public class Rq {
 
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
-	}
-
+	} 
 
 	public void printReplaceJs(String msg, String url) {
 		resp.setContentType("text/html; charset=UTF-8");
@@ -121,18 +120,22 @@ public class Rq {
 		return "/usr/member/login?afterLoginUri=" + getAfterLoginUri() ;
 	}
 	
-	public String getLogoutUri() { 
+	public String getLogoutUri() {    
 		return "/usr/member/doLogout?afterLogoutUri=" + getAfterLogoutUri() ;
 	}
 
 	public String getAfterLogoutUri() {
-		String currentUri = req.getRequestURI();
+		String currentUri = req.getRequestURI(); 
 		
 		switch(currentUri) {
 			case "/usr/article/write":
 			case "/usr/member/mypage":
 			case "/usr/member/modify":
-			case "/usr/member/checkPassword":
+			case "/usr/member/checkPassword": 
+			return Ut.getUriEncoded(Ut.getStrAttr(paramMap, "afterLogoutUri", "/"));
+		} 
+		
+		if(isAdmin()) {
 			return Ut.getUriEncoded(Ut.getStrAttr(paramMap, "afterLogoutUri", "/"));
 		}
 		
@@ -152,7 +155,12 @@ public class Rq {
 		
 		return getEncodedCurrentUri();
 	}
+	
 	public String getArticleDetailFromList(Article article) {
 		return "/usr/article/detail?id="+article.getId()+"&listUri="+getEncodedCurrentUri();
+	}
+
+	public boolean isAdmin() { 
+		return member.isAdmin();
 	}
 }

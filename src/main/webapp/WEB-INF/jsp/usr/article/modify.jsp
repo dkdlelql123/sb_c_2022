@@ -4,10 +4,40 @@
 
 <c:set var="pageTitle" value="게시물 수정페이지" />
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../../common/toastUIEditerLib.jspf"%>
 
-<form class="table-box-type-1" action="/usr/article/doModify"
-  method="POST">
+<script>
 
+let submitModifyrFormDone = false;
+
+function article__submitForm(form){
+	
+	if(submitModifyrFormDone){
+		alert("처리중입니다.");
+	}
+	
+  	const editor = $(form).find('.toast-ui-editor').data('data-toast-editor'); 
+	const markdown = editor.getMarkdown().trim(); 
+	 
+    if (markdown.length < 10) {
+		alert("내용을 10글자 이상 작성해주세요.");
+		editor.focus();
+		
+		return; 
+    }
+    
+    form.body.value = markdown; 
+
+	form.submit();
+	submitModifyrFormDone = true;
+}
+</script>
+
+<form class="table-box-type-1" action="/usr/article/doModify" onsubmit="article__submitForm(this); return false;" method="POST">
+
+  
+  <input type="hidden" value="${article.body}" name="body" />
+  
   <c:if test="${article.extra__actorCanEdit}">
     <div class="flex justify-end mb-4 gap-2">
       <button class="btn btn-info btn-sm" >저장</button>
@@ -46,8 +76,7 @@
     <tr>
       <td>제목</td>
       <td>
-        <input type="text" class="w-full input-sm" name="title"
-          value="${article.title}" />
+        <input type="text" class="w-full input input-sm" name="title" value="${article.title}" />
       </td>
     </tr>
     <tr>
@@ -61,15 +90,11 @@
     <tr>
       <td>수정일</td>
       <td>${article.forPrintType2UpdateDate}</td>
-    </tr>
-    <tr>
-      <td>내용</td>
-      <td>
-        <textarea name="body" class="w-full textarea" cols="10"
-          rows="10">${article.body}</textarea>
-      </td>
-    </tr>
+    </tr> 
   </table>
+  <div class="toast-ui-editor">
+      <script type="text/x-template">${article.body}</script>
+  </div>  
 </form>
 
 <%@ include file="../common/tail.jspf"%>

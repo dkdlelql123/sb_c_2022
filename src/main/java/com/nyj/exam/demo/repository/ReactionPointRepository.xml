@@ -35,6 +35,11 @@
 		WHERE memberId = #{memberId}
 		AND relTypeCode = #{relTypeCode}
 		AND	relId = #{relId};
-	</delete>
+	</delete> 
 	
+	<delete id="doDelete">
+		DELETE FROM `reactionPoint`
+		WHERE relTypeCode = #{relTypeCode}
+		AND	relId = #{relId};
+	</delete> 
 </mapper>

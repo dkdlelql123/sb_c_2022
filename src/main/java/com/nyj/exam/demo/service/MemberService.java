@@ -1,5 +1,8 @@
 package com.nyj.exam.demo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,16 +10,26 @@ import com.nyj.exam.demo.repository.MemberRepository;
 import com.nyj.exam.demo.util.Ut;
 import com.nyj.exam.demo.vo.Member;
 import com.nyj.exam.demo.vo.ResultData;
-import com.sun.net.httpserver.Authenticator.Result;
 
 @Service
 public class MemberService {
 
 	@Autowired
 	MemberRepository memberRepository;
+	
 	@Autowired
 	AttrService attrService;
+	
+	@Autowired
+	ArticleService articleService;
+	
+	@Autowired
+	ReplyService replyService;
 
+	@Autowired
+	ReactionPointService reactionPointService;
+
+	
 	public ResultData doCheckLoginId(String loginId) {
 		Member oldMember = getMemberLoginId(loginId);
 		if(oldMember != null) {
@@ -47,6 +60,10 @@ public class MemberService {
 
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
+	}
+	
+	public Member getForPrintMemberById(int id) {
+		return memberRepository.getForPrintMemberById(id);
 	}
 	
 	public Member getMemberNameAndEmail(String name, String email) {
@@ -85,6 +102,41 @@ public class MemberService {
 		}
 		
 		return ResultData.form("S-1", "인증에 성공했습니다.");
+	}
+
+	public int getALLMembersCount() {
+		return memberRepository.getALLMembersCount();
+	}
+	
+	public int getMembersCount(String searchKeywordType, String searchKeyword, int searchAuthLevel ) { 
+		return memberRepository.getMembersCount(searchKeywordType, searchKeyword, searchAuthLevel);
+	}
+
+	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int searchAuthLevel, int page,
+			int itemsCountInAPage) {
+		int limitStart = (page-1) * itemsCountInAPage ;
+		int limitTake = itemsCountInAPage;
+		return memberRepository.getForPrintMembers(searchKeywordType, searchKeyword,searchAuthLevel, limitStart, limitTake);
+	}
+
+	public ResultData doDeleteMembers(List<Integer> memberIds) {
+		for(int id : memberIds) {
+			Member member = getMemberById(id);
+			if(member==null) {
+				return ResultData.form("F-1", "해당 회원이 없습니다.", "member", id);
+			} else if(member!=null) {
+				doDelete(member);
+			}
+		}
+		
+		return ResultData.form("S-1", "회원 삭제가 성공했습니다.");
+	}
+
+	public void doDelete(Member member) {
+		memberRepository.delete(member.getId());
+		//articleService.deleteFromMember(member.getId());
+		//replyService.deleteReplyFromMember(member.getId());
+		//reactionPointService.deleteReactionPointFromMember(member.getId());
 	}
 
 	

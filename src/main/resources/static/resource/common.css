@@ -25,6 +25,18 @@
 	font-style: normal;
 }
 
+html[data-theme='dark'] .theme{
+	cursor:pointer;
+}
+
+html[data-theme='cupcake'] .theme.cupcake {
+	display:none;
+}
+
+html[data-theme='dark'] .theme.dark {
+	display:none;
+}
+
 html>body,
 .toastui-editor-contents, 
 .toastui-editor-contents, * { 
@@ -45,12 +57,19 @@ body{
 	font-weight: normal;
 }
 
-textarea.textarea, input[type=text], input[type=password],input[type=email] {
+html[data-theme="dark"] :is(.table-box-type-1>table th, .table-box-type-1>table td) {
+  border-color:white;
+  border-color:rgba(166, 173, 186, 0.2);
+}
+
+html[data-theme='cupcake'] :where(input[type=text], input[type=password], input[type=email], textarea.textarea) {
 	color: #0a0a0a;
 	background: #f0f0f0;
 	padding:4px 8px ; 
 	border-radius: 2px;
 } 
+
+
 input:read-only{
 	background-color: rgba(0,0,0,0);
 	padding:0px; 

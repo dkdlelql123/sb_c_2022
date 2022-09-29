@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyj.exam.demo.repository.ReplyRepository">
 
+	<select id="getReplyIds" resultType="int">
+		SELECT id
+		FROM `reply` 
+		WHERE relId = #{id};
+	</select>
+
 	<select id="getForPrintReplies" resultType="Reply">
 		SELECT a.*, m.nickname AS extra__writerName
 		FROM `reply` AS a
@@ -30,7 +36,7 @@
 	
 	<delete id="doDelete">
 		DELETE FROM `reply`
-		WHERE id = #{id}
+		WHERE id = #{id}	
 	</delete>
 	
 	<update id="doModify">
@@ -63,5 +69,12 @@
 			</if>
 		</set>
 		WHERE id = #{relId};
-	</update> 
+	</update>  
+	
+	<delete id="doCascadingDeleteFromParent">
+		DELETE FROM `reply`
+		WHERE relId = #{relId}
+		AND relTypeCode = #{relTypeCode};	
+	</delete>
+	
 </mapper>

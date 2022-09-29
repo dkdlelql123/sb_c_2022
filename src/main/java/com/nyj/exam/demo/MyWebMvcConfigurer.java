@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.nyj.exam.demo.interceptor.BeforeActionInterceptor;
+import com.nyj.exam.demo.interceptor.NeedAdminInterceptor;
 import com.nyj.exam.demo.interceptor.NeedLoginInterceptor;
 import com.nyj.exam.demo.interceptor.NeedLogoutInterceptor;
 
@@ -20,6 +21,9 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	
 	@Autowired
 	NeedLogoutInterceptor needLogoutInterceptor;
+	
+	@Autowired
+	NeedAdminInterceptor needAdminInterceptor;
 
 
 	// 이 함수는 인터셉터를 적용하는 역할을 합니다.
@@ -47,7 +51,14 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		.addPathPatterns("/usr/reply/doWrite")
 		.addPathPatterns("/usr/reply/doModfiy")
 		.addPathPatterns("/usr/reply/doDelete")
-		;
+		.addPathPatterns("/adm")
+		.addPathPatterns("/adm/**")
+		.excludePathPatterns("/adm/member/login")
+		.excludePathPatterns("/adm/member/doLogin") 
+		.excludePathPatterns("/adm/member/findLoginId")
+		.excludePathPatterns("/adm/member/doFindLoginId")
+		.excludePathPatterns("/adm/member/findLoginPw")
+		.excludePathPatterns("/adm/member/doFindLoginPw");
 		
 		registry.addInterceptor(needLogoutInterceptor)
 		.addPathPatterns("/usr/member/login")
@@ -58,6 +69,17 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		.addPathPatterns("/usr/member/doFindLoginId")
 		.addPathPatterns("/usr/member/findLoginPw")
 		.addPathPatterns("/usr/member/doFindLoginPw")
+		;
+		
+		registry.addInterceptor(needAdminInterceptor)
+		.addPathPatterns("/adm")
+		.addPathPatterns("/adm/**")
+		.excludePathPatterns("/adm/member/login")
+		.excludePathPatterns("/adm/member/doLogin") 
+		.excludePathPatterns("/adm/member/findLoginId")
+		.excludePathPatterns("/adm/member/doFindLoginId")
+		.excludePathPatterns("/adm/member/findLoginPw")
+		.excludePathPatterns("/adm/member/doFindLoginPw");
 		;
 	}
 	
