@@ -8,7 +8,7 @@ spring:
   datasource:
     # driver-class-name: com.mysql.cj.jdbc.Driver
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/sb_c_2022?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/bbs?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
     username: test
     password: test
 mybatis:
@@ -26,20 +26,6 @@ spring:
       on-profile: local
 server:
   port: 8012
-  
----
-
-spring:
-  config:
-    activate:
-      on-profile: productio 
-  datasource: 
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/sb_c_2022_production?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
-    username: test
-    password: test 
-server:
-  port: 8011
 
 ---
 
@@ -48,13 +34,13 @@ spring:
     activate:
       on-profile: production
   servlet:
-    multipart:
-      location: /tmp #임시파일저장위치
+    multipart: 
+      location: /tmp 
   datasource:
     username: sbsstlocal
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:log4jdbc:mysql://172.17.0.1:3306/sb_c_2022_production?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
+    url: jdbc:mysql://172.17.0.1:3306/bbs_production?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
 custom:
   logging:
     dir: /tmp/sb_c_2022-log
