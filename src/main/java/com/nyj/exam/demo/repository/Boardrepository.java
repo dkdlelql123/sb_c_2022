@@ -1,17 +1,27 @@
 package com.nyj.exam.demo.repository;
 
-import java.util.List;
-
+import com.nyj.exam.demo.vo.Board;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
-import com.nyj.exam.demo.vo.Board;
+import java.util.List;
 
 @Mapper
-public interface Boardrepository {
+public interface BoardRepository {
 
-	Board getBoardById(@Param("id") int id);
-
+	@Select("""
+			SELECT *
+			FROM board  
+				""")
 	List<Board> getBoards();
+
+	@Select("""
+			SELECT *
+			FROM board AS B
+			WHERE B.id = #{id}
+			AND B.delStatus = 0
+				""")
+	Board getBoardById(@Param("id") int id);
 
 }

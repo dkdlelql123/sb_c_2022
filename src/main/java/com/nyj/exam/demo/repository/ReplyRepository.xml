@@ -7,7 +7,7 @@
 		FROM `reply` AS a
 		LEFT JOIN `member` AS m
 		ON a.memberId = m.id
-		WHERE  a.relTypeCode = #{relTypeCode} 
+		WHERE a.relTypeCode = #{relTypeCode} 
 		AND a.relId = #{id};
 	</select>
 	
@@ -55,10 +55,10 @@
 	<update id="decreaseReactionPoint">
 		UPDATE `reply`
 		<set>
-			<if test="cancleReaction == 'goodReactionPoint'">
+			<if test="cancelReaction == 'goodReactionPoint'">
 			goodReactionPoint = goodReactionPoint - 1
 			</if>
-			<if test="cancleReaction == 'badReactionPoint'">			
+			<if test="cancelReaction == 'badReactionPoint'">
 			badReactionPoint = badReactionPoint - 1
 			</if>
 		</set>

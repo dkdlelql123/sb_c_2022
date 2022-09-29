@@ -31,7 +31,7 @@ public class UsrMemberController {
 		return "/usr/member/join";
 	}
 	
-	@RequestMapping("usr/member/doCheckLoginId")
+	@RequestMapping("/usr/member/doCheckLoginId")
 	@ResponseBody
 	public ResultData doCheckLoginId(String loginId) {
 		ResultData doCheckLoginIdRd = memberService.doCheckLoginId(loginId);
@@ -71,6 +71,8 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("비밀번호를 입력해주세요.");
 		}
 
+		System.out.println(loginId);
+		System.out.println(loginPw);
 		Member member = memberService.getMemberLoginId(loginId);
 
 		if (member == null) {
@@ -78,10 +80,11 @@ public class UsrMemberController {
 		}
 
 		if (member.getLoginPw().equals(loginPw) == false) {
-			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다.");
+			return Ut.jsHistoryBack("회원정보가 일치하지 않습니다.");
 		}
 
 		rq.login(member);  
+		
 		return Ut.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickname()), afterLoginUri);
 	}
 

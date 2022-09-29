@@ -7,7 +7,7 @@
 		FROM reactionPoint
 		WHERE memberId = #{memberId}
 		AND relTypeCode = #{relTypeCode}
-		AND relId = #{relId};
+		AND relId = #{relId}; 
 	</select>
 	
 	<insert id="increaseGoodReactionPoint">
